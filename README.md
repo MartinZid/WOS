@@ -1,4 +1,4 @@
-# WOS
+# Multiplatform Mobile Application for Leases and Reservations
 
 This project was created as my bachelor thesis.
 
