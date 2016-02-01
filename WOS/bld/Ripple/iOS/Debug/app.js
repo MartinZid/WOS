@@ -1,6 +1,11 @@
 'use strict';
 
-angular.module('wos', ['ionic', 'wos.controllers'])
+angular.module('wos', ['ionic',
+                       'wos.controllers',
+                       'wos.services',
+                       'wos.directives',
+                       'wos.api',
+                       'ngIOS9UIWebViewPatch'])
 
 .run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
@@ -16,7 +21,9 @@ angular.module('wos', ['ionic', 'wos.controllers'])
   });
 })
 
-.config(function($stateProvider, $urlRouterProvider) {
+.config(function ($stateProvider, $urlRouterProvider) {
+
+  //$scope.API = 'http://sp2.binarity-testing.cz/api/';
 
   $stateProvider
 
@@ -32,7 +39,7 @@ angular.module('wos', ['ionic', 'wos.controllers'])
     views: {
       'homepage': {
           templateUrl: 'views/homepage/homepage.html',
-          controller: 'DashCtrl'
+          controller: 'HomepageCtrl'
       }
     }
   })
