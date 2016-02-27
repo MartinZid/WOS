@@ -1,0 +1,22 @@
+.title-image {
+    margin-top: 8px;
+    height: 27px;
+}
+.item-name {
+    font-size: 105%;
+    font-weight: bold;
+}
+.item-body p {
+    margin-top: 8px;
+}
+.nav-search {
+    margin-top: 0px;
+}
+.item-prices{
+    background-color: rgba(60, 60, 60, 0.75);
+    padding: 0.1em 0.5em 0.2em;
+    font-size: 150%;
+    color: #fff;
+    position: absolute;
+    bottom: 10%;
+}

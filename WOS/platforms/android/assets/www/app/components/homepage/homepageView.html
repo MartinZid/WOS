@@ -1,0 +1,14 @@
+﻿<ion-view view-title="{{navTitle}}">
+    <ion-nav-buttons side="secondary">
+        <a class="button button-icon icon icon ion-ios-search-strong" ng-href='#/tab/home/search'></a>
+    </ion-nav-buttons>
+
+    <ion-content class="padding">
+        <ion-refresher pulling-text="Pull to refresh..."
+                       on-refresh="doRefresh()">
+        </ion-refresher>
+        <div ng-repeat="item in items">
+            <wos-item name="item"></wos-item>
+        </div>
+    </ion-content>
+</ion-view>

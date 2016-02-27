@@ -3,4 +3,8 @@
   <PropertyGroup>
     <ReferenceCachePath>C:\Users\Martin\AppData\Local\Temp\WOS_refcache</ReferenceCachePath>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Android'">
+    <DebuggerFlavor>AndroidEmulator</DebuggerFlavor>
+    <AndroidEmulatorID>AndroidDevice;Device</AndroidEmulatorID>
+  </PropertyGroup>
 </Project>

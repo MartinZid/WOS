@@ -1,0 +1,29 @@
+﻿<!--<a>-->
+<div class="list card">
+
+    <a ng-href="#/tab/home/{{item.id_polozka}}">
+        <div class="item item-image">
+            <img ng-src="{{url}}/images/tiles/square/small_{{item.jmeno_fotky}}">
+            <div class="item-prices">
+                {{item.price_html}}
+            </div>
+        </div>
+    </a>
+
+    <div class="item item-body">
+        <span class="item-name">
+            {{item.nazev}}
+        </span>
+        <p>
+            {{item.locality_html}}
+        </p>
+        <p>
+            {{item.rating}}           
+            <span ng-repeat="i in getNumber(item.rating)">
+                {{i}}<i class="ion-android-star"></i>
+            </span>
+        </p>
+    </div>
+
+</div>
+    <!--<a ng-href="#/tab/home/{{item.id_polozka}}">{{item.nazev}}</a>-->

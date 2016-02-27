@@ -5,25 +5,34 @@
     <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
     <title></title>
 
-    <link href="lib/ionic/css/ionic.css" rel="stylesheet" />
-    <link href="css/style.css" rel="stylesheet" />
+    <link href="assets/lib/ionic/css/ionic.css" rel="stylesheet" />
+    <link href="assets/css/index.css" rel="stylesheet" />
+    <link href="assets/css/style.css" rel="stylesheet" />
 
     <!--<link href="css/ionic.app.css" rel="stylesheet">-->
     <!-- ionic/angularjs js -->
-    <script src="lib/ionic/js/ionic.bundle.min.js"></script>
+    <script src="assets/lib/ionic/js/ionic.bundle.min.js"></script>
 
     <!-- cordova script (this will be a 404 during development) -->
     <script src="cordova.js"></script>
-    <!--this file is a angular patch for iOS9 update-->
-    <script src="components/angular-ios9-uiwebview.patch.js"></script>
+    <!--angular patch for iOS9 update-->
+    <script src="assets/lib/angular-ios9-uiwebview.patch.js"></script>
 
     <!-- your app's js -->
-    <script src="app.js"></script>
-    <script src="controllers/controllers.js"></script>
+    <script src="app/app.js"></script>
+    <script src="app/components/search/searchCtrl.js"></script>
+    <script src="app/components/homepage/homepageCtrl.js"></script>
+    <script src="app/components/item/itemService.js"></script>
+    <script src="app/shared/API/api.js"></script>
+    <script src="app/shared/item/itemDirective.js"></script>
+
+
+    <!--<script src="controllers/controllers.js"></script>
     <script src="controllers/homepage/homepage.js"></script>
     <script src="models/item/item.js"></script>
     <script src="models/api.js"></script>
-    <script src="directives/item/item.js"></script>
+    <script src="directives/item/item.js"></script>-->
+
 </head>
 <body ng-app="wos">
     <!--
