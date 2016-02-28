@@ -17,10 +17,15 @@
         <p>
             {{item.locality_html}}
         </p>
-        <p>
-            {{item.rating}}           
-            <span ng-repeat="i in getNumber(item.rating)">
-                {{i}}<i class="ion-android-star"></i>
+        <p ng-show="item.rating > -1">     
+            <span ng-repeat="i in getFullStars(item.rating) track by $index" class="item-rating">
+                <i class="ion-android-star"></i>
+            </span>
+            <span class="item-rating" ng-show="hasHalfStar(item.rating)">
+                <i class="ion-android-star-half"></i>
+            </span>
+            <span ng-repeat="i in getEmptyStars(item.rating) track by $index" class="item-rating">
+                <i class="ion-android-star-outline"></i>
             </span>
         </p>
     </div>

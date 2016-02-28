@@ -1,13 +1,15 @@
 .title-image {
-    margin-top: 8px;
-    height: 27px;
+    margin-top: 12px;
+    height: 23px;
 }
+
 .item-name {
     font-size: 105%;
     font-weight: bold;
 }
 .item-body p {
     margin-top: 8px;
+    margin-bottom: 8px;
 }
 .nav-search {
     margin-top: 0px;
@@ -19,4 +21,11 @@
     color: #fff;
     position: absolute;
     bottom: 10%;
+}
+.item-rating {
+    color: rgba(255, 200, 0, 1);
+    font-size: 133%;
+}
+a.button.button-icon.icon.ion-ios-search-strong:before {
+    font-size: 25px;
 }

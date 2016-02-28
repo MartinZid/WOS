@@ -1,32 +1,38 @@
 module.exports = function(config){
-  config.set({
+    config.set({
+        basePath: '../',
+        preprocessors: {
+            'www/app/shared/item/itemView.html': ['ng-html2js']
+        },
 
-    basePath : '../',
+        files : [
+            'www/assets/lib/ionic/js/ionic.bundle.min.js',
+            'www/assets/lib/angular-mocks/angular-mocks.js',
+            'www/app/shared/item/*.js',
+            'www/app/components/API/*js',
+            'www/app/shared/item/itemView.html'
+        ],
 
-    files : [
-      'www/lib/ionic/js/ionic.bundle.min.js',
-      //'www/lib/ionic/js/angular/angular.js',
-      'www/lib/angular-mocks/angular-mocks.js',
-      'www/controllers/**/*.js',
-      'tests/unit/**/**/*.js'
-      //'tests/unit/item/test.js'
-    ],
+        autoWatch : true,
 
-    autoWatch : true,
+        frameworks: ['jasmine'],
 
-    frameworks: ['jasmine'],
+        browsers : ['Chrome'],
 
-    browsers : ['Chrome'],
-
-    plugins : [
+        plugins : [
             'karma-chrome-launcher',
-            'karma-jasmine'
-            ],
+            'karma-jasmine',
+            'karma-ng-html2js-preprocessor',
+        ],
 
-    junitReporter : {
-      outputFile: 'test_out/unit.xml',
-      suite: 'unit'
-    }
+        junitReporter : {
+            outputFile: 'test_out/unit.xml',
+            suite: 'unit'
+        },
 
-  });
+        ngHtml2JsPreprocessor: {
+            stripPrefix: 'www/',
+            moduleName: "my.templates"
+        }
+    });
 };
