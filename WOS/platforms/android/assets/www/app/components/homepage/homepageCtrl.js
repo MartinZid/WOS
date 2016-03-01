@@ -1,20 +1,29 @@
 ﻿'use strict';
 angular.module('wos.controllers', [])
 
-/// Controller for homepage tab
 .controller('HomepageCtrl', function ($scope, item) {
+    /// <summary>
+    /// Controller for homepage tab
+    /// </summary>
+    /// <param name="$scope" type="type"></param>
+    /// <param name="item" type="type"></param>
+
     $scope.items; /// all items
     $scope.status; /// status variable for errors
 
     getAllItems();
 
-    ///called when main page is "pulled down" for refresh
     $scope.doRefresh = function () {
+        /// <summary>
+        /// Called when main page is "pulled down" for refresh
+        /// </summary>
         getAllItems();
     }
 
-    ///download data for homepage
-    function getAllItems () {
+    function getAllItems() {
+        /// <summary>
+        /// Downloads data for homepage
+        /// </summary>
         item.getAll()
             .success(function (data) { ///if success save loaded data to $scope.items
                 $scope.items = data;
@@ -22,7 +31,7 @@ angular.module('wos.controllers', [])
                 $scope.status = false;
             }).error(function (data) { ///if can not load data from server set $scope.error to true
                 console.log('item.getAll: Can not load data from server.');
-                $scope.status = true;
+                $scope.status = "Bohužel se nepodařilo načíst žádné položky :-(";
             }).finally(function () { /// Stop the ion-refresher from spinning
                 $scope.$broadcast('scroll.refreshComplete');
             });
@@ -30,6 +39,7 @@ angular.module('wos.controllers', [])
 
     ///navTitle stores a html img for app icon
     $scope.navTitle = '<img class="title-image" src="assets/img/main_logo.png" />';
+
 })
 
 

@@ -1,14 +1,18 @@
 'use strict';
 
+var db;
+
 angular.module('wos', ['ionic',
                        'wos.controllers',
                        'wos.controllers.search',
                        'wos.services',
                        'wos.directives',
+                       'wos.directives.errorMessage',
                        'wos.api',
-                       'ngIOS9UIWebViewPatch'])
+                       'ngIOS9UIWebViewPatch',
+                       'ngCordova'])
 
-.run(function($ionicPlatform) {
+.run(function ($ionicPlatform, $cordovaSQLite) {
   $ionicPlatform.ready(function() {
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)
@@ -19,6 +23,8 @@ angular.module('wos', ['ionic',
       // org.apache.cordova.statusbar required
       StatusBar.styleLightContent();
     }
+    //db = $cordovaSQLite.openDB("my.db");
+    //$cordovaSQLite.execute(db, "CREATE TABLE IF NOT EXISTS people (id integer primary key, firstname text, lastname text)");
   });
 })
 
@@ -27,7 +33,7 @@ angular.module('wos', ['ionic',
     $ionicConfigProvider.backButton.previousTitleText(false).text('');
     $ionicConfigProvider.tabs.position('bottom');
 
-  $stateProvider
+   $stateProvider
 
   // abstract state
   .state('tab', {
