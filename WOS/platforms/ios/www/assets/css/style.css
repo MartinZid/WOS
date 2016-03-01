@@ -1,0 +1,34 @@
+.title-image {
+    margin-top: 12px;
+    height: 23px;
+}
+
+.item-name {
+    font-size: 105%;
+    font-weight: bold;
+}
+.item-body p {
+    margin-top: 8px;
+    margin-bottom: 8px;
+}
+.nav-search {
+    margin-top: 0px;
+}
+.platform-ios .nav-search {
+    margin-top: -20px;
+}
+.item-prices{
+    background-color: rgba(60, 60, 60, 0.75);
+    padding: 0.1em 0.5em 0.2em;
+    font-size: 150%;
+    color: #fff;
+    position: absolute;
+    bottom: 10%;
+}
+.item-rating {
+    color: rgba(255, 200, 0, 1);
+    font-size: 133%;
+}
+a.button.button-icon.icon.ion-ios-search-strong:before {
+    font-size: 25px;
+}
