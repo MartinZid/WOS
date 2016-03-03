@@ -4,7 +4,7 @@ angular.module('wos.directives.errorMessage', [])
 
 .directive('errorMessage', function ($parse) {
     return {
-        scope: { reload: '&', message: '=', status: '='},
+        scope: { reload: '&', status: '='},
         templateUrl: 'app/shared/errorMessage/errorMessageView.html'
     }
 })

@@ -1,5 +1,5 @@
 ﻿'use strict';
-angular.module('wos.controllers', [])
+angular.module('wos.controllers.homepage', [])
 
 .controller('HomepageCtrl', function ($scope, item) {
     /// <summary>
@@ -33,12 +33,13 @@ angular.module('wos.controllers', [])
                 $scope.status = 0;
                 if ($scope.items.length == 0) {
                     console.log('item.getAll: No data loaded.');
+                    //$scope.message = 'no_data';
                     $scope.message = 'Zde budou všechny položky.'
                     $scope.status = 1;
                 }
-            }).error(function (data) { ///if can not load data from server set $scope.error to true
+            }).error(function (data) { ///if can not load data from server set $scope.status, for error handling
                 console.log('item.getAll: Can not load data from server.');
-                $scope.message = "Bohužel se nepodařilo načíst žádné položky. :-(";
+                //$scope.message = "Bohužel se nepodařilo načíst žádné položky. :-(";
                 $scope.status = 2;
             }).finally(function () { /// Stop the ion-refresher from spinning
                 $scope.$broadcast('scroll.refreshComplete');

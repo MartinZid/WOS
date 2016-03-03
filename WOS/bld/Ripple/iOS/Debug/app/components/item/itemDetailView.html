@@ -1,0 +1,100 @@
+﻿<ion-view view-title="{{item.nazev}}">
+    <ion-nav-title>
+        {{item.nazev}}
+    </ion-nav-title>
+    <ion-content>
+        <ion-refresher pulling-text="Pull to refresh..."
+                       on-refresh="doRefresh()">
+        </ion-refresher>
+
+        <!--<ion-slide-box on-slide-changed="slideHasChanged($index)">
+            <ion-slide>
+                <div><img ng-src="http://sp2.binarity-testing.cz/images/photos/{{item.photos[0].jmeno}}" class="carousel" /></div>
+            </ion-slide>
+            <ion-slide>
+                <div><img ng-src="http://sp2.binarity-testing.cz/images/photos/{{item.photos[0].jmeno}}" class="carousel" /></div>
+            </ion-slide>
+            <ion-slide>
+                <div><img ng-src="http://sp2.binarity-testing.cz/images/photos/{{item.photos[0].jmeno}}" class="carousel" /></div>
+            </ion-slide>
+        </ion-slide-box>-->
+
+        <!--<img ng-src="http://sp2.binarity-testing.cz/images/photos/{{item.photos[0].jmeno}}" class="carousel" />-->
+        <div>
+            <ion-slide-box on-slide-changed="slideHasChanged($index)" show-pager="false">
+                <ion-slide ng-repeat="photo in item.photos">
+                    <div><img ng-src="http://sp2.binarity-testing.cz/images/photos/{{photo.jmeno}}" class="carousel" /></div>
+                </ion-slide>
+            </ion-slide-box>
+
+            <!--<div class="item-detail-prices">
+                <table>
+                    <tbody ng-repeat="instance in item.instances">
+                        <tr ng-repeat="price in instance.prices">
+                            <td class="price-unit">{{price.jednotka}}</td>
+                            <td class="price">{{price.cena}}</td>
+                            <td class="price-currency"> {{price.mena}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>-->
+        </div>
+
+        <div class="padding item-detail-content">
+            <div class="row item-detail-user">
+
+                <div class="col col-25">
+                    <img ng-src="http://www.gravatar.com/avatar/0000000000000000s=20" class="gravatar" />
+                </div>
+
+                <script id="popover.html" type="text/ng-template">
+                    <ion-popover-view>
+                        <ion-header-bar>
+                            <h1 class="title">Dostupnost</h1>
+                        </ion-header-bar>
+                        <ion-content>
+                            <p>
+                                Adresa
+                            </p>
+                            <p>
+                                U vleku 84
+                            </p>
+                            <p>
+                                Dostupnost
+                            </p>
+                            <p>
+                                Po: 06:30 - 18:30
+                            </p>
+                        </ion-content>
+                    </ion-popover-view>
+                </script>
+
+                <div class="col col-50">
+                    <div>{{item.jmeno}} {{item.prijmeni}}</div>
+                    <div ng-show="item.ownerInfo.prumerne_hodnoceni > -1">
+                        <span ng-repeat="i in getFullStars(item.prumerne_hodnoceni) track by $index" class="item-rating">
+                            <i class="ion-android-star"></i>
+                        </span>
+                        <span class="item-rating" ng-show="hasHalfStar(item.prumerne_hodnoceni)">
+                            <i class="ion-android-star-half"></i>
+                        </span>
+                        <span ng-repeat="i in getEmptyStars(item.prumerne_hodnoceni) track by $index" class="item-rating">
+                            <i class="ion-android-star-outline"></i>
+                        </span>
+                    </div>
+                    <div>
+                        <span ng-repeat="item in item.availability" ng-click="openPopover($event, item)" >{{item.town}} </span>
+                    </div>
+                </div>
+
+            </div>
+            <div ng-repeat="item in item.instances">
+                <p ng-bind-html="item.popis"></p>
+            </div>
+        </div>
+    </ion-content>
+</ion-view>
+
+<!--<div ng-repeat="i in [1,2,3,4]">
+    <a ng-href="#/tab/home/profile/{{i}}">{{i}}</a>
+</div>-->

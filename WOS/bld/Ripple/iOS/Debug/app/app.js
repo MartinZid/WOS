@@ -1,16 +1,19 @@
-'use strict';
+﻿'use strict';
 
 var db;
 
 angular.module('wos', ['ionic',
-                       'wos.controllers',
+                       'wos.controllers.homepage',
                        'wos.controllers.search',
+                       'wos.controllers.itemDetail',
                        'wos.services',
+                       'wos.rating',
                        'wos.directives',
                        'wos.directives.errorMessage',
                        'wos.api',
                        'ngIOS9UIWebViewPatch',
-                       'ngCordova'])
+                       'ngCordova',
+                       'pascalprecht.translate'])
 
 .run(function ($ionicPlatform, $cordovaSQLite) {
   $ionicPlatform.ready(function() {
@@ -28,7 +31,39 @@ angular.module('wos', ['ionic',
   });
 })
 
+.config(['$translateProvider', function ($translateProvider) {
+    /// <summary>
+    /// In this function all translation are handled.
+    /// </summary>
+    /// <param name="$translateProvider" type="type"></param>
+    $translateProvider.translations('cs',
+    {
+        'tabs': {
+            'home': 'Domů',
+            'notifications': 'Upozornění',
+            'cart': 'Košík',
+            'me': 'Já',
+        },
+        'errors': {
+            'no_data': 'Zde budou všechny položky.',
+            'server_error': 'V komunikaci se serverem došlo k chybě. :-(',
+        },
+        'search': {
+            'search': 'Hledat',
+        },
+    });
+    $translateProvider.preferredLanguage('cs');
+    $translateProvider.useSanitizeValueStrategy('escape');
+}])
+
 .config(function ($stateProvider, $urlRouterProvider, $ionicConfigProvider) {
+    /// <summary>
+    /// Sets some visual attributes and creates router.
+    /// </summary>
+    /// <param name="$stateProvider" type="type"></param>
+    /// <param name="$urlRouterProvider" type="type"></param>
+    /// <param name="$ionicConfigProvider" type="type"></param>
+
   //remove text from back button
     $ionicConfigProvider.backButton.previousTitleText(false).text('');
     $ionicConfigProvider.tabs.position('bottom');
@@ -76,8 +111,8 @@ angular.module('wos', ['ionic',
       url: '/home/:itemId',
       views: {
           'homepage': {
-            templateUrl: 'app/components/item/detailView.html',
-            controller: 'ChatDetailCtrl'
+            templateUrl: 'app/components/item/itemDetailView.html',
+            controller: 'ItemDetailCtrl'
         }
       }
    })

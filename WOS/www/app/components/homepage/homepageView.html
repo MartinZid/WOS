@@ -7,7 +7,7 @@
         <ion-refresher pulling-text="Pull to refresh..."
                        on-refresh="doRefresh()">
         </ion-refresher>
-        <error-message reload="doRefresh()" message="message" status="status" ng-hide="status === 0"></error-message>
+        <error-message reload="doRefresh()" status="status" ng-hide="status === 0"></error-message>
         <div ng-repeat="item in items">
             <wos-item name="item"></wos-item>
         </div>

@@ -32,7 +32,45 @@
 a.button.button-icon.icon.ion-ios-search-strong:before {
     font-size: 25px;
 }
-.error-message{
+.error-message {
     text-align: center;
     margin-top: 8%;
+}
+.carousel {
+    /*width:300px;*/
+    width: 100%;
+    margin: auto;
+    height: 80%;
+}
+.item-detail-prices {
+    left: 51%;
+    position: relative;
+    /*bottom: -0.7em;*/
+    background-color: rgba(255,255,255,0.5);
+    /*background-color: rgba(60, 60, 60, 0.75);*/
+    padding: 0.1em 0.5em 0.2em;
+    font-size: 110%;
+    color: black;
+    font-weight: bold;
+    width: 50%;
+}
+.price-unit {
+    min-width: 5em;
+}
+.price {
+    text-align: right;
+}
+.item-detail-prices table td {
+    padding: .1em;
+}
+.gravatar {
+    border-radius: 100px;
+    width: 85%;
+}
+.item-detail-user {
+    font-size: 115%;
+}
+.item-detail-content {
+    /*top: -5em;*/
+    position: relative;
 }
