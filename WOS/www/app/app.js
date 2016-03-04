@@ -6,9 +6,9 @@ angular.module('wos', ['ionic',
                        'wos.controllers.homepage',
                        'wos.controllers.search',
                        'wos.controllers.itemDetail',
-                       'wos.services',
+                       'wos.services.item',
                        'wos.rating',
-                       'wos.directives',
+                       'wos.directives.item',
                        'wos.directives.errorMessage',
                        'wos.api',
                        'ngIOS9UIWebViewPatch',
@@ -51,6 +51,16 @@ angular.module('wos', ['ionic',
         'search': {
             'search': 'Hledat',
         },
+        'days': {
+            'mon': 'Po',
+            'tue': 'Út',
+            'wed': 'St',
+            'thu': 'Čt',
+            'fri': 'Pá',
+            'sat': 'So',
+            'sun': 'Ne'
+        },
+        'unavailable': 'Nedostupné'
     });
     $translateProvider.preferredLanguage('cs');
     $translateProvider.useSanitizeValueStrategy('escape');

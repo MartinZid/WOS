@@ -11,7 +11,9 @@ module.exports = function(config){
             'www/app/shared/item/*.js',
             'www/app/components/API/*js',
             'www/app/shared/item/itemView.html',
-            //'www/app/components/homepage/*js',
+            'www/app/components/homepage/*js',
+            'www/app/components/rating/*.js',
+            'www/app/components/item/*.js'
         ],
 
         autoWatch : true,

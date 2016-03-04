@@ -74,3 +74,11 @@ a.button.button-icon.icon.ion-ios-search-strong:before {
     /*top: -5em;*/
     position: relative;
 }
+.wos-popover-content {
+    margin-left: 1.5em;
+    margin-right: 1.5em;
+}
+.locality {
+    color: #387ef5;
+    padding-right: 0.2em;
+}

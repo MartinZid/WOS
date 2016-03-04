@@ -51,6 +51,16 @@ angular.module('wos', ['ionic',
         'search': {
             'search': 'Hledat',
         },
+        'days': {
+            'mon': 'Po',
+            'tue': 'Út',
+            'wed': 'St',
+            'thu': 'Čt',
+            'fri': 'Pá',
+            'sat': 'So',
+            'sun': 'Ne'
+        },
+        'unavailable': 'Nedostupné'
     });
     $translateProvider.preferredLanguage('cs');
     $translateProvider.useSanitizeValueStrategy('escape');

@@ -133,6 +133,7 @@
     "www\\assets\\css\\index.css",
     "res\\icons\\ios\\icon-72-2x.png",
     "res\\icons\\ios\\icon-76-2x.png",
+    "www\\app\\components\\rating\\rating.js",
     "resources\\ios\\icon\\icon-76.png",
     "resources\\ios\\icon\\icon-72.png",
     "resources\\ios\\icon\\icon-40.png",
@@ -159,6 +160,7 @@
     "www\\index.html",
     "res\\icons\\ios\\icon-40.png",
     "www\\assets\\lib\\ionic\\scss\\_select.scss",
+    "www\\app\\components\\item\\itemDetailView.html",
     "resources\\android\\splash\\drawable-land-xxhdpi-screen.png",
     "res\\icons\\ios\\icon-60-2x.png",
     "plugins\\cordova-sqlite-storage\\spec\\config.xml",
@@ -264,23 +266,15 @@
     "plugins\\cordova-sqlite-storage\\Lawnchair-adapter\\test-www\\Lawnchair-sqlitePlugin.js",
     "res\\icons\\windows\\Square44x44Logo.scale-240.png",
     "res\\screens\\android\\screen-mdpi-portrait.png",
-    "www\\app\\components\\item\\itemservice.js",
-    "www\\app\\components\\item\\itemDetailView.html",
-    "www\\app\\components\\homepage\\homepagectrl.js",
-    "www\\app\\components\\item\\itemDetailCtrl.js",
-    "www\\app\\components\\rating\\rating.js"
+    "www\\app\\components\\item\\itemDetailCtrl.js"
   ],
-  "deletedFilesIos": [
-    "www\\app\\components\\item\\detailView.html",
-    "www\\app\\components\\item\\itemDetailController.js",
-    "www.zip"
-  ],
+  "deletedFilesIos": [],
   "addedPluginsIos": [],
   "deletedPluginsIos": [],
   "changedFiles": [
-    "www\\app\\components\\item\\itemservice.js",
+    "www\\app\\app.js",
     "www\\app\\components\\item\\itemDetailView.html",
-    "www\\app\\components\\item\\itemDetailCtrl.js"
+    "www\\assets\\css\\style.css"
   ],
   "deletedFiles": [],
   "addedPlugins": [],

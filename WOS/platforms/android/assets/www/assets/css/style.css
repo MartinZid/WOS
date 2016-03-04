@@ -45,7 +45,7 @@ a.button.button-icon.icon.ion-ios-search-strong:before {
 .item-detail-prices {
     left: 51%;
     position: relative;
-    bottom: -0.7em;
+    /*bottom: -0.7em;*/
     background-color: rgba(255,255,255,0.5);
     /*background-color: rgba(60, 60, 60, 0.75);*/
     padding: 0.1em 0.5em 0.2em;
@@ -71,6 +71,10 @@ a.button.button-icon.icon.ion-ios-search-strong:before {
     font-size: 115%;
 }
 .item-detail-content {
-    top: -5em;
+    /*top: -5em;*/
     position: relative;
+}
+.wos-popover-content {
+    margin-left: 1.5em;
+    margin-right: 1.5em;
 }

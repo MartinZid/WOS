@@ -1,5 +1,5 @@
 ﻿'use strict';
-angular.module('wos.services', [])
+angular.module('wos.services.item', [])
 
 .factory('item', function ($http, api) {
     /// <summary>
