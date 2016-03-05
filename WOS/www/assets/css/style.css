@@ -90,3 +90,18 @@ a.button.button-icon.icon.ion-ios-search-strong:before {
     width: 100%;
     height: 60%;
 }
+.order-btn-footer {
+    width: 100%;
+    bottom: 47px;
+}
+.order-btn {
+    width: 100%;
+    margin: 0 !important;
+    border-width: 0px !important;
+}
+.has-order-btn {
+    margin-bottom: 47px;
+}
+.tabs {
+    height: 47px !important;
+}
