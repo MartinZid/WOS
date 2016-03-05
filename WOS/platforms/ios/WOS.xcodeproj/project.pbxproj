@@ -17,6 +17,8 @@
 		3047A5141AB8059700498E2A /* build.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 3047A5111AB8059700498E2A /* build.xcconfig */; };
 		8100327374684C619691E626 /* SQLitePlugin.m in Sources */ = {isa = PBXBuildFile; fileRef = D31355A9340C4B45976A4FE9 /* SQLitePlugin.m */; };
 		9476B5CE25194B92B95D3B62 /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 7151C101C17C4FD6992C312E /* libsqlite3.dylib */; };
+		93BF9D7140184EEDB1E31D9A /* CDVLocation.m in Sources */ = {isa = PBXBuildFile; fileRef = 436427B420C14BD691A96B26 /* CDVLocation.m */; };
+		FA853E4DE8CF425E9D254CF8 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 443AC81CD786451B93F87262 /* CoreLocation.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -59,6 +61,9 @@
 		D31355A9340C4B45976A4FE9 /* SQLitePlugin.m */ = {isa = PBXFileReference; name = "SQLitePlugin.m"; path = "cordova-sqlite-storage/SQLitePlugin.m"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; explicitFileType = undefined; includeInIndex = 0; };
 		3CAD4B2378314E11865DD7AD /* SQLitePlugin.h */ = {isa = PBXFileReference; name = "SQLitePlugin.h"; path = "cordova-sqlite-storage/SQLitePlugin.h"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; explicitFileType = undefined; includeInIndex = 0; };
 		7151C101C17C4FD6992C312E /* libsqlite3.dylib */ = {isa = PBXFileReference; name = "libsqlite3.dylib"; path = "usr/lib/libsqlite3.dylib"; sourceTree = SDKROOT; fileEncoding = undefined; lastKnownFileType = compiled.mach-o.dylib; explicitFileType = undefined; includeInIndex = 0; };
+		436427B420C14BD691A96B26 /* CDVLocation.m */ = {isa = PBXFileReference; name = "CDVLocation.m"; path = "cordova-plugin-geolocation/CDVLocation.m"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; explicitFileType = undefined; includeInIndex = 0; };
+		EEBED79AD3F24AACAA719213 /* CDVLocation.h */ = {isa = PBXFileReference; name = "CDVLocation.h"; path = "cordova-plugin-geolocation/CDVLocation.h"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; explicitFileType = undefined; includeInIndex = 0; };
+		443AC81CD786451B93F87262 /* CoreLocation.framework */ = {isa = PBXFileReference; name = "CoreLocation.framework"; path = "System/Library/Frameworks/CoreLocation.framework"; sourceTree = SDKROOT; fileEncoding = undefined; lastKnownFileType = wrapper.framework; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -68,6 +73,7 @@
 			files = (
 				301BF552109A68D80062928A /* libCordova.a in Frameworks */,
 				9476B5CE25194B92B95D3B62 /* libsqlite3.dylib in Frameworks */,
+				FA853E4DE8CF425E9D254CF8 /* CoreLocation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -138,6 +144,7 @@
 			isa = PBXGroup;
 			children = (
 				7151C101C17C4FD6992C312E /* libsqlite3.dylib */,
+				443AC81CD786451B93F87262 /* CoreLocation.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -165,6 +172,8 @@
 			children = (
 				D31355A9340C4B45976A4FE9 /* SQLitePlugin.m */,
 				3CAD4B2378314E11865DD7AD /* SQLitePlugin.h */,
+				436427B420C14BD691A96B26 /* CDVLocation.m */,
+				EEBED79AD3F24AACAA719213 /* CDVLocation.h */,
 			);
 			name = Plugins;
 			path = "WOS/Plugins";
@@ -280,6 +289,7 @@
 				1D3623260D0F684500981E51 /* AppDelegate.m in Sources */,
 				302D95F114D2391D003F00A1 /* MainViewController.m in Sources */,
 				8100327374684C619691E626 /* SQLitePlugin.m in Sources */,
+				93BF9D7140184EEDB1E31D9A /* CDVLocation.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

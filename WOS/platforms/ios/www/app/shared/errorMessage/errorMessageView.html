@@ -1,0 +1,10 @@
+﻿<div class="error-message">
+
+    <p ng-show="status === 1">{{ 'errors.no_data' | translate }}</p>
+    <p ng-show="status === 2">{{ 'errors.server_error' | translate }}</p>
+    
+    <button class="button button-clear button-positive" ng-click="reload()" ng-show="status === 2">
+        Zkusit znovu
+    </button>
+
+</div>

@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module('wos.directives', [])
+angular.module('wos.directives.item', [])
 
 .directive('wosItem', function ($parse, api, rating) {
     /// <summary>

@@ -1,14 +1,21 @@
-'use strict';
+﻿'use strict';
+
+var db;
 
 angular.module('wos', ['ionic',
-                       'wos.controllers',
+                       'wos.controllers.homepage',
                        'wos.controllers.search',
-                       'wos.services',
-                       'wos.directives',
+                       'wos.controllers.itemDetail',
+                       'wos.services.item',
+                       'wos.rating',
+                       'wos.directives.item',
+                       'wos.directives.errorMessage',
                        'wos.api',
-                       'ngIOS9UIWebViewPatch'])
+                       'ngIOS9UIWebViewPatch',
+                       'ngCordova',
+                       'pascalprecht.translate'])
 
-.run(function($ionicPlatform) {
+.run(function ($ionicPlatform, $cordovaSQLite) {
   $ionicPlatform.ready(function() {
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)
@@ -19,10 +26,54 @@ angular.module('wos', ['ionic',
       // org.apache.cordova.statusbar required
       StatusBar.styleLightContent();
     }
+    //db = $cordovaSQLite.openDB("my.db");
+    //$cordovaSQLite.execute(db, "CREATE TABLE IF NOT EXISTS people (id integer primary key, firstname text, lastname text)");
   });
 })
 
+.config(['$translateProvider', function ($translateProvider) {
+    /// <summary>
+    /// In this function all translation are handled.
+    /// </summary>
+    /// <param name="$translateProvider" type="type"></param>
+    $translateProvider.translations('cs',
+    {
+        'tabs': {
+            'home': 'Domů',
+            'notifications': 'Upozornění',
+            'cart': 'Košík',
+            'me': 'Já',
+        },
+        'errors': {
+            'no_data': 'Zde budou všechny položky.',
+            'server_error': 'V komunikaci se serverem došlo k chybě. :-(',
+        },
+        'search': {
+            'search': 'Hledat',
+        },
+        'days': {
+            'mon': 'Po',
+            'tue': 'Út',
+            'wed': 'St',
+            'thu': 'Čt',
+            'fri': 'Pá',
+            'sat': 'So',
+            'sun': 'Ne'
+        },
+        'unavailable': 'Nedostupné'
+    });
+    $translateProvider.preferredLanguage('cs');
+    $translateProvider.useSanitizeValueStrategy('escape');
+}])
+
 .config(function ($stateProvider, $urlRouterProvider, $ionicConfigProvider) {
+    /// <summary>
+    /// Sets some visual attributes and creates router.
+    /// </summary>
+    /// <param name="$stateProvider" type="type"></param>
+    /// <param name="$urlRouterProvider" type="type"></param>
+    /// <param name="$ionicConfigProvider" type="type"></param>
+
   //remove text from back button
     $ionicConfigProvider.backButton.previousTitleText(false).text('');
     $ionicConfigProvider.tabs.position('bottom');
@@ -70,8 +121,8 @@ angular.module('wos', ['ionic',
       url: '/home/:itemId',
       views: {
           'homepage': {
-            templateUrl: 'app/components/item/detailView.html',
-            controller: 'ChatDetailCtrl'
+            templateUrl: 'app/components/item/itemDetailView.html',
+            controller: 'ItemDetailCtrl'
         }
       }
    })

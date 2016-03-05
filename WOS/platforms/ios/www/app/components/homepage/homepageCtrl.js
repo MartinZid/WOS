@@ -1,5 +1,5 @@
 ﻿'use strict';
-angular.module('wos.controllers', [])
+angular.module('wos.controllers.homepage', [])
 
 .controller('HomepageCtrl', function ($scope, item) {
     /// <summary>
@@ -9,7 +9,8 @@ angular.module('wos.controllers', [])
     /// <param name="item" type="type"></param>
 
     $scope.items; /// all items
-    $scope.status; /// status variable for errors
+    $scope.status = 0; /// status variable for errors (0 = no error, 1 = there are no items; 2 = server error) 
+    $scope.message; /// variable with message string
 
     getAllItems();
 
@@ -17,6 +18,7 @@ angular.module('wos.controllers', [])
         /// <summary>
         /// Called when main page is "pulled down" for refresh
         /// </summary>
+        console.log('refreshing...');
         getAllItems();
     }
 
@@ -28,10 +30,17 @@ angular.module('wos.controllers', [])
             .success(function (data) { ///if success save loaded data to $scope.items
                 $scope.items = data;
                 console.log(data);
-                $scope.status = false;
-            }).error(function (data) { ///if can not load data from server set $scope.error to true
+                $scope.status = 0;
+                if ($scope.items.length == 0) {
+                    console.log('item.getAll: No data loaded.');
+                    //$scope.message = 'no_data';
+                    $scope.message = 'Zde budou všechny položky.'
+                    $scope.status = 1;
+                }
+            }).error(function (data) { ///if can not load data from server set $scope.status, for error handling
                 console.log('item.getAll: Can not load data from server.');
-                $scope.status = true;
+                //$scope.message = "Bohužel se nepodařilo načíst žádné položky. :-(";
+                $scope.status = 2;
             }).finally(function () { /// Stop the ion-refresher from spinning
                 $scope.$broadcast('scroll.refreshComplete');
             });
@@ -39,6 +48,7 @@ angular.module('wos.controllers', [])
 
     ///navTitle stores a html img for app icon
     $scope.navTitle = '<img class="title-image" src="assets/img/main_logo.png" />';
+
 })
 
 

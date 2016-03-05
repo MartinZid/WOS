@@ -1,5 +1,5 @@
 ﻿'use strict';
-angular.module('wos.services', [])
+angular.module('wos.services.item', [])
 
 .factory('item', function ($http, api) {
     /// <summary>
@@ -17,7 +17,17 @@ angular.module('wos.services', [])
             /// <returns type="promise"></returns>
             return $http({
                 method: 'GET',
-                url: api.url + 'api/item'
+                url: api.url + 'mobile/item'
+            });
+        },
+        getDetail: function(id) {
+            /// <summary>
+            /// Returns a promis for item detail. Used in item detail controller.
+            /// </summary>
+            /// <param name="id" type="type"></param>
+            return $http({
+                method: 'GET',
+                url: api.url + '/mobile/item?itemID=' + id
             });
         }
     }

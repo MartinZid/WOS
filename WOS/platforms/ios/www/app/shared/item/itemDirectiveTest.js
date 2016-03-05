@@ -13,9 +13,26 @@
     };
 
     // Load the myApp module, which contains the directive
-    beforeEach(module('wos.directives'));
+    beforeEach(module('wos.directives.item'));
     beforeEach(module('my.templates'));
-    beforeEach(module('wos.api'));
+
+    beforeEach(module(function ($provide) {
+        $provide.factory('api', function () {
+            return {
+                url: 'http://sp2.binarity-testing.cz/'
+            }
+        });
+    }));
+
+    beforeEach(module(function ($provide) {
+        $provide.factory('rating', function () {
+            return {
+                getFullStars: function (num) { },
+                hasHalfStar: function (num) { },
+                getEmptyStars: function (num) { }
+            }
+        })
+    }));
 
     beforeEach(inject(function (_$compile_, _$rootScope_, $templateCache) {
         $compile = _$compile_;
@@ -28,37 +45,5 @@
     it('Replaces the element with the appropriate content', function () {
         // Compile a piece of HTML containing the directive
         expect(element.html()).toContain("Praha");
-    });
-
-    describe('Tests for item directive method hasHalfStar', function () {
-        it('Should have a half star with rating 4.3', function () {
-            expect($rootScope.hasHalfStar(4.3)).toBe(true);
-        });
-        it('Should not have a half star with rating 4.2', function () {
-            expect($rootScope.hasHalfStar(4.2)).toBe(false);
-        });
-        it('Should not have a half star with rating 4.7', function () {
-            expect($rootScope.hasHalfStar(4.7)).toBe(false);
-        });
-    });
-
-    describe('Tests for item directive method getFullStars', function () {
-        it('Should return array of size 5 with rating 4.7', function () {
-            expect($rootScope.getFullStars(4.7).length).toBe(5);
-        });
-        it('Should return array of size 5 with rating 4.2', function () {
-            expect($rootScope.getFullStars(4.2).length).toBe(4);
-        });
-    });
-    describe('Tests for item directive method getEmptyStars', function () {
-        it('Should return array of size 3 with rating 2.2', function () {
-            expect($rootScope.getEmptyStars(2.2).length).toBe(3);
-        });
-        it('Should return array of size 2 with rating 2.7', function () {
-            expect($rootScope.getEmptyStars(2.7).length).toBe(2);
-        });
-        it('Should return array of size 2 with rating 2.5', function () {
-            expect($rootScope.getEmptyStars(2.5).length).toBe(2);
-        });
     });
 });

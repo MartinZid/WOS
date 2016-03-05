@@ -1,7 +1,8 @@
 ﻿'use strict';
 angular.module('wos.controllers.itemDetail', [])
 
-.controller('ItemDetailCtrl', function ($scope, item, $stateParams, rating, $ionicSlideBoxDelegate, $ionicPopover) {
+.controller('ItemDetailCtrl', function ($scope, item, $stateParams, rating,
+                                        $ionicSlideBoxDelegate, $ionicPopover, $cordovaGeolocation) {
     $scope.id = $stateParams.itemId;
     $scope.item = {
         'prumerne_hodnoceni': 0 ///this has to be defined, because rating.getFullStars is called event before all data is loaded
@@ -68,4 +69,36 @@ angular.module('wos.controllers.itemDetail', [])
     $scope.$on('popover.removed', function () {
         // Execute action
     });
+
+    var options = { timeout: 10000, enableHighAccuracy: true };
+
+    $cordovaGeolocation.getCurrentPosition(options).then(function (position) {
+
+        var latLng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+
+        var mapOptions = {
+            center: latLng,
+            zoom: 15,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+
+        $scope.map = new google.maps.Map(document.getElementById("map"), mapOptions);
+
+    }, function (error) {
+        console.log("Could not get location");
+    });
+
+    //Wait until the map is loaded
+    google.maps.event.addListenerOnce($scope.map, 'idle', function () {
+
+        var latLng = new google.maps.LatLng($scope.item.locality[0].gps_lat, $scope.item.locality[0].gps_lng);
+
+        var marker = new google.maps.Marker({
+            map: $scope.map,
+            //animation: google.maps.Animation.DROP,
+            position: latLng
+        });
+
+    });
+
 })
