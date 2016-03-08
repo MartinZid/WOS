@@ -6,20 +6,8 @@
         <ion-refresher pulling-text="Pull to refresh..."
                        on-refresh="doRefresh()">
         </ion-refresher>
+        <error-message reload="doRefresh()" status="status" ng-hide="status === 0"></error-message>
 
-        <!--<ion-slide-box on-slide-changed="slideHasChanged($index)">
-            <ion-slide>
-                <div><img ng-src="http://sp2.binarity-testing.cz/images/photos/{{item.photos[0].jmeno}}" class="carousel" /></div>
-            </ion-slide>
-            <ion-slide>
-                <div><img ng-src="http://sp2.binarity-testing.cz/images/photos/{{item.photos[0].jmeno}}" class="carousel" /></div>
-            </ion-slide>
-            <ion-slide>
-                <div><img ng-src="http://sp2.binarity-testing.cz/images/photos/{{item.photos[0].jmeno}}" class="carousel" /></div>
-            </ion-slide>
-        </ion-slide-box>-->
-
-        <!--<img ng-src="http://sp2.binarity-testing.cz/images/photos/{{item.photos[0].jmeno}}" class="carousel" />-->
         <div>
             <ion-slide-box on-slide-changed="slideHasChanged($index)" show-pager="false">
                 <ion-slide ng-repeat="photo in item.photos">
@@ -27,7 +15,7 @@
                 </ion-slide>
             </ion-slide-box>
 
-            <!--<div class="item-detail-prices">
+            <div class="item-detail-prices">
                 <table>
                     <tbody ng-repeat="instance in item.instances">
                         <tr ng-repeat="price in instance.prices">
@@ -37,47 +25,49 @@
                         </tr>
                     </tbody>
                 </table>
-            </div>-->
+            </div>
         </div>
 
-        <div class="padding item-detail-content">
+        <div class="padding item-detail-content" ng-show="status === 0">
             <div class="row item-detail-user">
 
                 <div class="col col-25">
-                    <img ng-src="http://www.gravatar.com/avatar/0000000000000000s=20" class="gravatar" />
+                    <a ng-href="#/tab/home/profile/{{item.id_uzivatel}}"><img ng-src="http://www.gravatar.com/avatar/0000000000000000s=20" class="gravatar" /></a>
                 </div>
 
                 <script id="popover.html" type="text/ng-template">
                     <ion-popover-view>
                         <ion-header-bar>
-                            <h1 class="title">Dostupnost</h1>
+                            <h1 class="title">{{'availability.availability' | translate}}</h1>
                         </ion-header-bar>
                         <ion-content>
                             <div class="wos-popover-content">
-                            <h5>Adresa</h5>
+                            <h5>{{'availability.address' | translate}}</h5>
                                 <p>{{content.town}} {{content.address}}</p>
-                                <h5>Dostupnost</h5>
+                                <h5>{{'availability.availability' | translate}}</h5>
                                 <p>{{'days.mon' |  translate}}: <span ng-hide="content[0] == undefined">{{content[0]}}</span>
-                                                                <span ng-show="content[0] == undefined">{{'unavailable' | translate}}</span></p>
+                                                                <span ng-show="content[0] == undefined">{{'availability.unavailable' | translate}}</span></p>
                                 <p>{{'days.tue' |  translate}}: <span ng-hide="content[1] == undefined">{{content[1]}}</span>
-                                                                <span ng-show="content[1] == undefined">{{'unavailable' | translate}}</span></p>
+                                                                <span ng-show="content[1] == undefined">{{'availability.unavailable' | translate}}</span></p>
                                 <p>{{'days.wed' |  translate}}: <span ng-hide="content[2] == undefined">{{content[2]}}</span>
-                                                                <span ng-show="content[2] == undefined">{{'unavailable' | translate}}</span></p>
+                                                                <span ng-show="content[2] == undefined">{{'availability.unavailable' | translate}}</span></p>
                                 <p>{{'days.thu' |  translate}}: <span ng-hide="content[3] == undefined">{{content[3]}}</span>
-                                                                <span ng-show="content[3] == undefined">{{'unavailable' | translate}}</span></p>
+                                                                <span ng-show="content[3] == undefined">{{'availability.unavailable' | translate}}</span></p>
                                 <p>{{'days.fri' |  translate}}: <span ng-hide="content[4] == undefined">{{content[4]}}</span>
-                                                                <span ng-show="content[4] == undefined">{{'unavailable' | translate}}</span></p>
+                                                                <span ng-show="content[4] == undefined">{{'availability.unavailable' | translate}}</span></p>
                                 <p>{{'days.sat' |  translate}}: <span ng-hide="content[5] == undefined">{{content[5]}}</span>
-                                                                <span ng-show="content[5] == undefined">{{'unavailable' | translate}}</span></p>
+                                                                <span ng-show="content[5] == undefined">{{'availability.unavailable' | translate}}</span></p>
                                 <p>{{'days.sun' |  translate}}: <span ng-hide="content[6] == undefined">{{content[6]}}</span>
-                                                                <span ng-show="content[6] == undefined">{{'unavailable' | translate}}</span></p>
+                                                                <span ng-show="content[6] == undefined">{{'availability.unavailable' | translate}}</span></p>
                             </div>
                         </ion-content>
                     </ion-popover-view>
                 </script>
 
                 <div class="col col-50">
-                    <div>{{item.jmeno}} {{item.prijmeni}}</div>
+                    <a ng-href="#/tab/home/profile/{{item.id_uzivatel}}" class="no-decor-a">
+                        <div>{{item.jmeno}} {{item.prijmeni}}</div>
+                    </a>
                     <div ng-show="item.ownerInfo.prumerne_hodnoceni > -1">
                         <span ng-repeat="i in getFullStars(item.prumerne_hodnoceni) track by $index" class="item-rating">
                             <i class="ion-android-star"></i>
@@ -99,9 +89,17 @@
                 <p ng-bind-html="item.popis"></p>
             </div>            
         </div>
-        <div id="map" data-tap-disabled="true"></div>
-        <p>Some text Some textSome textSome textSome textSome textSome textSome textSome text</p>
+        <div id="map" data-tap-disabled="true" ng-show="status === 0"></div>
+        <div class="has-order-btn">
+            <p>Some text Some textSome textSome textSome textSome textSome textSome textSome text</p>
+        </div>
+        
     </ion-content>
+
+    <div class="bar bar-footer bar-assertive order-btn-footer" ng-show="status === 0">
+        <div class="title button button-assertive order-btn">Objednat</div>
+    </div>
+
 </ion-view>
 
 <!--<div ng-repeat="i in [1,2,3,4]">

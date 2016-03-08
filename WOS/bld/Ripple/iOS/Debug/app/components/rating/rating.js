@@ -21,6 +21,8 @@ angular.module('wos.rating', [])
         /// <param name="num" type="float">Rating</param>
         /// <returns type="bool"></returns>
 
+        if (isNaN(num)) return;
+
         var halfStars = num * 10 % 10;
         return halfStars > 2 && halfStars < 7;
     };
@@ -31,6 +33,8 @@ angular.module('wos.rating', [])
             /// </summary>
             /// <param name="num" type="float">Rating in range 0-5</param>
             /// <returns type="array">Array of size depending of rating. It is used for full stars loop</returns>
+
+            if (isNaN(num)) return;
 
             var intvalue = countFullStars(num);
             return new Array(intvalue);
@@ -44,6 +48,8 @@ angular.module('wos.rating', [])
             /// </summary>
             /// <param name="num" type="float">Rating</param>
             /// <returns type="array">>Array of size depending of rating. It is used for empty stars loop.</returns>
+
+            if (isNaN(num)) return;
 
             var fullStars = countFullStars(num);
             var intvalue;

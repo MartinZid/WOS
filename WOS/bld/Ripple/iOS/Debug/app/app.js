@@ -6,7 +6,10 @@ angular.module('wos', ['ionic',
                        'wos.controllers.homepage',
                        'wos.controllers.search',
                        'wos.controllers.itemDetail',
+                       'wos.controllers.profile',
+                       'wos.controllers.notifications',
                        'wos.services.item',
+                       'wos.services.profile',
                        'wos.rating',
                        'wos.directives.item',
                        'wos.directives.errorMessage',
@@ -60,7 +63,16 @@ angular.module('wos', ['ionic',
             'sat': 'So',
             'sun': 'Ne'
         },
-        'unavailable': 'Nedostupné'
+        'availability': {
+            'unavailable': 'Nedostupné',
+            'address': 'Adresa',
+            'availability': 'Dostupnost'
+        },
+        'notifications': {
+            'notifications': 'Upozornění',
+            'no_data': 'Zatím nemáte žádná upozornění.'
+        }
+        
     });
     $translateProvider.preferredLanguage('cs');
     $translateProvider.useSanitizeValueStrategy('escape');
@@ -112,7 +124,7 @@ angular.module('wos', ['ionic',
       views: {
           'notifications': {
             templateUrl: 'app/components/notifications/notificationsView.html',
-            controller: 'ChatsCtrl'
+            controller: 'NotificationsCtrl'
         }
       }
   })
@@ -132,7 +144,7 @@ angular.module('wos', ['ionic',
       views: {
           'homepage': {
               templateUrl: 'app/components/profile/profileView.html',
-              controller: 'ChatDetailCtrl'
+              controller: 'ProfileCtrl'
           }
       }
   })

@@ -3,10 +3,22 @@ angular.module('wos.controllers.itemDetail', [])
 
 .controller('ItemDetailCtrl', function ($scope, item, $stateParams, rating,
                                         $ionicSlideBoxDelegate, $ionicPopover, $cordovaGeolocation) {
+    /// <summary>
+    /// Controller for item detail view.
+    /// </summary>
+    /// <param name="$scope" type="type"></param>
+    /// <param name="item" type="type"></param>
+    /// <param name="$stateParams" type="type"></param>
+    /// <param name="rating" type="type"></param>
+    /// <param name="$ionicSlideBoxDelegate" type="type"></param>
+    /// <param name="$ionicPopover" type="type"></param>
+    /// <param name="$cordovaGeolocation" type="type"></param>
+
     $scope.id = $stateParams.itemId;
     $scope.item = {
         'prumerne_hodnoceni': 0 ///this has to be defined, because rating.getFullStars is called event before all data is loaded
     };
+    $scope.status = 3;
 
     getItemDetail($scope.id);
 
@@ -72,6 +84,11 @@ angular.module('wos.controllers.itemDetail', [])
     });
 
     $scope.$on("$ionicView.enter", function (scopes, states) {
+        /// <summary>
+        /// When view is loaded it refreshes the map (also with the markers).
+        /// </summary>
+        /// <param name="scopes" type="type"></param>
+        /// <param name="states" type="type"></param>
         console.log('refreshing map...')
         google.maps.event.trigger(map, 'resize');
         loadMap();
@@ -80,6 +97,9 @@ angular.module('wos.controllers.itemDetail', [])
     var options = { timeout: 10000, enableHighAccuracy: true };
 
     function loadMap() {
+        /// <summary>
+        /// Sets up the map.
+        /// </summary>
         $cordovaGeolocation.getCurrentPosition(options).then(function (position) {
 
             var latLng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
@@ -94,8 +114,10 @@ angular.module('wos.controllers.itemDetail', [])
 
             //Wait until the map is loaded
             google.maps.event.addListenerOnce($scope.map, 'idle', function () {
+                /// <summary>
+                /// Sets up markers for each item locality.
+                /// </summary>
 
-                console.log('refreshing also markers...')
                 $scope.item.locality.forEach(function (locality) {
                     var latLng = new google.maps.LatLng(locality.gps_lat, locality.gps_lng);
 
@@ -106,16 +128,19 @@ angular.module('wos.controllers.itemDetail', [])
                     });
 
                     var infoWindow = new google.maps.InfoWindow({
+                        // marker info
                         content: locality.mesto + ", " + locality.ulice_cp
                     });
 
                     google.maps.event.addListener(marker, 'click', function () {
+                        // on marker click show addtional info and zoom map
                         infoWindow.open($scope.map, marker);
                         $scope.map.setZoom(13);
                         $scope.map.setCenter(marker.getPosition());
                     });
 
                     google.maps.event.addListener(infoWindow, 'closeclick', function () {
+                        // on marker close zoom out and center map to default
                         $scope.map.setZoom(6);
                         $scope.map.setCenter(new google.maps.LatLng(49.80, 15.38));
                     });

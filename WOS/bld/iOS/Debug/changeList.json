@@ -2,6 +2,7 @@
   "changedFilesIos": [
     "ionic.project",
     "Scripts\\angular.js",
+    "www\\app\\shared\\errorMessage\\errorMessageDirectiveTest.js",
     "www\\assets\\lib\\ionic\\scss\\_grid.scss",
     "plugins\\cordova-plugin-geolocation\\doc\\ja\\index.md",
     "www\\assets\\lib\\ionic\\scss\\_animations.scss",
@@ -143,6 +144,7 @@
     "www\\assets\\lib\\ionic\\js\\ionic.bundle.js",
     "www\\app\\components\\homepage\\homepageView.html",
     "package.json",
+    "www\\app\\components\\profile\\profileCtrl.js",
     "plugins\\cordova-sqlite-storage\\circle.yml",
     "www\\assets\\lib\\angular-mocks\\package.json",
     "res\\screens\\android\\screen-ldpi-landscape.png",
@@ -167,6 +169,7 @@
     "www\\assets\\lib\\ng-cordova.min.js",
     "www\\assets\\img\\ionic.png",
     "plugins\\cordova-sqlite-storage\\src\\android\\io\\sqlc\\SQLitePlugin.java",
+    "www\\app\\components\\profile\\profileCtrlTest.js",
     "www\\assets\\lib\\ionic\\scss\\_loading.scss",
     "res\\icons\\windows\\Square30x30Logo.scale-100.png",
     "www\\app\\shared\\item\\itemDirectiveTest.js",
@@ -206,6 +209,7 @@
     "plugins\\cordova-plugin-geolocation\\doc\\fr\\README.md",
     "resources\\ios\\splash\\Default-Landscape~ipad.png",
     "plugins\\cordova-sqlite-storage\\HISTORY.md",
+    "www\\app\\components\\profile\\profileServiceTest.js",
     "res\\native\\android\\ant.properties",
     "res\\icons\\windows\\Square310x310Logo.scale-100.png",
     "resources\\android\\splash\\drawable-land-ldpi-screen.png",
@@ -259,6 +263,7 @@
     "plugins\\cordova-plugin-geolocation\\doc\\ko\\README.md",
     "www\\app\\shared\\errorMessage\\errorMessageDirective.js",
     "www\\assets\\lib\\ionic\\scss\\_spinner.scss",
+    "www\\app\\components\\item\\itemDetailCtrlTest.js",
     "www\\app\\components\\tabs\\tabsView.html",
     "res\\icons\\ios\\icon-40-2x.png",
     "www\\assets\\lib\\ionic\\fonts\\ionicons.svg",
@@ -309,14 +314,18 @@
     "plugins\\cordova-sqlite-storage\\Lawnchair-adapter\\test-www\\Lawnchair-sqlitePlugin.js",
     "res\\icons\\windows\\Square44x44Logo.scale-240.png",
     "res\\screens\\android\\screen-mdpi-portrait.png",
+    "www\\app\\components\\profile\\profileService.js",
     "www\\app\\components\\item\\itemDetailCtrl.js"
   ],
-  "deletedFilesIos": [],
+  "deletedFilesIos": [
+    "www\\app\\orpngrdg.mnt~"
+  ],
   "addedPluginsIos": [],
   "deletedPluginsIos": [],
   "changedFiles": [
     "ionic.project",
     "Scripts\\angular.js",
+    "www\\app\\shared\\errorMessage\\errorMessageDirectiveTest.js",
     "www\\assets\\lib\\ionic\\scss\\_grid.scss",
     "plugins\\cordova-plugin-geolocation\\doc\\ja\\index.md",
     "www\\assets\\lib\\ionic\\scss\\_animations.scss",
@@ -458,6 +467,7 @@
     "www\\assets\\lib\\ionic\\js\\ionic.bundle.js",
     "www\\app\\components\\homepage\\homepageView.html",
     "package.json",
+    "www\\app\\components\\profile\\profileCtrl.js",
     "plugins\\cordova-sqlite-storage\\circle.yml",
     "www\\assets\\lib\\angular-mocks\\package.json",
     "res\\screens\\android\\screen-ldpi-landscape.png",
@@ -482,6 +492,7 @@
     "www\\assets\\lib\\ng-cordova.min.js",
     "www\\assets\\img\\ionic.png",
     "plugins\\cordova-sqlite-storage\\src\\android\\io\\sqlc\\SQLitePlugin.java",
+    "www\\app\\components\\profile\\profileCtrlTest.js",
     "www\\assets\\lib\\ionic\\scss\\_loading.scss",
     "res\\icons\\windows\\Square30x30Logo.scale-100.png",
     "www\\app\\shared\\item\\itemDirectiveTest.js",
@@ -521,6 +532,7 @@
     "plugins\\cordova-plugin-geolocation\\doc\\fr\\README.md",
     "resources\\ios\\splash\\Default-Landscape~ipad.png",
     "plugins\\cordova-sqlite-storage\\HISTORY.md",
+    "www\\app\\components\\profile\\profileServiceTest.js",
     "res\\native\\android\\ant.properties",
     "res\\icons\\windows\\Square310x310Logo.scale-100.png",
     "resources\\android\\splash\\drawable-land-ldpi-screen.png",
@@ -574,6 +586,7 @@
     "plugins\\cordova-plugin-geolocation\\doc\\ko\\README.md",
     "www\\app\\shared\\errorMessage\\errorMessageDirective.js",
     "www\\assets\\lib\\ionic\\scss\\_spinner.scss",
+    "www\\app\\components\\item\\itemDetailCtrlTest.js",
     "www\\app\\components\\tabs\\tabsView.html",
     "res\\icons\\ios\\icon-40-2x.png",
     "www\\assets\\lib\\ionic\\fonts\\ionicons.svg",
@@ -624,9 +637,12 @@
     "plugins\\cordova-sqlite-storage\\Lawnchair-adapter\\test-www\\Lawnchair-sqlitePlugin.js",
     "res\\icons\\windows\\Square44x44Logo.scale-240.png",
     "res\\screens\\android\\screen-mdpi-portrait.png",
+    "www\\app\\components\\profile\\profileService.js",
     "www\\app\\components\\item\\itemDetailCtrl.js"
   ],
-  "deletedFiles": [],
+  "deletedFiles": [
+    "www\\app\\orpngrdg.mnt~"
+  ],
   "addedPlugins": [],
   "deletedPlugins": []
 }

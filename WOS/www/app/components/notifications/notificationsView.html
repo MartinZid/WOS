@@ -1,3 +1,24 @@
-﻿<ion-view view-title="Notifications">
+﻿<ion-view view-title="{{ 'notifications.notifications' | translate }}">
+    <ion-content>
 
+        <ion-refresher pulling-text="Pull to refresh..."
+                       on-refresh="doRefresh()">
+        </ion-refresher>
+
+        <error-message reload="doRefresh()" status="status" ng-hide="status === 0"></error-message>
+        <div class="error-message" ng-show="status === 1">
+            <p>{{ 'notifications.no_data' | translate }}</p>
+        </div>
+
+        <ion-list show-delete="data.showDelete">
+            <ion-item ng-repeat="item in items" item="item" class="item-remove-animate item-text-wrap">               
+                {{ item.text }}
+                <p class="notifications-date">28.02.2016</p>
+                <ion-option-button class="button-assertive" ng-click="deleteItem(item)">
+                    Delete
+                </ion-option-button>
+            </ion-item>
+        </ion-list>
+
+    </ion-content>
 </ion-view>

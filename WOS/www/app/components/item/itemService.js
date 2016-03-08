@@ -22,9 +22,9 @@ angular.module('wos.services.item', [])
         },
         getDetail: function(id) {
             /// <summary>
-            /// Returns a promis for item detail. Used in item detail controller.
+            /// Returns a promise for item detail. Used in item detail controller.
             /// </summary>
-            /// <param name="id" type="type"></param>
+            /// <param name="id" type="integer"></param>
             return $http({
                 method: 'GET',
                 url: api.url + '/mobile/item?itemID=' + id

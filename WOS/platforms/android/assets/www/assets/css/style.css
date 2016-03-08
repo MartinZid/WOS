@@ -46,8 +46,8 @@ a.button.button-icon.icon.ion-ios-search-strong:before {
     left: 51%;
     position: relative;
     /*bottom: -0.7em;*/
-    background-color: rgba(255,255,255,0.5);
-    /*background-color: rgba(60, 60, 60, 0.75);*/
+    /*background-color: rgba(255,255,255,0.5);*/
+    background-color: rgba(60, 60, 60, 0.75);
     padding: 0.1em 0.5em 0.2em;
     font-size: 110%;
     color: black;
@@ -89,4 +89,38 @@ a.button.button-icon.icon.ion-ios-search-strong:before {
 #map {
     width: 100%;
     height: 60%;
+}
+.order-btn-footer {
+    width: 100%;
+    bottom: 40px;
+}
+.order-btn {
+    width: 100%;
+    margin: 0 !important;
+    border-width: 0px !important;
+}
+.has-order-btn {
+    margin-bottom: 40px !important;
+}
+/*.platform-ios .has-order-btn {
+    margin-bottom: 94px;
+}*/
+.no-decor-a {
+    color: black;
+    text-decoration: none;
+}
+.tabs {
+    height: 47px !important;
+}
+.profile-gravatar {
+    border-radius: 100px;
+    width: 22%;
+}
+.user-info {
+    text-align: center;
+    margin-top: 10%;
+    font-size: 110%;
+}
+.profile-data {
+    margin-bottom: 0.5em;
 }

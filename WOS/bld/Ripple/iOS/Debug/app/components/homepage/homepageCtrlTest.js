@@ -48,7 +48,7 @@
         var controller = ctrl('HomepageCtrl', { $scope: $scope, item: $item });
         expect($scope.status).toBe(0);
     });
-    it('', function () {
+    it('doRefresh should be defined', function () {
         var $scope = {};
         var controller = ctrl('HomepageCtrl', { $scope: $scope, item: $item });
         expect(typeof $scope.doRefresh).toBe('function');

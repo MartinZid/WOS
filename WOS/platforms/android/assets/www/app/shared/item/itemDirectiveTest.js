@@ -34,7 +34,7 @@
         })
     }));
 
-    beforeEach(inject(function (_$compile_, _$rootScope_, $templateCache) {
+    beforeEach(inject(function (_$compile_, _$rootScope_) {
         $compile = _$compile_;
         $rootScope = _$rootScope_;
         $rootScope.item = item;
