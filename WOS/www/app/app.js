@@ -54,6 +54,7 @@ angular.module('wos', ['ionic',
         },
         'search': {
             'search': 'Hledat',
+            'no_data': 'Vašemu dotazu nedopovídají žádné položky.'
         },
         'days': {
             'mon': 'Po',

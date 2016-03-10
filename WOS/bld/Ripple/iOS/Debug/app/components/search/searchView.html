@@ -1,9 +1,26 @@
-﻿<ion-view view-title='
-    <div class="bar bar-header item-input-inset nav-search">
-        <label class="item-input-wrapper">
-            <i class="icon ion-ios-search placeholder-icon"></i>
-            <input type="search" placeholder="Hledat" translate translate-attr-placeholder="search.search" focus-me>
-        </label>
-    </div>
-    '>
+﻿<ion-view view-title="">
+    <ion-nav-title>
+        <div class="bar bar-header item-input-inset nav-search">
+            <form ng-submit="search()" class="form-search">
+                <label class="item-input-wrapper">
+                    <i class="icon ion-ios-search placeholder-icon"></i>
+                    <input type="search" placeholder="Hledat" translate translate-attr-placeholder="search.search" ng-model="searchText.value">
+                </label>
+            </form>
+        </div>
+    </ion-nav-title>
+    <ion-content>
+        <ion-refresher pulling-text="Pull to refresh..."
+                       on-refresh="doRefresh()">
+        </ion-refresher>
+        <error-message reload="doRefresh()" status="status" ng-hide="status === 0"></error-message>
+        <div class="error-message" ng-show="status === 1">
+            <p>{{ 'search.no_data' | translate }}</p>
+        </div>
+
+        <div ng-repeat="item in items">
+            <wos-item name="item"></wos-item>
+        </div>
+
+    </ion-content>
 </ion-view>

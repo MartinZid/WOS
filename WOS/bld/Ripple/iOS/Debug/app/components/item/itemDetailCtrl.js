@@ -2,7 +2,7 @@
 angular.module('wos.controllers.itemDetail', [])
 
 .controller('ItemDetailCtrl', function ($scope, item, $stateParams, rating,
-                                        $ionicSlideBoxDelegate, $ionicPopover, $cordovaGeolocation, $window) {
+                                        $ionicSlideBoxDelegate, $ionicPopover, $cordovaGeolocation) {
     /// <summary>
     /// Controller for item detail view.
     /// </summary>
@@ -36,7 +36,6 @@ angular.module('wos.controllers.itemDetail', [])
 
             }).error(function (data) { ///if can not load data from server set $scope.status, for error handling
                 console.log('item.getItemDetail: Can not load data from server.');
-                $scope.message = "Bohužel se nepodařilo načíst informace o položce. :-(";
                 $scope.status = 2;
             }).finally(function () { /// Stop the ion-refresher from spinning
                 $scope.$broadcast('scroll.refreshComplete');
