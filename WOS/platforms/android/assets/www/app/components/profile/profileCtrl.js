@@ -14,6 +14,7 @@ angular.module('wos.controllers.profile', [])
     $scope.id = $stateParams.profileId;
     $scope.profile;
     $scope.status = 3;
+    $scope.userItemsSum = 0;
 
     getProfileData($scope.id);
 
@@ -27,6 +28,7 @@ angular.module('wos.controllers.profile', [])
                 $scope.profile = data;
                 console.log(data);
                 $scope.status = 0;
+                $scope.userItemsSum = $scope.countUserItems();
 
             }).error(function (data) { ///if can not load data from server set $scope.status, for error handling
                 console.log('profile.getProfileData: Can not load data from server.');
@@ -44,4 +46,9 @@ angular.module('wos.controllers.profile', [])
     $scope.getFullStars = rating.getFullStars;
     $scope.hasHalfStar = rating.hasHalfStar;
     $scope.getEmptyStars = rating.getEmptyStars;
+
+    $scope.countUserItems = function () {
+        console.log($scope.profile.items.length);
+        return $scope.profile.items.length;
+    }
 })

@@ -94,9 +94,17 @@ angular.module('wos.controllers.itemDetail', [])
         loadMap();
     });
 
+    $scope.$on("$ionicView.loaded", function (scope, states) {
+        console.log('refreshing map from "loaded"...')
+        google.maps.event.trigger(map, 'resize');
+        loadMap();
+    });
+
     var options = { timeout: 10000, enableHighAccuracy: true };
 
     function loadMap() {
+        //google.maps.event.trigger(map, 'resize');
+        //console.log('loading map...');
         /// <summary>
         /// Sets up the map.
         /// </summary>

@@ -2,7 +2,7 @@
 angular.module('wos.controllers.itemDetail', [])
 
 .controller('ItemDetailCtrl', function ($scope, item, $stateParams, rating,
-                                        $ionicSlideBoxDelegate, $ionicPopover, $cordovaGeolocation) {
+                                        $ionicSlideBoxDelegate, $ionicPopover, $cordovaGeolocation, $window) {
     /// <summary>
     /// Controller for item detail view.
     /// </summary>
@@ -13,7 +13,6 @@ angular.module('wos.controllers.itemDetail', [])
     /// <param name="$ionicSlideBoxDelegate" type="type"></param>
     /// <param name="$ionicPopover" type="type"></param>
     /// <param name="$cordovaGeolocation" type="type"></param>
-
     $scope.id = $stateParams.itemId;
     $scope.item = {
         'prumerne_hodnoceni': 0 ///this has to be defined, because rating.getFullStars is called event before all data is loaded
@@ -89,8 +88,9 @@ angular.module('wos.controllers.itemDetail', [])
         /// </summary>
         /// <param name="scopes" type="type"></param>
         /// <param name="states" type="type"></param>
+        if ($scope.status !== 0) return;
         console.log('refreshing map...')
-        google.maps.event.trigger(map, 'resize');
+        //google.maps.event.trigger(map, 'resize');
         loadMap();
     });
 
@@ -111,6 +111,9 @@ angular.module('wos.controllers.itemDetail', [])
             };
 
             $scope.map = new google.maps.Map(document.getElementById("map"), mapOptions);
+
+            console.log($scope.map);
+            console.log(document.getElementById("map"));
 
             //Wait until the map is loaded
             google.maps.event.addListenerOnce($scope.map, 'idle', function () {

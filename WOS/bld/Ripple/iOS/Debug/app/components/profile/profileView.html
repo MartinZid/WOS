@@ -32,5 +32,11 @@
             </div>
         </div>
 
+        <p ng-show="userItemsSum !== 0" class="padding">{{ 'profile.user_items' | translate }} <b>{{userItemsSum}}</b></p>
+
+        <div ng-repeat="item in profile.items">
+            <wos-item name="item"></wos-item>
+        </div>
+
     </ion-content>
 </ion-view>

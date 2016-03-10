@@ -20,6 +20,7 @@ module.exports = function(config){
             'www/app/app.js',
             'www/app/components/profile/*.js',
             'www/app/components/notifications/*js',
+            'www/app/components/cart/*.js'
         ],
 
         autoWatch : true,

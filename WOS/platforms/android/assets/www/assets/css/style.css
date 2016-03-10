@@ -124,3 +124,24 @@ a.button.button-icon.icon.ion-ios-search-strong:before {
 .profile-data {
     margin-bottom: 0.5em;
 }
+.notifications {
+    margin-top: -10px;
+    margin-bottom: -20px;
+    padding: 1px;
+    border-style: none;
+}
+.item{
+  overflow: inherit;
+  text-overflow: inherit;
+  white-space: normal;
+}
+.notifications-date {
+    margin-top: 0.5em;
+    font-size: 80%;
+}
+.cart-edit-btn {
+    position: absolute;
+    right: 5%;
+    margin-top: -1.5em;
+    margin-bottom: -1.2em;
+}

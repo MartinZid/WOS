@@ -7,6 +7,8 @@ angular.module('wos', ['ionic',
                        'wos.controllers.search',
                        'wos.controllers.itemDetail',
                        'wos.controllers.profile',
+                       'wos.controllers.notifications',
+                       'wos.controllers.cart',
                        'wos.services.item',
                        'wos.services.profile',
                        'wos.rating',
@@ -67,8 +69,17 @@ angular.module('wos', ['ionic',
             'address': 'Adresa',
             'availability': 'Dostupnost'
         },
-        'notifications:': {
+        'notifications': {
             'notifications': 'Upozornění',
+            'no_data': 'Zatím nemáte žádná upozornění.'
+        },
+        'cart': {
+            'cart': 'Košík',
+            'no_data': 'Váš košík je zatím prázdný.',
+            'edit': 'Upravit'
+        },
+        'profile': {
+            'user_items': 'Nabízené položky'
         }
         
     });
@@ -122,7 +133,7 @@ angular.module('wos', ['ionic',
       views: {
           'notifications': {
             templateUrl: 'app/components/notifications/notificationsView.html',
-            controller: 'ChatsCtrl'
+            controller: 'NotificationsCtrl'
         }
       }
   })
@@ -152,7 +163,7 @@ angular.module('wos', ['ionic',
       views: {
           'cart': {
               templateUrl: 'app/components/cart/cartView.html',
-              controller: 'AccountCtrl'
+              controller: 'CartCtrl'
         }
       }
     })

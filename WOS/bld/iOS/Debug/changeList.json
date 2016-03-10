@@ -95,6 +95,7 @@
     "plugins\\cordova-plugin-geolocation\\package.json",
     "www\\assets\\lib\\ionic\\js\\angular-ui\\angular-ui-router.js",
     "plugins\\cordova-plugin-geolocation\\tests\\plugin.xml",
+    "www\\app\\components\\cart\\cartCtrl.js",
     "plugins\\cordova-sqlite-storage\\www\\SQLitePlugin.js",
     "www\\assets\\lib\\ionic\\scss\\_badge.scss",
     "www\\assets\\lib\\ionic\\scss\\ionic.scss",
@@ -152,6 +153,7 @@
     "res\\icons\\windows\\Wide310x150Logo.scale-100.png",
     "plugins\\cordova-sqlite-storage\\Lawnchair-adapter\\Lawnchair-sqlitePlugin.js",
     "plugins\\cordova-plugin-geolocation\\src\\ios\\CDVLocation.h",
+    "www\\app\\components\\notifications\\notificationsCtrl.js",
     "www\\assets\\lib\\ionic\\scss\\_toggle.scss",
     "www\\assets\\css\\index.css",
     "res\\icons\\ios\\icon-72-2x.png",
@@ -233,6 +235,7 @@
     "res\\icons\\ios\\icon-57.png",
     "plugins\\cordova-sqlite-storage\\spec\\www\\spec\\sql-batch-test.js",
     "www\\assets\\lib\\ionic\\js\\ionic.bundle.min.js",
+    "www\\app\\components\\notifications\\notificationsCtrlTests.js",
     "plugins\\cordova-plugin-geolocation\\src\\ubuntu\\geolocation.h",
     "www\\assets\\lib\\ionic\\scss\\_platform.scss",
     "plugins\\cordova-sqlite-storage\\Lawnchair-adapter\\test-www\\lib\\json2.js",
@@ -251,6 +254,7 @@
     "Scripts\\angular.min.js",
     "plugins\\cordova-plugin-geolocation\\doc\\de\\index.md",
     "www\\app\\components\\search\\searchCtrl.js",
+    "www\\app\\components\\cart\\carrCtrlTest.js",
     "www\\assets\\lib\\angular-mocks\\README.md",
     "www\\assets\\lib\\ionic\\scss\\_transitions.scss",
     "res\\icons\\wp8\\ApplicationIcon.png",
@@ -317,9 +321,7 @@
     "www\\app\\components\\profile\\profileService.js",
     "www\\app\\components\\item\\itemDetailCtrl.js"
   ],
-  "deletedFilesIos": [
-    "www\\app\\orpngrdg.mnt~"
-  ],
+  "deletedFilesIos": [],
   "addedPluginsIos": [],
   "deletedPluginsIos": [],
   "changedFiles": [
@@ -418,6 +420,7 @@
     "plugins\\cordova-plugin-geolocation\\package.json",
     "www\\assets\\lib\\ionic\\js\\angular-ui\\angular-ui-router.js",
     "plugins\\cordova-plugin-geolocation\\tests\\plugin.xml",
+    "www\\app\\components\\cart\\cartCtrl.js",
     "plugins\\cordova-sqlite-storage\\www\\SQLitePlugin.js",
     "www\\assets\\lib\\ionic\\scss\\_badge.scss",
     "www\\assets\\lib\\ionic\\scss\\ionic.scss",
@@ -475,6 +478,7 @@
     "res\\icons\\windows\\Wide310x150Logo.scale-100.png",
     "plugins\\cordova-sqlite-storage\\Lawnchair-adapter\\Lawnchair-sqlitePlugin.js",
     "plugins\\cordova-plugin-geolocation\\src\\ios\\CDVLocation.h",
+    "www\\app\\components\\notifications\\notificationsCtrl.js",
     "www\\assets\\lib\\ionic\\scss\\_toggle.scss",
     "www\\assets\\css\\index.css",
     "res\\icons\\ios\\icon-72-2x.png",
@@ -556,6 +560,7 @@
     "res\\icons\\ios\\icon-57.png",
     "plugins\\cordova-sqlite-storage\\spec\\www\\spec\\sql-batch-test.js",
     "www\\assets\\lib\\ionic\\js\\ionic.bundle.min.js",
+    "www\\app\\components\\notifications\\notificationsCtrlTests.js",
     "plugins\\cordova-plugin-geolocation\\src\\ubuntu\\geolocation.h",
     "www\\assets\\lib\\ionic\\scss\\_platform.scss",
     "plugins\\cordova-sqlite-storage\\Lawnchair-adapter\\test-www\\lib\\json2.js",
@@ -574,6 +579,7 @@
     "Scripts\\angular.min.js",
     "plugins\\cordova-plugin-geolocation\\doc\\de\\index.md",
     "www\\app\\components\\search\\searchCtrl.js",
+    "www\\app\\components\\cart\\carrCtrlTest.js",
     "www\\assets\\lib\\angular-mocks\\README.md",
     "www\\assets\\lib\\ionic\\scss\\_transitions.scss",
     "res\\icons\\wp8\\ApplicationIcon.png",
@@ -640,9 +646,7 @@
     "www\\app\\components\\profile\\profileService.js",
     "www\\app\\components\\item\\itemDetailCtrl.js"
   ],
-  "deletedFiles": [
-    "www\\app\\orpngrdg.mnt~"
-  ],
+  "deletedFiles": [],
   "addedPlugins": [],
   "deletedPlugins": []
 }

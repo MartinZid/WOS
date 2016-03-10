@@ -139,3 +139,9 @@ a.button.button-icon.icon.ion-ios-search-strong:before {
     margin-top: 0.5em;
     font-size: 80%;
 }
+.cart-edit-btn {
+    position: absolute;
+    right: 5%;
+    margin-top: -1.5em;
+    margin-bottom: -1.2em;
+}

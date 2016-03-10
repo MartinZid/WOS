@@ -1,4 +1,4 @@
-﻿<ion-view view-title="{{item.nazev}}">
+﻿<ion-view view-title="{{item.nazev}}" cache-view="false">
     <ion-nav-title>
         {{item.nazev}}
     </ion-nav-title>
@@ -15,7 +15,7 @@
                 </ion-slide>
             </ion-slide-box>
 
-            <div class="item-detail-prices">
+            <!--<div class="item-detail-prices">
                 <table>
                     <tbody ng-repeat="instance in item.instances">
                         <tr ng-repeat="price in instance.prices">
@@ -25,14 +25,14 @@
                         </tr>
                     </tbody>
                 </table>
-            </div>
+            </div>-->
         </div>
 
         <div class="padding item-detail-content" ng-show="status === 0">
             <div class="row item-detail-user">
 
                 <div class="col col-25">
-                    <a ng-href="#/tab/home/profile/{{item.id_uzivatel}}"><img ng-src="http://www.gravatar.com/avatar/0000000000000000s=20" class="gravatar" /></a>
+                    <a ng-href="#/tab/home/profile/{{item.id_uzivatel}}"><img ng-src="http://www.gravatar.com/avatar/{{item.gravatar}}s=20" class="gravatar" /></a>
                 </div>
 
                 <script id="popover.html" type="text/ng-template">
