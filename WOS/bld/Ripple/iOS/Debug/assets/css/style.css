@@ -148,3 +148,12 @@ a.button.button-icon.icon.ion-ios-search-strong:before {
 .form-search {
     width: 100%;
 }
+.actived {
+    background-color: #0c63ee;
+}
+.my_profile-info {
+    margin-top: 1.5em;
+}
+.my_profile-btn-bar {
+    margin-top: 1em;
+}

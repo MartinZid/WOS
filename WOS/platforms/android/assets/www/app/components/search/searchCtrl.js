@@ -10,16 +10,17 @@ angular.module('wos.controllers.search', [])
 
     $scope.status;
     $scope.items;
-    $scope.query;
+    $scope.searchText = {};
+    //$scope.query;
 
-    function getItemDetail(query) {
+    $scope.search = function() {
         /// <summary>
         /// Downloads data for search
         /// </summary>
-        item.search(query)
+        item.search($scope.searchText.value)
             .success(function (data) { ///if success save loaded data to $scope.items
                 //any code in here will automatically have an apply run afterwards
-                $scope.item = data;
+                $scope.items = data;
                 console.log(data);
                 $scope.status = 0;
                 if ($scope.items.length == 0) {
@@ -35,6 +36,6 @@ angular.module('wos.controllers.search', [])
     }
     $scope.doRefresh = function () {
         console.log('refreshing...');
-        getItemDetail($scope.id)
+        $scope.search($scope.searchText.value)
     }
 })

@@ -1,3 +1,52 @@
-﻿<ion-view view-title="Account">
+﻿<ion-view view-title="{{ 'profile.my_profile' | translate }}">>
+    <ion-content>
+        <ion-refresher pulling-text="Pull to refresh..."
+                       on-refresh="doRefresh()">
+        </ion-refresher>
+        <error-message reload="doRefresh()" status="status" ng-hide="status === 0"></error-message>
 
+        <div class="row my_profile-info">
+            <div class="col col-20">
+                <img ng-src="http://www.gravatar.com/avatar/7a51e658ac587888f3358909b87a6b0as=20" class="gravatar" />
+            </div>
+            <div class="col col-40">
+                <div>Martin Žid</div>
+                <div ng-show="5 > -1">
+                    <span ng-repeat="i in getFullStars(5) track by $index" class="item-rating">
+                        <i class="ion-android-star"></i>
+                    </span>
+                    <span class="item-rating" ng-show="hasHalfStar(5)">
+                        <i class="ion-android-star-half"></i>
+                    </span>
+                    <span ng-repeat="i in getEmptyStars(5) track by $index" class="item-rating">
+                        <i class="ion-android-star-outline"></i>
+                    </span>
+                </div>
+                <div>
+                    Liberec
+                </div>
+            </div>
+            <div class="col col-40">
+                <div>+420 723 104 733</div>
+                <div>zidmarti@fit.cvut.cz</div>
+            </div>
+        </div>
+        <div class="button-bar padding my_profile-btn-bar">
+            <a class="button button-positive button-small" ng-click="changeSection(1)" 
+               ng-class="{'active': selectedSection == 1}">
+                {{ 'profile.my_items' | translate }}                       
+            </a>                                                           
+            <a class="button button-positive button-small" ng-click="changeSection(2)"
+               ng-class="{'active': selectedSection == 2}">
+                {{ 'profile.borrows' | translate }}                        
+            </a>                                                           
+            <a class="button button-positive button-small" ng-click="changeSection(3)"
+               ng-class="{'active': selectedSection == 3}">
+                {{ 'profile.rents' | translate }}
+            </a>
+        </div>
+        <div>
+            {{selectedSection}}
+        </div>
+    </ion-content>
 </ion-view>

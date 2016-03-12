@@ -3,7 +3,6 @@
     var ctrl,
         $item,
         httpBackend,
-        rating,
         stateParams,
         ionicSlideBoxDelegateMock,
         ionicPopoverMock;
@@ -24,22 +23,11 @@
         })
     }));
 
-    beforeEach(module(function ($provide) {
-        $provide.factory('rating', function () {
-            return {
-                getFullStars: function (num) { },
-                hasHalfStar: function (num) { },
-                getEmptyStars: function (num) { }
-            }
-        });
-    }));
-
-    beforeEach(inject(function (_$controller_, item, $httpBackend, _rating_, $q) {
+    beforeEach(inject(function (_$controller_, item, $httpBackend, $q) {
         ctrl = _$controller_;
         $item = item;
         httpBackend = $httpBackend;
         stateParams = { itemId: 22 };
-        rating = _rating_;
         ionicSlideBoxDelegateMock = jasmine.createSpyObj('$ionicSlideBoxDelegate spy', ['update']);
         ionicPopoverMock = {
             fromTemplateUrl: jasmine.createSpy('popover spy')
@@ -63,7 +51,7 @@
         $scope.$on = function () { };
         var controller = ctrl('ItemDetailCtrl', {
             $scope: $scope, item: $item, $stateParams: stateParams,
-            rating: rating, $ionicSlideBoxDelegate: ionicSlideBoxDelegateMock,
+            $ionicSlideBoxDelegate: ionicSlideBoxDelegateMock,
             $ionicPopover: ionicPopoverMock, $cordovaGeolocation: cordovaGeolocationMock
         });
         expect($scope.status).toBe(3);
@@ -73,7 +61,7 @@
         $scope.$on = function () { };
         var controller = ctrl('ItemDetailCtrl', {
             $scope: $scope, item: $item, $stateParams: stateParams,
-            rating: rating, $ionicSlideBoxDelegate: ionicSlideBoxDelegateMock,
+            $ionicSlideBoxDelegate: ionicSlideBoxDelegateMock,
             $ionicPopover: ionicPopoverMock, $cordovaGeolocation: cordovaGeolocationMock
         });
         expect(typeof $scope.doRefresh).toBe('function');
@@ -83,19 +71,9 @@
         $scope.$on = function () { };
         var controller = ctrl('ItemDetailCtrl', {
             $scope: $scope, item: $item, $stateParams: stateParams,
-            rating: rating, $ionicSlideBoxDelegate: ionicSlideBoxDelegateMock,
+            $ionicSlideBoxDelegate: ionicSlideBoxDelegateMock,
             $ionicPopover: ionicPopoverMock, $cordovaGeolocation: cordovaGeolocationMock
         });
         expect(ionicPopoverMock.fromTemplateUrl).toHaveBeenCalled();
-    });
-    it('rating functions should be defined', function () {
-        var $scope = {};
-        $scope.$on = function () { };
-        var controller = ctrl('ItemDetailCtrl', {
-            $scope: $scope, item: $item, $stateParams: stateParams,
-            rating: rating, $ionicSlideBoxDelegate: ionicSlideBoxDelegateMock,
-            $ionicPopover: ionicPopoverMock, $cordovaGeolocation: cordovaGeolocationMock
-        });
-        expect(typeof $scope.getFullStars && typeof $scope.hasHalfStar && typeof $scope.getEmptyStars).toBe('function');
     });
 })

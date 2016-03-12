@@ -9,11 +9,13 @@ angular.module('wos', ['ionic',
                        'wos.controllers.profile',
                        'wos.controllers.notifications',
                        'wos.controllers.cart',
+                       'wos.controllers.account',
                        'wos.services.item',
                        'wos.services.profile',
                        'wos.rating',
                        'wos.directives.item',
                        'wos.directives.errorMessage',
+                       'wos.directives.rating',
                        'wos.api',
                        'ngIOS9UIWebViewPatch',
                        'ngCordova',
@@ -80,7 +82,11 @@ angular.module('wos', ['ionic',
             'edit': 'Upravit'
         },
         'profile': {
-            'user_items': 'Nabízené položky'
+            'user_items': 'Nabízené položky',
+            'my_profile': 'Můj profil',
+            'my_items': 'Položky',
+            'borrows': 'Vypůjčeno',
+            'rents': 'Pronajato'
         }
         
     });
@@ -180,6 +186,6 @@ angular.module('wos', ['ionic',
   });
 
   // if none of the above states are matched
-  $urlRouterProvider.otherwise('/tab/home');
-
+  //$urlRouterProvider.otherwise('/tab/home');
+  $urlRouterProvider.otherwise('/tab/account')
 });

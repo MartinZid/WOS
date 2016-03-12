@@ -3,7 +3,8 @@ module.exports = function(config){
         basePath: '../',
         preprocessors: {
             'www/app/shared/item/itemView.html': ['ng-html2js'],
-            'www/app/shared/errorMessage/errorMessageView.html': ['ng-html2js']
+            'www/app/shared/errorMessage/errorMessageView.html': ['ng-html2js'],
+            'www/app/shared/rating/ratingView.html': ['ng-html2js']
         },
 
         files : [
@@ -20,7 +21,9 @@ module.exports = function(config){
             'www/app/app.js',
             'www/app/components/profile/*.js',
             'www/app/components/notifications/*js',
-            'www/app/components/cart/*.js'
+            'www/app/components/cart/*.js',
+            'www/app/shared/rating/*js',
+            'www/app/shared/rating/ratingView.html'
         ],
 
         autoWatch : true,

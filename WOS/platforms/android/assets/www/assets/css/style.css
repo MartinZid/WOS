@@ -15,7 +15,7 @@
     margin-top: 0px;
 }
 .platform-ios .nav-search {
-    margin-top: -20px;
+    margin-top: -28px;
 }
 .item-prices{
     background-color: rgba(60, 60, 60, 0.75);
@@ -92,7 +92,7 @@ a.button.button-icon.icon.ion-ios-search-strong:before {
 }
 .order-btn-footer {
     width: 100%;
-    bottom: 40px;
+    bottom: 50px;
 }
 .order-btn {
     width: 100%;
@@ -100,17 +100,17 @@ a.button.button-icon.icon.ion-ios-search-strong:before {
     border-width: 0px !important;
 }
 .has-order-btn {
-    margin-bottom: 40px !important;
+    margin-bottom: 50px !important;
 }
-/*.platform-ios .has-order-btn {
-    margin-bottom: 94px;
-}*/
+.platform-ios .has-order-btn {
+    margin-bottom: 100px !important;
+}
 .no-decor-a {
     color: black;
     text-decoration: none;
 }
 .tabs {
-    height: 47px !important;
+    height: 50px !important;
 }
 .profile-gravatar {
     border-radius: 100px;
@@ -144,4 +144,16 @@ a.button.button-icon.icon.ion-ios-search-strong:before {
     right: 5%;
     margin-top: -1.5em;
     margin-bottom: -1.2em;
+}
+.form-search {
+    width: 100%;
+}
+.actived {
+    background-color: #0c63ee;
+}
+.my_profile-info {
+    margin-top: 1.5em;
+}
+.my_profile-btn-bar {
+    margin-top: 1em;
 }

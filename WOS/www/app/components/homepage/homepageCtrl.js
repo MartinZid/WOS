@@ -60,9 +60,3 @@ angular.module('wos.controllers.homepage', [])
 .controller('ChatDetailCtrl', function ($scope) {
 
 })
-
-.controller('AccountCtrl', function ($scope) {
-    $scope.settings = {
-        enableFriends: true
-    };
-});
