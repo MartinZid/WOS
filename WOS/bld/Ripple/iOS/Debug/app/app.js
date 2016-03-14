@@ -11,6 +11,7 @@ angular.module('wos', ['ionic',
                        'wos.controllers.cart',
                        'wos.controllers.account',
                        'wos.controllers.registration',
+                       'wos.controllers.login',
                        'wos.services.item',
                        'wos.services.profile',
                        'wos.rating',
@@ -101,11 +102,18 @@ angular.module('wos', ['ionic',
             'email': 'e-mail',
             'password': 'Heslo',
             'min_length': 'Heslo musí obsahovat alespoň 5 znaků!',
-            'already_had_account': 'Máte již účet? Přihlašte se.'
+            'already_had_account': 'Máte již účet? Přihlašte se.',
+            'register': 'Registrovat se'
         },
         'form': {
             'is_required': 'je povinné',
             'is_required2': 'Neplatný'
+        },
+        'login': {
+            'login': 'Přihlášení',
+            'doLogin': 'Přihlásit se',
+            'forgotten_password': 'Zapomenuté heslo?',
+            'to_registration': 'Zaregistrujte se nyní'
         }
         
     });
@@ -212,9 +220,20 @@ angular.module('wos', ['ionic',
               controller: 'RegistrationCtrl'
           }
       }
+  })
+
+  .state('tab.login', {
+      url: '/account/login',
+      views: {
+          'account': {
+              templateUrl: 'app/components/login/loginView.html',
+              controller: 'LoginCtrl'
+          }
+      }
   });
 
   // if none of the above states are matched
   //$urlRouterProvider.otherwise('/tab/home');
-   $urlRouterProvider.otherwise('tab/account/registration')
+   //$urlRouterProvider.otherwise('tab/account/login');
+   $urlRouterProvider.otherwise('tab/account/registration');
 });

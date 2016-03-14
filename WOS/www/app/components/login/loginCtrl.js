@@ -1,14 +1,14 @@
 ﻿'use strict';
-angular.module('wos.controllers.registration', [])
+angular.module('wos.controllers.login', [])
 
-.controller('RegistrationCtrl', function ($scope) {
+.controller('LoginCtrl', function ($scope) {
     /// <summary>
     /// Controller for registration.
     /// </summary>
     /// <param name="$scope" type="type"></param>
 
-    $scope.registration = function (user) {
+    $scope.login = function (user) {
         console.log('submited');
-        console.log(user.name);
+        console.log(user.email + " " + user.password);
     }
 })

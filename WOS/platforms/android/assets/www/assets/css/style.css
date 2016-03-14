@@ -157,3 +157,41 @@ a.button.button-icon.icon.ion-ios-search-strong:before {
 .my_profile-btn-bar {
     margin-top: 1em;
 }
+.registration-logo {
+    height: 35px;
+    /*margin-bottom: 3%;*/
+}
+.centering {
+    text-align: center;
+}
+.registration {
+    /*text-align: center;*/
+    margin: 0 auto;
+    width: 80%;
+    top: 3%;
+    position: relative;
+}
+.no-error {
+    padding-bottom: 0px;
+    border-style: none;
+    border-bottom: solid 1px;   
+    border-color: #11c1f3;
+}
+.registration-btn {
+    margin-top: 12%;
+}
+.has-error {
+    padding-bottom: 0px;
+    border-style: none;
+    border-bottom: solid 1px;   
+    border-color: red;
+}
+.error-msg {
+    color: red;
+    position: absolute;
+    right: 0px;
+}
+.to-login {
+    margin-top: 5%;
+    margin-bottom: 10%;
+}

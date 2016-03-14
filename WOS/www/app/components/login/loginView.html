@@ -1,0 +1,55 @@
+﻿<ion-view view-title="{{ 'login.login' | translate }}" ng-cloak hide-back-button="true">
+    <ion-content ng-cloak>
+        <ion-content ng-cloak>
+            <div class="registration">
+                <div class="centering">
+                    <img class="registration-logo" src="assets/img/main_logo.png" />
+                </div>
+                <div>
+                    <form name="registrationForm" ng-submit="login(user)">
+
+                        <label class="item item-input item-stacked-label no-error"
+                               ng-class="{ 'has-error' : registrationForm.email.$invalid && registrationForm.email.$touched,
+                                       'no-error' : registrationForm.email.$valid || registrationForm.email.$untouched }">
+                            <span class="input-label">{{ 'registration.Email' | translate }}</span>
+                            <input type="email" name="email" ng-model="user.email" placeholder="{{ 'registration.Email' | translate }}" required>
+                        </label>
+                        <div class="error-msg" ng-show="registrationForm.email.$invalid && registrationForm.email.$touched">
+                            {{ 'form.is_required2' | translate }} {{ 'registration.email' | translate }}!
+                        </div>
+
+                        <label class="item item-input item-stacked-label no-error"
+                               ng-class="{ 'has-error' : registrationForm.password.$invalid && registrationForm.password.$touched, 
+                                           'no-error' : registrationForm.password.$valid || registrationForm.password.$untouched }">
+                            <span class="input-label">{{ 'registration.password' | translate }}</span>
+                            <input type="password" name="password" ng-model="user.password" placeholder="{{ 'registration.password' | translate }}" required>
+                        </label>
+                        <div class="error-msg" ng-show="registrationForm.password.$invalid && registrationForm.password.$touched">
+                            {{ 'registration.password' | translate }} {{ 'form.is_required' | translate }}!
+                        </div>
+
+                        <!--<input type="submit" class="button button-outline button-calm registration-btn" value="Registrovat se" />-->
+                        <div class="centering">
+                            <button class="button button-outline button-calm registration-btn" type="submit"
+                                    ng-disabled="registrationForm.email.$invalid || registrationForm.password.$invalid ">
+                                {{ 'login.doLogin' | translate }}
+                            </button>
+                        </div>
+                    </form>
+
+                    <div class="centering margin-links">
+                        <a ng-href="#/tab/account/registration" class="button button-clear button-dark">
+                            {{ 'login.forgotten_password' | translate }}
+                        </a>
+                    </div>
+
+                    <div class="centering margin-links">
+                        <a ng-href="#/tab/account/registration" class="button button-clear button-dark">
+                            {{ 'login.to_registration' | translate }}
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+        </ion-content>
+</ion-view>
