@@ -1,15 +1,14 @@
 ﻿'use strict';
 angular.module('wos.controllers.itemDetail', [])
 
-.controller('ItemDetailCtrl', function ($scope, item, $stateParams, rating,
-                                        $ionicSlideBoxDelegate, $ionicPopover, $cordovaGeolocation) {
+.controller('ItemDetailCtrl', function ($scope, item, $stateParams, $ionicSlideBoxDelegate,
+                                        $ionicPopover, $cordovaGeolocation) {
     /// <summary>
     /// Controller for item detail view.
     /// </summary>
     /// <param name="$scope" type="type"></param>
     /// <param name="item" type="type"></param>
     /// <param name="$stateParams" type="type"></param>
-    /// <param name="rating" type="type"></param>
     /// <param name="$ionicSlideBoxDelegate" type="type"></param>
     /// <param name="$ionicPopover" type="type"></param>
     /// <param name="$cordovaGeolocation" type="type"></param>
@@ -46,10 +45,6 @@ angular.module('wos.controllers.itemDetail', [])
         getItemDetail($scope.id)
     }
 
-    $scope.getFullStars = rating.getFullStars;
-    $scope.hasHalfStar = rating.hasHalfStar;
-    $scope.getEmptyStars = rating.getEmptyStars;
-
     $ionicPopover.fromTemplateUrl('popover.html', {
         scope: $scope
     }).then(function (popover) {
@@ -58,7 +53,6 @@ angular.module('wos.controllers.itemDetail', [])
 
     $scope.openPopover = function ($event, content) {
         $scope.popover.show($event);
-        console.log(content);
         $scope.content = content;
     };
 
@@ -110,9 +104,6 @@ angular.module('wos.controllers.itemDetail', [])
             };
 
             $scope.map = new google.maps.Map(document.getElementById("map"), mapOptions);
-
-            console.log($scope.map);
-            console.log(document.getElementById("map"));
 
             //Wait until the map is loaded
             google.maps.event.addListenerOnce($scope.map, 'idle', function () {

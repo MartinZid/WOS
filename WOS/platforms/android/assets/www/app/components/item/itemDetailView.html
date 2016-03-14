@@ -68,17 +68,8 @@
                     <a ng-href="#/tab/home/profile/{{item.id_uzivatel}}" class="no-decor-a">
                         <div>{{item.jmeno}} {{item.prijmeni}}</div>
                     </a>
-                    <div ng-show="item.ownerInfo.prumerne_hodnoceni > -1">
-                        <span ng-repeat="i in getFullStars(item.prumerne_hodnoceni) track by $index" class="item-rating">
-                            <i class="ion-android-star"></i>
-                        </span>
-                        <span class="item-rating" ng-show="hasHalfStar(item.prumerne_hodnoceni)">
-                            <i class="ion-android-star-half"></i>
-                        </span>
-                        <span ng-repeat="i in getEmptyStars(item.prumerne_hodnoceni) track by $index" class="item-rating">
-                            <i class="ion-android-star-outline"></i>
-                        </span>
-                    </div>
+                    <!--item.rating is owner's rating-->
+                    <stars-rating rating="item.prumerne_hodnoceni"></stars-rating>
                     <div>
                         <span ng-repeat="item in item.availability" ng-click="openPopover($event, item)" class="locality">{{item.town}} </span>
                     </div>
@@ -90,7 +81,7 @@
             </div>            
         </div>
         <div id="map" data-tap-disabled="true" ng-show="status === 0"></div>
-        <div class="has-order-btn">
+        <div class="has-order-btn" >
             <p>Some text Some textSome textSome textSome textSome textSome textSome textSome text</p>
         </div>
         

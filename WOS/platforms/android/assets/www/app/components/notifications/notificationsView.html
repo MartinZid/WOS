@@ -1,5 +1,5 @@
-﻿<ion-view view-title="{{ 'notifications.notifications' | translate }}">
-    <ion-content>
+﻿<ion-view view-title="{{ 'notifications.notifications' | translate }}" ng-cloak>
+    <ion-content ng-cloak>
 
         <ion-refresher pulling-text="Pull to refresh..."
                        on-refresh="doRefresh()">
@@ -15,7 +15,7 @@
                 {{ item.text }}
                 <p class="notifications-date">28.02.2016</p>
                 <ion-option-button class="button-assertive" ng-click="deleteItem(item)">
-                    Delete
+                    {{ 'delete' | translate }}
                 </ion-option-button>
             </ion-item>
         </ion-list>

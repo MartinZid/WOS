@@ -55,6 +55,7 @@
     "plugins\\cordova-sqlite-storage\\spec\\www\\spec\\tx-semantics-test.js",
     "plugins\\cordova-sqlite-storage\\src\\ios\\SQLitePlugin.h",
     "plugins\\cordova-sqlite-storage\\src\\ios\\SQLitePlugin.m",
+    "www\\app\\shared\\rating\\ratingDirective.js",
     "plugins\\cordova-sqlite-storage\\spec\\www\\index.html",
     "res\\icons\\android\\icon-48-mdpi.png",
     "www\\assets\\css\\style.css",
@@ -139,6 +140,7 @@
     "www\\assets\\lib\\ionic\\scss\\ionicons\\_ionicons-icons.scss",
     "res\\screens\\ios\\screen-ipad-landscape-2x.png",
     "plugins\\cordova-plugin-geolocation\\NOTICE",
+    "www\\app\\shared\\rating\\ratingDirectiveTest.js",
     "res\\screens\\ios\\screen-iphone-568h-2x.png",
     "res\\icons\\windows\\Square150x150Logo.scale-100.png",
     "www\\app\\components\\item\\itemService.js",
@@ -298,6 +300,7 @@
     "www\\assets\\lib\\angular-mocks\\ngMock.js",
     "www\\assets\\lib\\ionic\\js\\angular\\angular-animate.js",
     "plugins\\cordova-sqlite-storage\\plugin.xml",
+    "www\\app\\shared\\rating\\ratingView.html",
     "plugins\\cordova-sqlite-storage\\spec\\www\\lib\\jasmine-2.2.0\\console.js",
     "plugins\\cordova-sqlite-storage\\tests\\plugin.xml",
     "www\\assets\\lib\\ionic\\js\\angular\\angular-resource.js",
@@ -321,12 +324,10 @@
     "res\\screens\\android\\screen-mdpi-portrait.png",
     "www\\app\\components\\profile\\profileService.js",
     "www\\app\\components\\item\\itemDetailCtrl.js",
-    "www\\app\\shared\\rating\\ratingDirective.js",
-    "www\\app\\shared\\rating\\ratingView.html"
+    "www\\app\\components\\registration\\registrationView.html",
+    "www\\app\\components\\registration\\registrationCtrl.js"
   ],
-  "deletedFilesIos": [
-    "www\\app\\shared\\ratingDirective.js"
-  ],
+  "deletedFilesIos": [],
   "addedPluginsIos": [],
   "deletedPluginsIos": [],
   "changedFiles": [
@@ -385,6 +386,7 @@
     "plugins\\cordova-sqlite-storage\\spec\\www\\spec\\tx-semantics-test.js",
     "plugins\\cordova-sqlite-storage\\src\\ios\\SQLitePlugin.h",
     "plugins\\cordova-sqlite-storage\\src\\ios\\SQLitePlugin.m",
+    "www\\app\\shared\\rating\\ratingDirective.js",
     "plugins\\cordova-sqlite-storage\\spec\\www\\index.html",
     "res\\icons\\android\\icon-48-mdpi.png",
     "www\\assets\\css\\style.css",
@@ -469,6 +471,7 @@
     "www\\assets\\lib\\ionic\\scss\\ionicons\\_ionicons-icons.scss",
     "res\\screens\\ios\\screen-ipad-landscape-2x.png",
     "plugins\\cordova-plugin-geolocation\\NOTICE",
+    "www\\app\\shared\\rating\\ratingDirectiveTest.js",
     "res\\screens\\ios\\screen-iphone-568h-2x.png",
     "res\\icons\\windows\\Square150x150Logo.scale-100.png",
     "www\\app\\components\\item\\itemService.js",
@@ -628,6 +631,7 @@
     "www\\assets\\lib\\angular-mocks\\ngMock.js",
     "www\\assets\\lib\\ionic\\js\\angular\\angular-animate.js",
     "plugins\\cordova-sqlite-storage\\plugin.xml",
+    "www\\app\\shared\\rating\\ratingView.html",
     "plugins\\cordova-sqlite-storage\\spec\\www\\lib\\jasmine-2.2.0\\console.js",
     "plugins\\cordova-sqlite-storage\\tests\\plugin.xml",
     "www\\assets\\lib\\ionic\\js\\angular\\angular-resource.js",
@@ -651,12 +655,10 @@
     "res\\screens\\android\\screen-mdpi-portrait.png",
     "www\\app\\components\\profile\\profileService.js",
     "www\\app\\components\\item\\itemDetailCtrl.js",
-    "www\\app\\shared\\rating\\ratingDirective.js",
-    "www\\app\\shared\\rating\\ratingView.html"
+    "www\\app\\components\\registration\\registrationView.html",
+    "www\\app\\components\\registration\\registrationCtrl.js"
   ],
-  "deletedFiles": [
-    "www\\app\\shared\\ratingDirective.js"
-  ],
+  "deletedFiles": [],
   "addedPlugins": [],
   "deletedPlugins": []
 }

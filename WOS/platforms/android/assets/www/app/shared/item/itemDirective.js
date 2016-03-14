@@ -2,7 +2,7 @@
 
 angular.module('wos.directives.item', [])
 
-.directive('wosItem', function ($parse, api, rating) {
+.directive('wosItem', function ($parse, api) {
     /// <summary>
     /// wosItem directive.
     /// </summary>
@@ -15,10 +15,6 @@ angular.module('wos.directives.item', [])
         link: function (scope, elem, attrs) {
             scope.item = $parse(attrs.name)(scope);
             scope.url = api.url;
-                        
-            scope.getFullStars = rating.getFullStars;
-            scope.hasHalfStar = rating.hasHalfStar;
-            scope.getEmptyStars = rating.getEmptyStars;
         }
     };
 })

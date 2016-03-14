@@ -1,0 +1,65 @@
+﻿<ion-view view-title="{{ 'registration.registration' | translate }}" ng-cloak>
+    <ion-content ng-cloak>
+        <div class="registration">
+            <div class="centering">
+                <img class="registration-logo"src="assets/img/main_logo.png" />
+            </div>
+            <div>
+                <form name="registrationForm" ng-submit="registration(user)">
+                    <label class="item item-input item-stacked-label no-error"
+                            ng-class="{ 'has-error' : registrationForm.name.$invalid && registrationForm.name.$touched, 'no-error' : registrationForm.name.$valid" >
+                        <span class="input-label">{{ 'registration.name' | translate }}</span>
+                        <input type="text" name="name" ng-model="user.name" placeholder="{{ 'registration.name' | translate }}" required>
+                    </label>
+                    <div class="error-msg" ng-show="registrationForm.name.$invalid && registrationForm.name.$touched">
+                        {{ 'registration.name' | translate }} {{ 'form.is_required' | translate }}!
+                    </div>
+
+                    <label class="item item-input item-stacked-label no-error"
+                           ng-class="{ 'has-error' : registrationForm.surname.$invalid && registrationForm.surname.$touched, 'no-error' : registrationForm.surname.$valid}" >
+                        <span class="input-label">{{ 'registration.surname' | translate }}</span>
+                        <input type="text" name="surname" ng-model="user.surname" placeholder="{{ 'registration.surname' | translate }}" required>
+                    </label>
+                    <div class="error-msg" ng-show="registrationForm.surname.$invalid && registrationForm.surname.$touched">
+                        {{ 'registration.surname' | translate }} {{ 'form.is_required' | translate }}!
+                    </div>
+
+                    <label class="item item-input item-stacked-label no-error"
+                           ng-class="{ 'has-error' : registrationForm.email.$invalid && registrationForm.email.$touched, 
+                                       'no-error' : registrationForm.email.$valid || registrationForm.email.$untouched }" >
+                        <span class="input-label">{{ 'registration.Email' | translate }}</span>
+                        <input type="email" name="email" ng-model="user.email" placeholder="{{ 'registration.Email' | translate }}" required>
+                    </label>
+                    <div class="error-msg" ng-show="registrationForm.email.$invalid && registrationForm.email.$touched">
+                        {{ 'form.is_required2' | translate }} {{ 'registration.email' | translate }}!
+                    </div>
+
+                    <label class="item item-input item-stacked-label no-error" 
+                           ng-class="{ 'has-error' : registrationForm.password.$invalid && registrationForm.password.$touched, 'no-error' : registrationForm.password.$valid}">
+                        <span class="input-label">{{ 'registration.password' | translate }}</span>
+                        <input type="password" name="password" ng-model="user.password" placeholder="{{ 'registration.password' | translate }}" required ng-minlength="3">
+                    </label>
+                    <div class="error-msg" ng-show="registrationForm.password.$invalid && registrationForm.password.$touched && !registrationForm.$error.minlength">
+                        {{ 'registration.password' | translate }} {{ 'form.is_required' | translate }}!
+                    </div>
+                    <div class="error-msg" ng-show="registrationForm.password.$invalid && registrationForm.password.$touched && registrationForm.$error.minlength">
+                        {{ 'registration.min_length' | translate }}
+                    </div>
+
+                    <!--<input type="submit" class="button button-outline button-calm registration-btn" value="Registrovat se" />-->
+                    <div class="centering">
+                        <button class="button button-outline button-calm registration-btn" type="submit">
+                            Registrovat se
+                        </button>
+                    </div>
+                </form>
+
+                <div class="centering to-login">
+                    <button class="button button-clear button-dark">
+                        {{ 'registration.already_had_account' | translate }}
+                    </button>
+                </div>
+            </div>
+        </div>
+    </ion-content>
+</ion-view>

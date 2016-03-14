@@ -1,7 +1,7 @@
 ﻿'use strict';
 angular.module('wos.controllers.account', [])
 
-.controller('AccountCtrl', function ($scope, rating, $state) {
+.controller('AccountCtrl', function ($scope, $state) {
     /// <summary>
     /// Controller for homepage tab
     /// </summary>
@@ -22,8 +22,4 @@ angular.module('wos.controllers.account', [])
     $scope.changeSection = function (state) {
         $scope.selectedSection = state;
     };
-
-    $scope.getFullStars = rating.getFullStars;
-    $scope.hasHalfStar = rating.hasHalfStar;
-    $scope.getEmptyStars = rating.getEmptyStars;
 })

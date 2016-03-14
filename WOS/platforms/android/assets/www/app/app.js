@@ -10,6 +10,7 @@ angular.module('wos', ['ionic',
                        'wos.controllers.notifications',
                        'wos.controllers.cart',
                        'wos.controllers.account',
+                       'wos.controllers.registration',
                        'wos.services.item',
                        'wos.services.profile',
                        'wos.rating',
@@ -86,8 +87,12 @@ angular.module('wos', ['ionic',
             'my_profile': 'Můj profil',
             'my_items': 'Položky',
             'borrows': 'Vypůjčeno',
-            'rents': 'Pronajato'
-        }
+            'rents': 'Pronajato',
+            'show_reviews': 'Zobrazit hodnocení',
+            'reviews': 'Hodnocení'
+        },
+        'close': 'Zavřít',
+        'delete': 'Smazat'
         
     });
     $translateProvider.preferredLanguage('cs');
@@ -183,9 +188,19 @@ angular.module('wos', ['ionic',
               controller: 'AccountCtrl'
       }
     }
+  })
+
+  .state('tab.registration', {
+      url: '/account/registration',
+      views: {
+          'account': {
+              templateUrl: 'app/components/registration/registrationView.html',
+              controller: 'RegistrationCtrl'
+          }
+      }
   });
 
   // if none of the above states are matched
   //$urlRouterProvider.otherwise('/tab/home');
-  $urlRouterProvider.otherwise('/tab/account')
+  $urlRouterProvider.otherwise('/accout/registration')
 });
