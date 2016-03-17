@@ -10,7 +10,6 @@ angular.module('wos.controllers.homepage', [])
 
     $scope.items; /// all items
     $scope.status = 0; /// status variable for errors (0 = no error, 1 = there are no items; 2 = server error) 
-    $scope.message; /// variable with message string
 
     getAllItems();
 
@@ -45,18 +44,5 @@ angular.module('wos.controllers.homepage', [])
 
     ///navTitle stores a html img for app icon
     $scope.navTitle = '<img class="title-image" src="assets/img/main_logo.png" />';
-
-})
-
-
-
-
-.controller('DashCtrl', function ($scope) { })
-
-.controller('ChatsCtrl', function ($scope) {
-
-})
-
-.controller('ChatDetailCtrl', function ($scope) {
 
 })

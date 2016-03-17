@@ -22,13 +22,25 @@ angular.module('wos.services.item', [])
         },
         getDetail: function(id) {
             /// <summary>
-            /// Returns a promis for item detail. Used in item detail controller.
+            /// Returns a promise for item detail. Used in item detail controller.
             /// </summary>
-            /// <param name="id" type="type"></param>
+            /// <param name="id" type="integer"></param>
+            /// <returns type="promise"></returns>
             return $http({
                 method: 'GET',
-                url: api.url + '/mobile/item?itemID=' + id
+                url: api.url + 'mobile/item?itemID=' + id
             });
+        },
+        search: function (query) {
+            /// <summary>
+            /// Returns a promise for search. Used in search controller.
+            /// </summary>
+            /// <param name="query" type="string"></param>
+            /// <returns type="promise"></returns>
+            return $http({
+                method: 'GET',
+                url: api.url + 'mobile/item?search=' + query
+            })
         }
     }
 

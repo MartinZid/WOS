@@ -20,6 +20,10 @@ angular.module('wos.controllers.account', [])
     };
 
     $scope.changeSection = function (state) {
+        /// <summary>
+        /// Change section to user's chosen (state param).
+        /// </summary>
+        /// <param name="state" type="integer"></param>
         $scope.selectedSection = state;
     };
 })

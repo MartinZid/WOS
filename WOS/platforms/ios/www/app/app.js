@@ -6,10 +6,19 @@ angular.module('wos', ['ionic',
                        'wos.controllers.homepage',
                        'wos.controllers.search',
                        'wos.controllers.itemDetail',
+                       'wos.controllers.profile',
+                       'wos.controllers.notifications',
+                       'wos.controllers.cart',
+                       'wos.controllers.account',
+                       'wos.controllers.registration',
+                       'wos.controllers.login',
+                       'wos.controllers.addItem',
                        'wos.services.item',
+                       'wos.services.profile',
                        'wos.rating',
                        'wos.directives.item',
                        'wos.directives.errorMessage',
+                       'wos.directives.rating',
                        'wos.api',
                        'ngIOS9UIWebViewPatch',
                        'ngCordova',
@@ -50,6 +59,7 @@ angular.module('wos', ['ionic',
         },
         'search': {
             'search': 'Hledat',
+            'no_data': 'Vašemu dotazu nedopovídají žádné položky.'
         },
         'days': {
             'mon': 'Po',
@@ -60,7 +70,58 @@ angular.module('wos', ['ionic',
             'sat': 'So',
             'sun': 'Ne'
         },
-        'unavailable': 'Nedostupné'
+        'availability': {
+            'unavailable': 'Nedostupné',
+            'address': 'Adresa',
+            'availability': 'Dostupnost'
+        },
+        'notifications': {
+            'notifications': 'Upozornění',
+            'no_data': 'Zatím nemáte žádná upozornění.'
+        },
+        'cart': {
+            'cart': 'Košík',
+            'no_data': 'Váš košík je zatím prázdný.',
+            'edit': 'Upravit'
+        },
+        'profile': {
+            'user_items': 'Nabízené položky',
+            'my_profile': 'Můj profil',
+            'my_items': 'Položky',
+            'borrows': 'Vypůjčeno',
+            'rents': 'Pronajato',
+            'show_reviews': 'Zobrazit hodnocení',
+            'reviews': 'Hodnocení'
+        },
+        'close': 'Zavřít',
+        'delete': 'Smazat',
+        'registration': {
+            'registration': 'Registrace',
+            'name': 'Jméno',
+            'surname': 'Příjmení',
+            'Email': 'E-mail',
+            'email': 'e-mail',
+            'password': 'Heslo',
+            'min_length': 'Heslo musí obsahovat alespoň 5 znaků!',
+            'already_had_account': 'Máte již účet? Přihlašte se.',
+            'register': 'Registrovat se'
+        },
+        'form': {
+            'is_required': 'je povinné',
+            'is_required2': 'Neplatný'
+        },
+        'login': {
+            'login': 'Přihlášení',
+            'doLogin': 'Přihlásit se',
+            'forgotten_password': 'Zapomenuté heslo?',
+            'to_registration': 'Zaregistrujte se nyní'
+        },
+        'forgotten_password': 'Zapomenuté heslo',
+        'send_link': 'Odeslat odkaz k obnovení',
+        'addItem': {
+            'addItem': 'Nová položka'
+        }
+        
     });
     $translateProvider.preferredLanguage('cs');
     $translateProvider.useSanitizeValueStrategy('escape');
@@ -78,86 +139,118 @@ angular.module('wos', ['ionic',
     $ionicConfigProvider.backButton.previousTitleText(false).text('');
     $ionicConfigProvider.tabs.position('bottom');
 
-   $stateProvider
+    $stateProvider
 
-  // abstract state
-  .state('tab', {
-    url: '/tab',
-    abstract: true,
-    templateUrl: 'app/components/tabs/tabsView.html'
-  })
-
-  .state('tab.home', {
-    url: '/home',
-    views: {
-      'homepage': {
-          templateUrl: 'app/components/homepage/homepageView.html',
-          controller: 'HomepageCtrl'
-      }
-    }
-  })
-
-  .state('tab.search', {
-      url: '/home/search',
-      views: {
-          'homepage': {
-              templateUrl: 'app/components/search/searchView.html',
-              controller: 'SearchCtrl'
-          }
-      }
-  })
-
-  .state('tab.notifications', {
-      url: '/notifications',
-      views: {
-          'notifications': {
-            templateUrl: 'app/components/notifications/notificationsView.html',
-            controller: 'ChatsCtrl'
-        }
-      }
-  })
-
-  .state('tab.item-detail', {
-      url: '/home/:itemId',
-      views: {
-          'homepage': {
-            templateUrl: 'app/components/item/itemDetailView.html',
-            controller: 'ItemDetailCtrl'
-        }
-      }
+   // abstract state
+   .state('tab', {
+       url: '/tab',
+       abstract: true,
+       templateUrl: 'app/components/tabs/tabsView.html'
    })
 
-  .state('tab.profile-detail', {
-      url: '/home/profile/:profileId',
-      views: {
-          'homepage': {
-              templateUrl: 'app/components/profile/profileView.html',
-              controller: 'ChatDetailCtrl'
-          }
-      }
-  })
+   .state('tab.home', {
+       url: '/home',
+       views: {
+           'homepage': {
+               templateUrl: 'app/components/homepage/homepageView.html',
+               controller: 'HomepageCtrl'
+           }
+       }
+   })
 
-  .state('tab.cart', {
-      url: '/cart',
-      views: {
-          'cart': {
-              templateUrl: 'app/components/cart/cartView.html',
-              controller: 'AccountCtrl'
-        }
-      }
-    })
+   .state('tab.search', {
+       url: '/home/search',
+       views: {
+           'homepage': {
+               templateUrl: 'app/components/search/searchView.html',
+               controller: 'SearchCtrl'
+           }
+       }
+   })
 
-  .state('tab.account', {
-      url: '/account',
-      views: {
-          'account': {
-              templateUrl: 'app/components/account/accountView.html',
-              controller: 'AccountCtrl'
-      }
-    }
-  });
+
+   .state('tab.addItem', {
+       url: '/home/addItem',
+       views: {
+           'homepage': {
+               templateUrl: 'app/components/addItem/addItemView.html',
+               controller: 'AddItemCtrl'
+           }
+       }
+   })
+
+   .state('tab.notifications', {
+       url: '/notifications',
+       views: {
+           'notifications': {
+               templateUrl: 'app/components/notifications/notificationsView.html',
+               controller: 'NotificationsCtrl'
+           }
+       }
+   })
+
+   .state('tab.item-detail', {
+       url: '/home/:itemId',
+       views: {
+           'homepage': {
+               templateUrl: 'app/components/item/itemDetailView.html',
+               controller: 'ItemDetailCtrl'
+           }
+       }
+   })
+
+   .state('tab.profile-detail', {
+       url: '/home/profile/:profileId',
+       views: {
+           'homepage': {
+               templateUrl: 'app/components/profile/profileView.html',
+               controller: 'ProfileCtrl'
+           }
+       }
+   })
+
+   .state('tab.cart', {
+       url: '/cart',
+       views: {
+           'cart': {
+               templateUrl: 'app/components/cart/cartView.html',
+               controller: 'CartCtrl'
+           }
+       }
+   })
+
+   .state('tab.account', {
+       url: '/account',
+       views: {
+           'account': {
+               templateUrl: 'app/components/account/accountView.html',
+               controller: 'AccountCtrl'
+           }
+       }
+   })
+
+   .state('tab.registration', {
+       url: '/account/registration',
+       views: {
+           'account': {
+               templateUrl: 'app/components/registration/registrationView.html',
+               controller: 'RegistrationCtrl'
+           }
+       }
+   })
+
+   .state('tab.login', {
+       url: '/account/login',
+       views: {
+           'account': {
+               templateUrl: 'app/components/login/loginView.html',
+               controller: 'LoginCtrl'
+           }
+       }
+   });
 
   // if none of the above states are matched
-  $urlRouterProvider.otherwise('/tab/home');
-
+   //$urlRouterProvider.otherwise('/tab/home');
+   $urlRouterProvider.otherwise('tab/account/login');
+   //$urlRouterProvider.otherwise('tab/account/registration');
 });

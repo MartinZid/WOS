@@ -15,7 +15,7 @@
     margin-top: 0px;
 }
 .platform-ios .nav-search {
-    margin-top: -20px;
+    margin-top: -28px;
 }
 .item-prices{
     background-color: rgba(60, 60, 60, 0.75);
@@ -46,8 +46,8 @@ a.button.button-icon.icon.ion-ios-search-strong:before {
     left: 51%;
     position: relative;
     /*bottom: -0.7em;*/
-    background-color: rgba(255,255,255,0.5);
-    /*background-color: rgba(60, 60, 60, 0.75);*/
+    /*background-color: rgba(255,255,255,0.5);*/
+    background-color: rgba(60, 60, 60, 0.75);
     padding: 0.1em 0.5em 0.2em;
     font-size: 110%;
     color: black;
@@ -81,4 +81,139 @@ a.button.button-icon.icon.ion-ios-search-strong:before {
 .locality {
     color: #387ef5;
     padding-right: 0.2em;
+}
+
+.scroll {
+    height: 100%;
+} 
+#map {
+    width: 100%;
+    height: 60%;
+}
+.order-btn-footer {
+    width: 100%;
+    bottom: 50px;
+}
+.order-btn {
+    width: 100%;
+    margin: 0 !important;
+    border-width: 0px !important;
+}
+.has-order-btn {
+    margin-bottom: 50px !important;
+}
+.platform-ios .has-order-btn {
+    margin-bottom: 100px !important;
+}
+.no-decor-a {
+    color: black;
+    text-decoration: none;
+}
+.tabs {
+    height: 50px !important;
+}
+.profile-gravatar {
+    border-radius: 100px;
+    width: 22%;
+}
+.user-info {
+    text-align: center;
+    margin-top: 10%;
+    font-size: 110%;
+}
+.profile-data {
+    margin-bottom: 0.5em;
+}
+.notifications {
+    margin-top: -10px;
+    margin-bottom: -20px;
+    padding: 1px;
+    border-style: none;
+}
+.item{
+  overflow: inherit;
+  text-overflow: inherit;
+  white-space: normal;
+}
+.notifications-date {
+    margin-top: 0.5em;
+    font-size: 80%;
+}
+.cart-edit-btn {
+    position: absolute;
+    right: 5%;
+    margin-top: -1.5em;
+    margin-bottom: -1.2em;
+}
+.form-search {
+    width: 100%;
+}
+.actived {
+    background-color: #0c63ee;
+}
+.my_profile-info {
+    margin-top: 1.5em;
+}
+.my_profile-btn-bar {
+    margin-top: 1em;
+}
+.registration-logo {
+    height: 35px;
+    /*margin-bottom: 3%;*/
+}
+.centering {
+    text-align: center;
+}
+.registration {
+    /*text-align: center;*/
+    margin: 0 auto;
+    width: 80%;
+    top: 3%;
+    position: relative;
+}
+.no-error {
+    padding-bottom: 0px;
+    border-style: none;
+    border-bottom: solid 1px;   
+    border-color: #11c1f3;
+}
+.registration-btn {
+    margin-top: 12%;
+}
+.has-error {
+    padding-bottom: 0px;
+    border-style: none;
+    border-bottom: solid 1px;   
+    border-color: red;
+}
+.error-msg {
+    color: red;
+    position: absolute;
+    right: 0px;
+}
+.margin-links {
+    margin-top: 5%;
+    margin-bottom: 10%;
+}
+.floating-btn {
+    border-radius: 100px;
+    width: 55px;
+    height: 55px;
+    position: fixed;
+    bottom: 75px;
+    right: 20px;
+    z-index: 9999;
+    background-color: #db4437;
+    box-shadow: 0 6px 10px 0 rgba(0,0,0,0.3)
+}
+.add-btn {
+  position: absolute;
+  left: 0;
+  top: 50%;
+  height: 100%;
+  width: 100%;
+  text-align: center;
+  font-size: 20px;
+  margin-top: -10px;
+  color: white;
 }

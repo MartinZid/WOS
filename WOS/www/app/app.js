@@ -12,6 +12,7 @@ angular.module('wos', ['ionic',
                        'wos.controllers.account',
                        'wos.controllers.registration',
                        'wos.controllers.login',
+                       'wos.controllers.addItem',
                        'wos.services.item',
                        'wos.services.profile',
                        'wos.rating',
@@ -107,13 +108,25 @@ angular.module('wos', ['ionic',
         },
         'form': {
             'is_required': 'je povinné',
-            'is_required2': 'Neplatný'
+            'is_required2': 'Neplatný',
+            'is_required3': 'je povinný',
+            'is_reguired4': 'je povinná',
+            'wrong_price': 'musí být kladná'
         },
         'login': {
             'login': 'Přihlášení',
             'doLogin': 'Přihlásit se',
             'forgotten_password': 'Zapomenuté heslo?',
             'to_registration': 'Zaregistrujte se nyní'
+        },
+        'forgotten_password': 'Zapomenuté heslo',
+        'send_link': 'Odeslat odkaz k obnovení',
+        'addItem': {
+            'addItem': 'Nová položka',
+            'new_photo': 'Přidat fotografii',
+            'name_and_prices': 'Název a ceny',
+            'name': 'Název',
+            'price': 'Cena',
         }
         
     });
@@ -133,107 +146,118 @@ angular.module('wos', ['ionic',
     $ionicConfigProvider.backButton.previousTitleText(false).text('');
     $ionicConfigProvider.tabs.position('bottom');
 
-   $stateProvider
+    $stateProvider
 
-  // abstract state
-  .state('tab', {
-    url: '/tab',
-    abstract: true,
-    templateUrl: 'app/components/tabs/tabsView.html'
-  })
-
-  .state('tab.home', {
-    url: '/home',
-    views: {
-      'homepage': {
-          templateUrl: 'app/components/homepage/homepageView.html',
-          controller: 'HomepageCtrl'
-      }
-    }
-  })
-
-  .state('tab.search', {
-      url: '/home/search',
-      views: {
-          'homepage': {
-              templateUrl: 'app/components/search/searchView.html',
-              controller: 'SearchCtrl'
-          }
-      }
-  })
-
-  .state('tab.notifications', {
-      url: '/notifications',
-      views: {
-          'notifications': {
-            templateUrl: 'app/components/notifications/notificationsView.html',
-            controller: 'NotificationsCtrl'
-        }
-      }
-  })
-
-  .state('tab.item-detail', {
-      url: '/home/:itemId',
-      views: {
-          'homepage': {
-            templateUrl: 'app/components/item/itemDetailView.html',
-            controller: 'ItemDetailCtrl'
-        }
-      }
+   // abstract state
+   .state('tab', {
+       url: '/tab',
+       abstract: true,
+       templateUrl: 'app/components/tabs/tabsView.html'
    })
 
-  .state('tab.profile-detail', {
-      url: '/home/profile/:profileId',
-      views: {
-          'homepage': {
-              templateUrl: 'app/components/profile/profileView.html',
-              controller: 'ProfileCtrl'
-          }
-      }
-  })
+   .state('tab.home', {
+       url: '/home',
+       views: {
+           'homepage': {
+               templateUrl: 'app/components/homepage/homepageView.html',
+               controller: 'HomepageCtrl'
+           }
+       }
+   })
 
-  .state('tab.cart', {
-      url: '/cart',
-      views: {
-          'cart': {
-              templateUrl: 'app/components/cart/cartView.html',
-              controller: 'CartCtrl'
-        }
-      }
-    })
+   .state('tab.search', {
+       url: '/home/search',
+       views: {
+           'homepage': {
+               templateUrl: 'app/components/search/searchView.html',
+               controller: 'SearchCtrl'
+           }
+       }
+   })
 
-  .state('tab.account', {
-      url: '/account',
-      views: {
-          'account': {
-              templateUrl: 'app/components/account/accountView.html',
-              controller: 'AccountCtrl'
-      }
-    }
-  })
 
-  .state('tab.registration', {
-      url: '/account/registration',
-      views: {
-          'account': {
-              templateUrl: 'app/components/registration/registrationView.html',
-              controller: 'RegistrationCtrl'
-          }
-      }
-  })
+   .state('tab.addItem', {
+       url: '/home/addItem',
+       views: {
+           'homepage': {
+               templateUrl: 'app/components/addItem/addItemView.html',
+               controller: 'AddItemCtrl'
+           }
+       }
+   })
 
-  .state('tab.login', {
-      url: '/account/login',
-      views: {
-          'account': {
-              templateUrl: 'app/components/login/loginView.html',
-              controller: 'LoginCtrl'
-          }
-      }
-  });
+   .state('tab.notifications', {
+       url: '/notifications',
+       views: {
+           'notifications': {
+               templateUrl: 'app/components/notifications/notificationsView.html',
+               controller: 'NotificationsCtrl'
+           }
+       }
+   })
+
+   .state('tab.item-detail', {
+       url: '/home/:itemId',
+       views: {
+           'homepage': {
+               templateUrl: 'app/components/item/itemDetailView.html',
+               controller: 'ItemDetailCtrl'
+           }
+       }
+   })
+
+   .state('tab.profile-detail', {
+       url: '/home/profile/:profileId',
+       views: {
+           'homepage': {
+               templateUrl: 'app/components/profile/profileView.html',
+               controller: 'ProfileCtrl'
+           }
+       }
+   })
+
+   .state('tab.cart', {
+       url: '/cart',
+       views: {
+           'cart': {
+               templateUrl: 'app/components/cart/cartView.html',
+               controller: 'CartCtrl'
+           }
+       }
+   })
+
+   .state('tab.account', {
+       url: '/account',
+       views: {
+           'account': {
+               templateUrl: 'app/components/account/accountView.html',
+               controller: 'AccountCtrl'
+           }
+       }
+   })
+
+   .state('tab.registration', {
+       url: '/account/registration',
+       views: {
+           'account': {
+               templateUrl: 'app/components/registration/registrationView.html',
+               controller: 'RegistrationCtrl'
+           }
+       }
+   })
+
+   .state('tab.login', {
+       url: '/account/login',
+       views: {
+           'account': {
+               templateUrl: 'app/components/login/loginView.html',
+               controller: 'LoginCtrl'
+           }
+       }
+   });
 
   // if none of the above states are matched
-  //$urlRouterProvider.otherwise('/tab/home');
+   $urlRouterProvider.otherwise('/tab/home/addItem');
    //$urlRouterProvider.otherwise('tab/account/login');
-   $urlRouterProvider.otherwise('tab/account/registration');
+   //$urlRouterProvider.otherwise('tab/account/registration');
 });

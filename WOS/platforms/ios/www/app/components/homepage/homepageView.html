@@ -8,8 +8,17 @@
                        on-refresh="doRefresh()">
         </ion-refresher>
         <error-message reload="doRefresh()" status="status" ng-hide="status === 0"></error-message>
+        <div class="error-message" ng-show="status === 1">
+            <p>{{ 'errors.no_data' | translate }}</p>
+        </div>
+
         <div ng-repeat="item in items">
             <wos-item name="item"></wos-item>
         </div>
     </ion-content>
+    <a ng-href="#/tab/home/addItem">
+        <div class="floating-btn">
+            <i class="ion-android-add add-btn"></i>
+        </div>
+    </a>
 </ion-view>

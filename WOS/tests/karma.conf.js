@@ -23,7 +23,11 @@ module.exports = function(config){
             'www/app/components/notifications/*js',
             'www/app/components/cart/*.js',
             'www/app/shared/rating/*js',
-            'www/app/shared/rating/ratingView.html'
+            'www/app/shared/rating/ratingView.html',
+            'www/app/components/account/*.js',
+            'www/app/components/login/*.js',
+            'www/app/components/registration/*.js',
+            'www/app/components/search/*.js'
         ],
 
         autoWatch : true,

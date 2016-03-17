@@ -1,3 +1,65 @@
-﻿<ion-view view-title="Uživatel">
+﻿<ion-view view-title="">
+    <ion-nav-title>
+        {{profile.jmeno}} {{profile.prijmeni}}
+    </ion-nav-title>
+    <ion-nav-buttons side="secondary">
+        <a class="button button-icon icon icon ion-ios-email-outline "></a>
+    </ion-nav-buttons>
+    <ion-content>
+        <ion-refresher pulling-text="Pull to refresh..."
+                       on-refresh="doRefresh()">
+        </ion-refresher>
+        <error-message reload="doRefresh()" status="status" ng-hide="status === 0"></error-message>
 
+        <div class="user-info" ng-show="status === 0">
+            <img ng-src="http://www.gravatar.com/avatar/{{profile.gravatar}}s=20" class="profile-gravatar profile-data" />
+            <div class="profile-data">
+                {{profile.jmeno}} {{profile.prijmeni}}
+            </div>
+            <div class="profile-data">
+                {{profile.email}}
+            </div>
+
+            <script id="reviews.html" type="text/ng-template">
+                <ion-modal-view>
+                    <ion-header-bar>
+                        <h1 class="title">{{ 'profile.reviews' | translate }}</h1>
+                        <div class="button button-clear button-positive" ng-click="modal.hide()">{{ 'close' | translate }}</div>
+                    </ion-header-bar>
+                    <ion-content>
+                        <ion-list>
+                            <ion-item ng-repeat="review in reviews">
+                                <div>{{review.jmeno}}</div>
+                                <stars-rating rating="review.skore"></stars-rating>
+                                <div>{{review.komentar}}</div>
+                            </ion-item>
+                        </ion-list>
+                    </ion-content>
+                </ion-modal-view>
+            </script>
+
+            <button class="button button-outline button-positive button-small" ng-click="openModal($event, profile.reviews)">
+                {{ 'profile.show_reviews' | translate }}
+            </button>
+
+            <div ng-show="profile.prumerne_hodnoceni > -1" class="profile-data">
+                <span ng-repeat="i in getFullStars(profile.prumerne_hodnoceni) track by $index" class="item-rating">
+                    <i class="ion-android-star"></i>
+                </span>
+                <span class="item-rating" ng-show="hasHalfStar(profile.prumerne_hodnoceni)">
+                    <i class="ion-android-star-half"></i>
+                </span>
+                <span ng-repeat="i in getEmptyStars(profile.prumerne_hodnoceni) track by $index" class="item-rating">
+                    <i class="ion-android-star-outline"></i>
+                </span>
+            </div>
+        </div>
+
+        <p ng-show="userItemsSum !== 0" class="padding">{{ 'profile.user_items' | translate }} <b>{{userItemsSum}}</b></p>
+
+        <div ng-repeat="item in profile.items">
+            <wos-item name="item"></wos-item>
+        </div>
+
+    </ion-content>
 </ion-view>

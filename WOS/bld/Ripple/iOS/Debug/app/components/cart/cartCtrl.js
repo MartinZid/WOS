@@ -8,7 +8,7 @@ angular.module('wos.controllers.cart', [])
     /// <param name="$scope" type="type"></param>
     $scope.status = 0;
 
-    $scope.data = {
+    $scope.data = { //default state for cart list
         showDelete: false
     };
 

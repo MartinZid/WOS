@@ -8,7 +8,7 @@ angular.module('wos.controllers.search', [])
     /// <param name="$scope" type="type"></param>
     /// <param name="item" type="type"></param>
 
-    $scope.status;
+    $scope.status = 0;
     $scope.items;
     $scope.searchText = {};
     //$scope.query;

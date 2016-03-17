@@ -195,3 +195,68 @@ a.button.button-icon.icon.ion-ios-search-strong:before {
     margin-top: 5%;
     margin-bottom: 10%;
 }
+.floating-btn {
+    border-radius: 100px;
+    width: 55px;
+    height: 55px;
+    position: fixed;
+    bottom: 75px;
+    right: 20px;
+    z-index: 9999;
+    background-color: #db4437;
+    box-shadow: 0 6px 10px 0 rgba(0,0,0,0.3)
+}
+.add-btn {
+  position: absolute;
+  left: 0;
+  top: 50%;
+  height: 100%;
+  width: 100%;
+  text-align: center;
+  font-size: 20px;
+  margin-top: -10px;
+  color: white;
+}
+.take-photo {
+    /*position: relative;*/
+    width: 100%;
+    text-align: center;
+    height: 20%;
+}
+.photo-not-taken {
+    background-color: #DCD7E6;
+    width: 100%;
+    height: 100%;
+}
+.new-photo {
+    margin: 0 auto;
+    text-align: center;
+    padding-top: 5%;
+}
+.photo-icon {
+    font-size: 35px;
+}
+.item-photo {
+    width: 100%;
+}
+.larger-padding {
+    width: 80%;
+    margin: 0 auto;
+}
+.addItem-input {
+    margin: 0 auto;
+    position: relative;
+    padding: 0px;
+}
+.addItem-select {
+    margin-top: 2.1em;
+    border-style: none;
+    height: 34px;
+}
+.nopadding {
+    padding: 0px;
+}
+.period-select {
+    padding: 0 48px 0 10px !important;
+    /*position: relative !important;*/
+}

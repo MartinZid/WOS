@@ -34,6 +34,10 @@
     <feature name="Geolocation">
         <param name="ios-package" value="CDVLocation" />
     </feature>
+    <feature name="Camera">
+        <param name="ios-package" value="CDVCamera" />
+    </feature>
+    <preference name="CameraUsesGeolocation" value="false" />
     <icon height="180" src="res/icons/ios/icon-60-3x.png" width="180" />
     <icon height="60" src="res/icons/ios/icon-60.png" width="60" />
     <icon height="120" src="res/icons/ios/icon-60-2x.png" width="120" />
