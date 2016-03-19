@@ -91,7 +91,8 @@ angular.module('wos', ['ionic',
             'borrows': 'Vypůjčeno',
             'rents': 'Pronajato',
             'show_reviews': 'Zobrazit hodnocení',
-            'reviews': 'Hodnocení'
+            'reviews': 'Hodnocení',
+            'message_for_user': 'Zpráva uživateli',
         },
         'close': 'Zavřít',
         'delete': 'Smazat',
@@ -127,7 +128,12 @@ angular.module('wos', ['ionic',
             'name_and_prices': 'Název a ceny',
             'name': 'Název',
             'price': 'Cena',
-        }
+            'add_price': 'Přidat cenu'
+        },
+        'hour': 'Hodina',
+        'day': 'Den',
+        'month': 'Měsíc',
+        'year': 'Rok',
         
     });
     $translateProvider.preferredLanguage('cs');
@@ -257,7 +263,7 @@ angular.module('wos', ['ionic',
    });
 
   // if none of the above states are matched
-   $urlRouterProvider.otherwise('/tab/home/addItem');
-   //$urlRouterProvider.otherwise('tab/account/login');
+   $urlRouterProvider.otherwise('/tab/home');
+   //$urlRouterProvider.otherwise('tab/home/profile/25');
    //$urlRouterProvider.otherwise('tab/account/registration');
 });

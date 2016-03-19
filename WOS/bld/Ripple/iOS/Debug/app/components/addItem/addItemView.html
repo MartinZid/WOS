@@ -10,7 +10,7 @@
             </div>
             <img ng-show="imgURI !== undefined" ng-src="{{imgURI}}" class="item-photo"/>
         </div>
-        <form name="addItemForm">
+        <form name="forms.addItemForm">
             <div class="padding">
                 <div class="legend">
                     <h4>{{ 'addItem.name_and_prices' | translate }}</h4>
@@ -26,7 +26,18 @@
                         {{ 'addItem.name' | translate }} {{ 'form.is_required3' | translate }}!
                     </div>
                 </div>
-                <div class="row">
+                <div>
+                    <table class="prices-table">
+                        <tr ng-repeat="p in prices">
+                            <td ng-show="p.period === 1">{{ 'hour' | translate }}</td>
+                            <td ng-show="p.period === 2">{{ 'day' | translate }}</td>
+                            <td ng-show="p.period === 3">{{ 'month' | translate }}</td>
+                            <td ng-show="p.period === 4">{{ 'month' | translate }}</td>
+                            <td>{{p.price}} Kč</td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="row nopadding">
                     <div class="addItem-input col col-70">
                         <label class="item item-input item-stacked-label no-error"
                                ng-class="{ 'has-error' : addItemForm.price.$invalid && addItemForm.price.$touched,
@@ -49,18 +60,22 @@
                             <option>Rok</option>
                         </select>-->
                         <div class="list">
-
                             <label class="item item-input item-select addItem-select nopadding">
-                                <select class="period-select">
-                                    <option selected >Hodina</option>
-                                    <option>Den</option>
-                                    <option>Měsíc</option>
-                                    <option>Rok</option>
+                                <select class="period-select" ng-model="price.period">
+                                    <option value="1" selected ng-selected="selected">{{ 'hour' | translate }}</option>
+                                    <option value="2">{{ 'day' | translate }}</option>
+                                    <option value="3">{{ 'month' | translate }}</option>
+                                    <option value="4">{{ 'year' | translate }}</option>
                                 </select>
                             </label>
-
                         </div>
                     </div>
+                </div>
+                <div class="centering">
+                    <button class="button button-outline button-calm margin-top-btn" type="button"
+                            ng-disabled="addItemForm.price.$invalid || !price.period" ng-click="addPrice()">
+                        {{ 'addItem.add_price' | translate }}
+                    </button>
                 </div>
             </div>
         </form>

@@ -5,7 +5,8 @@
         httpBackend,
         stateParams,
         ionicSlideBoxDelegateMock,
-        ionicPopoverMock;
+        ionicPopoverMock,
+        response;
 
     beforeEach(module('wos.controllers.itemDetail'));
 
@@ -44,9 +45,21 @@
                 }
             }
         });
+        response = httpBackend.whenGET('http://sp2.binarity-testing.cz/mobile/item?itemID=22');
+        response.respond({});
     }));
 
-    it('should set status variable to 0', function () {
+    it('should set item id variable to 22', function () {
+        var $scope = {};
+        $scope.$on = function () { };
+        var controller = ctrl('ItemDetailCtrl', {
+            $scope: $scope, item: $item, $stateParams: stateParams,
+            $ionicSlideBoxDelegate: ionicSlideBoxDelegateMock,
+            $ionicPopover: ionicPopoverMock, $cordovaGeolocation: cordovaGeolocationMock
+        });
+        expect($scope.id).toBe(22);
+    });
+    it('should set status variable to 3', function () {
         var $scope = {};
         $scope.$on = function () { };
         var controller = ctrl('ItemDetailCtrl', {

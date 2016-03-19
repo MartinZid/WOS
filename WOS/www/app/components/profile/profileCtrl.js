@@ -51,31 +51,31 @@ angular.module('wos.controllers.profile', [])
         return $scope.profile.items.length;
     };
 
+    $ionicModal.fromTemplateUrl('message.html', {
+        scope: $scope,
+        animation: 'slide-in-up'
+    }).then(function (modal) {
+        $scope.messageModal = modal;
+    });
+    $scope.openMessageModal = function ($event, profile) {
+        $scope.messageModal.show();
+        $scope.reviews = profile;
+    };
+    $scope.closeMessageModal = function () {
+        $scope.messageModal.hide();
+    };
+
     $ionicModal.fromTemplateUrl('reviews.html', {
         scope: $scope,
         animation: 'slide-in-up'
     }).then(function (modal) {
-        $scope.modal = modal;
+        $scope.reviewsModal = modal;
     });
-    $scope.openModal = function ($event, reviews) {
-        $scope.modal.show();
+    $scope.openReviewsModal = function ($event, reviews) {
+        $scope.reviewsModal.show();
         $scope.reviews = reviews;
     };
-    $scope.closeModal = function () {
-        $scope.modal.hide();
+    $scope.closeReviewsModal = function () {
+        $scope.reviewsModal.hide();
     };
-    ////Cleanup the modal when we're done with it!
-    //$scope.$on('$destroy', function () {
-    //    $scope.modal.remove();
-    //});
-    //// Execute action on hide modal
-    //$scope.$on('modal.hidden', function () {
-    //    // Execute action
-    //});
-    //// Execute action on remove modal
-    //$scope.$on('modal.removed', function () {
-    //    // Execute action
-    //});
-
-
 })

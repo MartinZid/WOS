@@ -108,7 +108,10 @@ angular.module('wos', ['ionic',
         },
         'form': {
             'is_required': 'je povinné',
-            'is_required2': 'Neplatný'
+            'is_required2': 'Neplatný',
+            'is_required3': 'je povinný',
+            'is_reguired4': 'je povinná',
+            'wrong_price': 'musí být kladná'
         },
         'login': {
             'login': 'Přihlášení',
@@ -119,8 +122,17 @@ angular.module('wos', ['ionic',
         'forgotten_password': 'Zapomenuté heslo',
         'send_link': 'Odeslat odkaz k obnovení',
         'addItem': {
-            'addItem': 'Nová položka'
-        }
+            'addItem': 'Nová položka',
+            'new_photo': 'Přidat fotografii',
+            'name_and_prices': 'Název a ceny',
+            'name': 'Název',
+            'price': 'Cena',
+            'add_price': 'Přidat cenu'
+        },
+        'hour': 'Hodina',
+        'day': 'Den',
+        'month': 'Měsíc',
+        'year': 'Rok',
         
     });
     $translateProvider.preferredLanguage('cs');
@@ -250,7 +262,7 @@ angular.module('wos', ['ionic',
    });
 
   // if none of the above states are matched
-   //$urlRouterProvider.otherwise('/tab/home');
-   $urlRouterProvider.otherwise('tab/account/login');
+   $urlRouterProvider.otherwise('/tab/home/addItem');
+   //$urlRouterProvider.otherwise('tab/account/login');
    //$urlRouterProvider.otherwise('tab/account/registration');
 });

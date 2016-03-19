@@ -9,7 +9,29 @@ angular.module('wos.controllers.addItem', [])
 
     //$scope.imgURI = 'http://sp2.binarity-testing.cz/images/photos/56ab947e496de.png';
 
+    $scope.price = { period: 0 };
+    $scope.item = { price: null };
+    $scope.prices = [];
+    $scope.forms = {}; //has to be defined (as parent form) for easy access form from view in controller
+
+    $scope.addPrice = function () {
+        /// <summary>
+        /// Adds new price into prices array and sets prices form to default values.
+        /// </summary>
+        var period = parseInt($scope.price.period);
+        $scope.prices.push({
+            price: $scope.item.price,
+            period: period
+        });
+        $scope.price = { period: 0 };
+        $scope.item = { price: null };
+        $scope.forms.addItemForm.price.$setUntouched();
+    };
+
     $scope.takePhoto = function () {
+        /// <summary>
+        /// Access device's camera.
+        /// </summary>
         var options = {
             quality: 100,
             destinationType: Camera.DestinationType.DATA_URL,
@@ -27,40 +49,5 @@ angular.module('wos.controllers.addItem', [])
         }, function (err) {
             // An error occured. Show a message to the user
         });
-    }
-
-    //$scope.image;
-
-    //$scope.takePicture = function () {
-    //    var options = {
-    //        quality: 100,
-    //        destinationType: Camera.DestinationType.FILE_URI,
-    //        sourceType: Camera.PictureSourceType.CAMERA,
-    //        allowEdit: true,
-    //        encodingType: Camera.EncodingType.JPEG,
-    //        targetWidth: 100,
-    //        targetHeight: 100,
-    //        popoverOptions: CameraPopoverOptions,
-    //        saveToPhotoAlbum: true,
-    //        correctOrientation:true
-    //    };
-
-    //    $cordovaCamera.getPicture(options).then(function (imageURI) {
-    //        var image = document.getElementById('myImage');
-    //        image.src = imageURI;
-    //        $scope.image = image;
-    //        alert($scope.image);
-    //    }, function (err) {
-    //        alert('error!');
-    //    });
-
-    //    alert($scope.image);
-
-    //    //$cordovaCamera.getPicture(options).then(function(imageData) {
-    //    //    $scope.image = document.getElementById('myImage');
-    //    //    $scope.image.src = "data:image/jpeg;base64," + imageData;
-    //    //}, function(err) {
-    //    //    console.log('addItem takePicture error!');
-    //    //});
-    //};
+    };
 })

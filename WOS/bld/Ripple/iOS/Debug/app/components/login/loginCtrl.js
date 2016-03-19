@@ -1,12 +1,13 @@
 ﻿'use strict';
 angular.module('wos.controllers.login', [])
 
-.controller('LoginCtrl', function ($scope, $ionicModal) {
+.controller('LoginCtrl', function ($scope, $ionicModal, $state) {
     /// <summary>
     /// Controller for login.
     /// </summary>
     /// <param name="$scope" type="type"></param>
     /// <param name="$ionicModal" type="type"></param>
+    /// <param name="$state" type="type"></param>
     $scope.email;
 
     $scope.login = function (user) {
@@ -15,7 +16,10 @@ angular.module('wos.controllers.login', [])
         /// </summary>
         /// <param name="user" type="Object"></param>
         console.log('submited');
-        console.log(user.email + " " + user.password);
+        //console.log(user.email + " " + user.password);
+        if (true) { //if login succeeded redirect user, to home
+            $state.go('tab.home');
+        }
     };
 
     $scope.forgotttenPassword = function (email) {
@@ -25,6 +29,7 @@ angular.module('wos.controllers.login', [])
         /// <param name="email" type="type"></param>
         console.log('reseting password');
         console.log(email);
+        $scope.closeModal();
     };
 
     $ionicModal.fromTemplateUrl('forgotten_password.html', {

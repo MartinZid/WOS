@@ -257,6 +257,18 @@ a.button.button-icon.icon.ion-ios-search-strong:before {
     padding: 0px;
 }
 .period-select {
-    padding: 0 48px 0 10px !important;
+    padding: 0 48px 0 5px !important;
     /*position: relative !important;*/
+}
+.margin-top-btn {
+    margin-top: 5%;
+}
+.prices-table {
+    width: 100%;
+    margin-top: 7%;
+    text-align: center;
+    font-size: 110%;
+}
+.icon-larger {
+    font-size: x-large;
 }

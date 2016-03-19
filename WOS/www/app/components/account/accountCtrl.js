@@ -11,6 +11,14 @@ angular.module('wos.controllers.account', [])
 
     //$rootScope.notifications = '#/tab/notifications';
 
+    $scope.logout = function () {
+        /// <summary>
+        /// It handles logout and redirects user to login page.
+        /// </summary>
+        //handle logout
+        $state.go('tab.login');
+    };
+
     //$scope.$on('$ionicView.beforeEnter', function () {
     //    $state.go('tab.item-detail', { 'itemId': 28});
     //})

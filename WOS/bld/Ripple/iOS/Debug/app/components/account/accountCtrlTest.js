@@ -54,4 +54,10 @@
         var controller = ctrl('AccountCtrl', { $scope: $scope, $state: stateMock });
         expect($scope.selectedSection).toBe(1);
     });
+    it('should call $state go() to tab.login, when logout is handled', function () {
+        var $scope = {};
+        var controller = ctrl('AccountCtrl', { $scope: $scope, $state: stateMock });
+        $scope.logout();
+        expect(stateMock.go).toHaveBeenCalledWith('tab.login');
+    });
 })
