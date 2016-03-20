@@ -15,6 +15,7 @@ angular.module('wos', ['ionic',
                        'wos.controllers.addItem',
                        'wos.services.item',
                        'wos.services.profile',
+                       'wos.services.notifications',
                        'wos.rating',
                        'wos.directives.item',
                        'wos.directives.errorMessage',
@@ -77,7 +78,13 @@ angular.module('wos', ['ionic',
         },
         'notifications': {
             'notifications': 'Upozornění',
-            'no_data': 'Zatím nemáte žádná upozornění.'
+            'no_data': 'Zatím nemáte žádná upozornění.',
+            'your_item': 'Vaše položka',
+            'was_added_into_cart': 'byla přidána do košíku',
+            'new_rating': 'Nové hodnocení',
+            'was_hidden': 'byla skryta',
+            'was_approved': 'byla schválena',
+            'was_deleted': 'byla smazána'
         },
         'cart': {
             'cart': 'Košík',
@@ -91,7 +98,8 @@ angular.module('wos', ['ionic',
             'borrows': 'Vypůjčeno',
             'rents': 'Pronajato',
             'show_reviews': 'Zobrazit hodnocení',
-            'reviews': 'Hodnocení'
+            'reviews': 'Hodnocení',
+            'message_for_user': 'Zpráva uživateli',
         },
         'close': 'Zavřít',
         'delete': 'Smazat',
@@ -104,7 +112,9 @@ angular.module('wos', ['ionic',
             'password': 'Heslo',
             'min_length': 'Heslo musí obsahovat alespoň 5 znaků!',
             'already_had_account': 'Máte již účet? Přihlašte se.',
-            'register': 'Registrovat se'
+            'register': 'Registrovat se',
+            'already_registred': 'S tímto e-mailem je již spojen jiný účet.',
+            'success': 'Registrace byla úspěšná, na Váš emailem Vám byl zaslán ověřovací odkaz.'
         },
         'form': {
             'is_required': 'je povinné',
@@ -201,6 +211,16 @@ angular.module('wos', ['ionic',
        }
    })
 
+   .state('tab.profile-detail2', {
+       url: '/notifications/profile/:profileId',
+       views: {
+           'notifications': {
+               templateUrl: 'app/components/profile/profileView.html',
+               controller: 'ProfileCtrl'
+           }
+       }
+   })
+
    .state('tab.item-detail', {
        url: '/home/:itemId',
        views: {
@@ -262,7 +282,7 @@ angular.module('wos', ['ionic',
    });
 
   // if none of the above states are matched
-   $urlRouterProvider.otherwise('/tab/home/addItem');
-   //$urlRouterProvider.otherwise('tab/account/login');
-   //$urlRouterProvider.otherwise('tab/account/registration');
+   //$urlRouterProvider.otherwise('/tab/notifications');
+   //$urlRouterProvider.otherwise('tab/home/profile/25');
+   $urlRouterProvider.otherwise('tab/account/registration');
 });

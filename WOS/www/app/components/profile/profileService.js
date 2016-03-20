@@ -18,6 +18,20 @@ angular.module('wos.services.profile', [])
                 method: 'GET',
                 url: api.url + 'mobile/user/user-profile?userID=' + id
             });
+        },
+        registerUser: function (name, surname, email, password) {
+            /// <summary>
+            /// Registers user.
+            /// </summary>
+            /// <param name="name" type="type"></param>
+            /// <param name="surname" type="type"></param>
+            /// <param name="email" type="type"></param>
+            /// <param name="password" type="type"></param>
+            /// <returns type="promise"></returns>
+            return $http({
+                method: 'GET',
+                url: api.url + 'mobile/registration/default?name=' + name + '&surname=' + surname + '&email' + email + '&pass=' + password
+            })
         }
     };
 })

@@ -1,6 +1,9 @@
 ﻿<ion-view view-title="{{ 'profile.my_profile' | translate }}" ng-cloak cache-view="false">
     <ion-nav-buttons side="secondary">
-        <a class="button button-icon icon icon ion-log-out search-custom" ng-href='#/tab/home/search'></a>
+        <!--<a class="button button-icon icon icon ion-log-out"></a>-->
+        <a class="button button-icon" ng-click="logout()">
+            <i class="ion-log-out icon-larger"></i>
+        </a>
     </ion-nav-buttons>
     <ion-content ng-cloak>
         <ion-refresher pulling-text="Pull to refresh..."

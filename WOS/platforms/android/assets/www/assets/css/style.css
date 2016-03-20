@@ -269,3 +269,6 @@ a.button.button-icon.icon.ion-ios-search-strong:before {
     text-align: center;
     font-size: 110%;
 }
+.icon-larger {
+    font-size: x-large;
+}

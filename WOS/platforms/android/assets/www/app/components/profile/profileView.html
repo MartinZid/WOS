@@ -3,9 +3,24 @@
         {{profile.jmeno}} {{profile.prijmeni}}
     </ion-nav-title>
     <ion-nav-buttons side="secondary">
-        <a class="button button-icon icon icon ion-ios-email-outline "></a>
+        <a class="button button-icon icon icon ion-ios-email-outline" ng-click="openMessageModal($event, profile)"></a>
     </ion-nav-buttons>
     <ion-content>
+
+        <script id="message.html" type="text/ng-template">
+            <ion-modal-view>
+                <ion-header-bar>
+                    <h1 class="title">{{ 'profile.message_for_user' | translate }} {{profile.jmeno}}</h1>
+                    <div class="button button-clear button-positive" ng-click="messageModal.hide()">{{ 'close' | translate }}</div>
+                </ion-header-bar>
+                <ion-content class="padding">
+                    <form>
+
+                    </form>
+                </ion-content>
+            </ion-modal-view>
+        </script>
+
         <ion-refresher pulling-text="Pull to refresh..."
                        on-refresh="doRefresh()">
         </ion-refresher>
@@ -24,7 +39,7 @@
                 <ion-modal-view>
                     <ion-header-bar>
                         <h1 class="title">{{ 'profile.reviews' | translate }}</h1>
-                        <div class="button button-clear button-positive" ng-click="modal.hide()">{{ 'close' | translate }}</div>
+                        <div class="button button-clear button-positive" ng-click="reviewsModal.hide()">{{ 'close' | translate }}</div>
                     </ion-header-bar>
                     <ion-content>
                         <ion-list>
@@ -38,7 +53,7 @@
                 </ion-modal-view>
             </script>
 
-            <button class="button button-outline button-positive button-small" ng-click="openModal($event, profile.reviews)">
+            <button class="button button-outline button-positive button-small" ng-click="openReviewsModal($event, profile.reviews)">
                 {{ 'profile.show_reviews' | translate }}
             </button>
 

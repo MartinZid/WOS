@@ -2,7 +2,7 @@
 
 angular.module('wos.controllers.profile', [])
 
-.controller('ProfileCtrl', function ($scope, $stateParams, profile, $ionicModal) {
+.controller('ProfileCtrl', function ($scope, $stateParams, profile, $ionicModal, $ionicHistory) {
     /// <summary>
     /// Controller for profile view.
     /// </summary>
@@ -49,6 +49,10 @@ angular.module('wos.controllers.profile', [])
         /// </summary>
         /// <returns type="integer"></returns>
         return $scope.profile.items.length;
+    };
+
+    $scope.goBack = function () {
+        $ionicHistory.goBack();
     };
 
     $ionicModal.fromTemplateUrl('message.html', {

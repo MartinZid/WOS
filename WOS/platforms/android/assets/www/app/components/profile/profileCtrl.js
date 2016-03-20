@@ -2,7 +2,7 @@
 
 angular.module('wos.controllers.profile', [])
 
-.controller('ProfileCtrl', function ($scope, $stateParams, profile, $ionicModal) {
+.controller('ProfileCtrl', function ($scope, $stateParams, profile, $ionicModal, $ionicHistory) {
     /// <summary>
     /// Controller for profile view.
     /// </summary>
@@ -51,17 +51,35 @@ angular.module('wos.controllers.profile', [])
         return $scope.profile.items.length;
     };
 
+    $scope.goBack = function () {
+        $ionicHistory.goBack();
+    };
+
+    $ionicModal.fromTemplateUrl('message.html', {
+        scope: $scope,
+        animation: 'slide-in-up'
+    }).then(function (modal) {
+        $scope.messageModal = modal;
+    });
+    $scope.openMessageModal = function ($event, profile) {
+        $scope.messageModal.show();
+        $scope.reviews = profile;
+    };
+    $scope.closeMessageModal = function () {
+        $scope.messageModal.hide();
+    };
+
     $ionicModal.fromTemplateUrl('reviews.html', {
         scope: $scope,
         animation: 'slide-in-up'
     }).then(function (modal) {
-        $scope.modal = modal;
+        $scope.reviewsModal = modal;
     });
-    $scope.openModal = function ($event, reviews) {
-        $scope.modal.show();
+    $scope.openReviewsModal = function ($event, reviews) {
+        $scope.reviewsModal.show();
         $scope.reviews = reviews;
     };
-    $scope.closeModal = function () {
-        $scope.modal.hide();
+    $scope.closeReviewsModal = function () {
+        $scope.reviewsModal.hide();
     };
 })
