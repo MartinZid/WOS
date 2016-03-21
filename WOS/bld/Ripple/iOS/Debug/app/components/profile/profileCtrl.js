@@ -24,7 +24,7 @@ angular.module('wos.controllers.profile', [])
         /// </summary>
         /// <param name="id" type="integer"></param>
         profile.getProfileData(id)
-            .success(function (data) { ///if success save loaded data to $scope.items
+            .success(function (data) {
                 $scope.profile = data;
                 console.log(data);
                 $scope.status = 0;

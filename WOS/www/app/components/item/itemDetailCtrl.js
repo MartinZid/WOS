@@ -2,7 +2,7 @@
 angular.module('wos.controllers.itemDetail', [])
 
 .controller('ItemDetailCtrl', function ($scope, item, $stateParams, $ionicSlideBoxDelegate,
-                                        $ionicPopover, $cordovaGeolocation) {
+                                        $ionicPopover, $cordovaGeolocation, $ionicHistory, $state) {
     /// <summary>
     /// Controller for item detail view.
     /// </summary>
@@ -143,6 +143,12 @@ angular.module('wos.controllers.itemDetail', [])
         }, function (error) {
             console.log("Could not get location");
         });
+    };
+
+    $scope.forceBackButton = $ionicHistory.backView().stateId.indexOf('home') < 0 && $ionicHistory.backView().stateId.indexOf('profile-detail') < 0; //we navigated from another tab
+
+    $scope.backToParentView = function () {
+        $state.go('tab.home', {}, { location: 'repalce', inherit: 'false' });
     };
 
 })

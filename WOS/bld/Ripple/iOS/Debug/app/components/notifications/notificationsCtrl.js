@@ -12,19 +12,16 @@ angular.module('wos.controllers.notifications', [])
     getAllNotifications();
 
     $scope.doRefresh = function () {
-        /// <summary>
-        /// Called when main page is "pulled down" for refresh
-        /// </summary>
         console.log('refreshing...');
         getAllNotifications();
     }
 
     function getAllNotifications() {
         /// <summary>
-        /// Downloads data for homepage
+        /// Downloads notifications data
         /// </summary>
         notifications.getAll(18)
-            .success(function (data) { ///if success save loaded data to $scope.items
+            .success(function (data) {
                 $scope.makeDataReadable(data);
                 $scope.items = data;
                 console.log(data);

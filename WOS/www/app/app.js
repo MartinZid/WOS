@@ -127,7 +127,8 @@ angular.module('wos', ['ionic',
             'login': 'Přihlášení',
             'doLogin': 'Přihlásit se',
             'forgotten_password': 'Zapomenuté heslo?',
-            'to_registration': 'Zaregistrujte se nyní'
+            'to_registration': 'Zaregistrujte se nyní',
+            'reset_successful': 'Na e-mail Vám byl zaslán odkaz na resetování hesla.'
         },
         'forgotten_password': 'Zapomenuté heslo',
         'send_link': 'Odeslat odkaz k obnovení',
@@ -282,7 +283,7 @@ angular.module('wos', ['ionic',
    });
 
   // if none of the above states are matched
-   //$urlRouterProvider.otherwise('/tab/notifications');
+   $urlRouterProvider.otherwise('/tab/account');
    //$urlRouterProvider.otherwise('tab/home/profile/25');
-   $urlRouterProvider.otherwise('tab/account/registration');
+   //$urlRouterProvider.otherwise('tab/account/login');
 });

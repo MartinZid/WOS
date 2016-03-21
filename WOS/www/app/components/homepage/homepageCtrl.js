@@ -1,7 +1,7 @@
 ﻿'use strict';
 angular.module('wos.controllers.homepage', [])
 
-.controller('HomepageCtrl', function ($scope, item) {
+.controller('HomepageCtrl', function ($scope, item, $ionicNavBarDelegate) {
     /// <summary>
     /// Controller for homepage tab
     /// </summary>
@@ -44,5 +44,15 @@ angular.module('wos.controllers.homepage', [])
 
     ///navTitle stores a html img for app icon
     $scope.navTitle = '<img class="title-image" src="assets/img/main_logo.png" />';
+
+    $ionicNavBarDelegate.showBackButton(false);
+
+    $scope.$on('$ionicView.beforeEnter', function () {
+        $ionicNavBarDelegate.showBackButton(false);
+    });
+
+    $scope.$on('$ionicView.leave', function () {
+        $ionicNavBarDelegate.showBackButton(true);
+    });
 
 })

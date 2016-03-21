@@ -1,7 +1,7 @@
 ﻿'use strict';
 angular.module('wos.controllers.addItem', [])
 
-.controller('AddItemCtrl', function ($scope, $cordovaCamera) {
+.controller('AddItemCtrl', function ($scope, $cordovaCamera, $ionicHistory, $state) {
     /// <summary>
     /// Controller for add item view.
     /// </summary>
@@ -49,5 +49,13 @@ angular.module('wos.controllers.addItem', [])
         }, function (err) {
             // An error occured. Show a message to the user
         });
+    };
+
+    $scope.forceBackButton = $ionicHistory.backView().stateId.indexOf('events') < 0; //we navigated from another tab
+    console.log($scope.forceBackButton);
+    console.log($ionicHistory.backView().stateId.indexOf('home'));
+
+    $scope.backToParentView = function () {
+        $state.go('tab.home', {}, { location: 'repalce', inherit: 'false' });
     };
 })

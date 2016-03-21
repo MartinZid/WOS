@@ -21,7 +21,6 @@ angular.module('wos.controllers.registration', [])
         .success(function (data) {
             if (data != 'false') {
                 $scope.status = 0;
-                //$state.go('tab.login');
             } else {
                 $scope.status = 1;
             }

@@ -1,4 +1,7 @@
 ﻿<ion-view view-title="{{ 'addItem.addItem' | translate }}" cache-view="false">
+    <ion-nav-buttons side="primary">
+        <button class="button back-button buttons button-clear header-item icon ion-ios-arrow-back" ng-if="forceBackButton" ng-click="backToParentView()"></button>
+    </ion-nav-buttons>
     <ion-content>
 
         <div ng-class="{'take-photo': imgURI === undefined}" ng-click="takePhoto()">
