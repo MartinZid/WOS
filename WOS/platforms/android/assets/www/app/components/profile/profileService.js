@@ -32,6 +32,17 @@ angular.module('wos.services.profile', [])
                 method: 'GET',
                 url: api.url + 'mobile/registration/default?name=' + name + '&surname=' + surname + '&email' + email + '&pass=' + password
             })
+        },
+        forgottenPassword: function (email) {
+            /// <summary>
+            /// Resets user password.
+            /// </summary>
+            /// <param name="email" type="type"></param>
+            /// <returns type="promise"></returns>
+            return $http({
+                method: 'PUT',
+                url: api.url + 'mobile/user/forgotten-password/defaul?email=' + email
+            })
         }
     };
 })

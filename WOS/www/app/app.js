@@ -16,6 +16,8 @@ angular.module('wos', ['ionic',
                        'wos.services.item',
                        'wos.services.profile',
                        'wos.services.notifications',
+                       'wos.services.category',
+                       'wos.services.locality',
                        'wos.rating',
                        'wos.directives.item',
                        'wos.directives.errorMessage',
@@ -138,7 +140,13 @@ angular.module('wos', ['ionic',
             'name_and_prices': 'Název a ceny',
             'name': 'Název',
             'price': 'Cena',
-            'add_price': 'Přidat cenu'
+            'add_price': 'Přidat cenu',
+            'category_select': 'Zvolení kategorie',
+            'category': 'Kategorie',
+            'sub_category': 'Podkategorie',
+            'where_and_when': 'Kdy a kde půjčovat',
+            'locality': 'Lokalita',
+            'add_locality': 'Přidat lokalitu'
         },
         'hour': 'Hodina',
         'day': 'Den',
@@ -212,16 +220,6 @@ angular.module('wos', ['ionic',
        }
    })
 
-   .state('tab.profile-detail2', {
-       url: '/notifications/profile/:profileId',
-       views: {
-           'notifications': {
-               templateUrl: 'app/components/profile/profileView.html',
-               controller: 'ProfileCtrl'
-           }
-       }
-   })
-
    .state('tab.item-detail', {
        url: '/home/:itemId',
        views: {
@@ -283,7 +281,7 @@ angular.module('wos', ['ionic',
    });
 
   // if none of the above states are matched
-   $urlRouterProvider.otherwise('/tab/account');
+    $urlRouterProvider.otherwise('/tab/home/addItem');
    //$urlRouterProvider.otherwise('tab/home/profile/25');
    //$urlRouterProvider.otherwise('tab/account/login');
 });

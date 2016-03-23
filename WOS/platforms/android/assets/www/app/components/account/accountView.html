@@ -11,20 +11,19 @@
         </ion-refresher>
         <error-message reload="doRefresh()" status="status" ng-hide="status === 0"></error-message>
 
-        <div class="row my_profile-info">
-            <div class="col col-20">
-                <img ng-src="http://www.gravatar.com/avatar/7a51e658ac587888f3358909b87a6b0as=20" class="gravatar" />
+        <div class="account-info" ng-show="status === 0">
+            <img ng-src="http://www.gravatar.com/avatar/{{profile.gravatar}}s=20" class="account-gravatar profile-data" />
+            <div class="profile-data">
+                {{profile.jmeno}} {{profile.prijmeni}}
             </div>
-            <div class="col col-40">
-                <div>Martin Žid</div>
-                <stars-rating rating="4.6"></stars-rating>
-                <div>
-                    Liberec
-                </div>
+            <div class="profile-data">
+                {{profile.email}}
             </div>
-            <div class="col col-40">
-                <div>+420 723 104 733</div>
-                <div>zidmarti@fit.cvut.cz</div>
+            <div class="profile-data">
+                {{profile.adresa}}
+            </div>
+            <div class="profile-data">
+                {{profile.telefon}}
             </div>
         </div>
         <div class="button-bar padding my_profile-btn-bar">
@@ -41,8 +40,13 @@
                 {{ 'profile.rents' | translate }}
             </a>
         </div>
-        <div>
-            {{selectedSection}}
+        <div ng-repeat="item in profile.items" ng-show="selectedSection == 1">
+            <wos-item name="item"></wos-item>
         </div>
     </ion-content>
+    <a ng-href="#/tab/home/addItem" ng-show="selectedSection == 1">
+        <div class="floating-btn">
+            <i class="ion-android-add add-btn"></i>
+        </div>
+    </a>
 </ion-view>

@@ -27,7 +27,8 @@ module.exports = function(config){
             'www/app/components/account/*.js',
             'www/app/components/login/*.js',
             'www/app/components/registration/*.js',
-            'www/app/components/search/*.js'
+            'www/app/components/search/*.js',
+            'www/app/components/category/*.js'
         ],
 
         autoWatch : true,

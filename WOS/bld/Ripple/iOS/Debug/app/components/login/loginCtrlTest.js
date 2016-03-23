@@ -67,7 +67,7 @@
         var $scope = {};
         var controller = ctrl('LoginCtrl', { $scope: $scope, $ionicModal: ionicModalMock, $state: stateMock });
         $scope.login();
-        expect(stateMock.go).toHaveBeenCalledWith('tab.home');
+        expect(stateMock.go).toHaveBeenCalledWith('tab.account');
     });
     it('successful forgottenPassword set status to 0', function () {
         var $scope = {};

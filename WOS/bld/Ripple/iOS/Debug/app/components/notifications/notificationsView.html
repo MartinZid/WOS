@@ -13,7 +13,7 @@
         <ion-list show-delete="data.showDelete">
             <ion-item ng-repeat="item in items" item="item" class="item-remove-animate item-text-wrap">               
                 <span ng-show="item.type === 'new_rating'">
-                    <a ng-href="#/tab/notifications/profile/{{item.id_uzivatel}}">{{ 'notifications.new_rating' | translate }}!</a>
+                    <a ng-href="#/tab/home/profile/{{item.id_uzivatel}}">{{ 'notifications.new_rating' | translate }}!</a>
                 </span>
                 <span ng-show="item.type === 'item_added_into_cart'">
                     {{ 'notifications.your_item' | translate }} <a ng-href="#">{{ item.parametry.instance }}</a> {{ 'notifications.was_added_into_cart' | translate }}.

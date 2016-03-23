@@ -2,7 +2,7 @@
 
 angular.module('wos.controllers.profile', [])
 
-.controller('ProfileCtrl', function ($scope, $stateParams, profile, $ionicModal, $ionicHistory) {
+.controller('ProfileCtrl', function ($scope, $stateParams, profile, $ionicModal, $ionicHistory, $state) {
     /// <summary>
     /// Controller for profile view.
     /// </summary>
@@ -81,5 +81,11 @@ angular.module('wos.controllers.profile', [])
     };
     $scope.closeReviewsModal = function () {
         $scope.reviewsModal.hide();
+    };
+
+    $scope.forceBackButton = $ionicHistory.backView().stateId.indexOf('item-detail') < 0; //we navigated from another tab
+
+    $scope.backToParentView = function () {
+        $state.go('tab.home', {}, { location: 'repalce', inherit: 'false' });
     };
 })

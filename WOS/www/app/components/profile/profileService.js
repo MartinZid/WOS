@@ -30,7 +30,7 @@ angular.module('wos.services.profile', [])
             /// <returns type="promise"></returns>
             return $http({
                 method: 'GET',
-                url: api.url + 'mobile/registration/default?name=' + name + '&surname=' + surname + '&email' + email + '&pass=' + password
+                url: api.url + 'mobile/registration/?name=' + name + '&surname=' + surname + '&email=' + email + '&pass=' + password
             })
         },
         forgottenPassword: function (email) {

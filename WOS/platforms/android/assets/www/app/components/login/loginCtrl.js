@@ -1,7 +1,7 @@
 ﻿'use strict';
 angular.module('wos.controllers.login', [])
 
-.controller('LoginCtrl', function ($scope, $ionicModal, $state) {
+.controller('LoginCtrl', function ($scope, $ionicModal, $state, profile) {
     /// <summary>
     /// Controller for login.
     /// </summary>
@@ -9,6 +9,7 @@ angular.module('wos.controllers.login', [])
     /// <param name="$ionicModal" type="type"></param>
     /// <param name="$state" type="type"></param>
     $scope.email;
+    $scope.status = 3;
 
     $scope.login = function (user) {
         /// <summary>
@@ -18,18 +19,31 @@ angular.module('wos.controllers.login', [])
         console.log('submited');
         //console.log(user.email + " " + user.password);
         if (true) { //if login succeeded redirect user, to home
-            $state.go('tab.home');
+            $state.go('tab.account');
         }
     };
 
-    $scope.forgotttenPassword = function (email) {
+    $scope.forgottenPassword = function (email) {
         /// <summary>
         /// Called after user submits forgotten password form. It passes data to model.
         /// </summary>
         /// <param name="email" type="type"></param>
         console.log('reseting password');
         console.log(email);
+        profile.forgottenPassword(email)
+            .success(function () {
+                console.log('reset successful');
+                $scope.status = 0;
+            }).error(function () {
+                console.log('reset failed');
+                $scope.status = 2;
+                $scope.email = email;
+            });
         $scope.closeModal();
+    };
+
+    $scope.doRefresh = function () {
+        $scope.forgottenPassword($scope.email);
     };
 
     $ionicModal.fromTemplateUrl('forgotten_password.html', {

@@ -272,3 +272,12 @@ a.button.button-icon.icon.ion-ios-search-strong:before {
 .icon-larger {
     font-size: x-large;
 }
+.account-info {
+    text-align: center;
+    margin-top: 5%;
+    font-size: 110%;
+}
+.account-gravatar {
+    width: 20%;
+    border-radius: 100px;
+}

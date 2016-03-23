@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-describe('Tests for profile service', function () {
+describe('Profile service', function () {
     var profileService,
         httpBackend;
 
@@ -42,7 +42,7 @@ describe('Tests for profile service', function () {
     });
     it('registerUser() should get correct data', function () {
         var response;
-        httpBackend.whenGET('http://sp2.binarity-testing.cz/mobile/registration/default?name=Martin&surname=Zid&emailzidmarti@fit.cvut.cz&pass=123456').respond(true);
+        httpBackend.whenGET('http://sp2.binarity-testing.cz/mobile/registration/?name=Martin&surname=Zid&email=zidmarti@fit.cvut.cz&pass=123456').respond(true);
         profileService.registerUser('Martin', 'Zid', 'zidmarti@fit.cvut.cz', '123456').then(function (data) {
             response = data;
         });

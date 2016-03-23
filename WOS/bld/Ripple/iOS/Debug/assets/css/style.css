@@ -281,3 +281,16 @@ a.button.button-icon.icon.ion-ios-search-strong:before {
     width: 20%;
     border-radius: 100px;
 }
+.category-select {
+    border-style: none;
+}
+.category-list {
+    margin-bottom: 0px;
+}
+.category-label {
+    z-index: 50;
+}
+.delete-item-icon{
+    margin-left: 10px;
+    color: red;
+}

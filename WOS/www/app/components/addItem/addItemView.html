@@ -2,8 +2,10 @@
     <ion-nav-buttons side="primary">
         <button class="button back-button buttons button-clear header-item icon ion-ios-arrow-back" ng-if="forceBackButton" ng-click="backToParentView()"></button>
     </ion-nav-buttons>
-    <ion-content>
-
+    <ion-content ng-show="status === 0 || status !== 3">
+        <error-message reload="doRefresh()" status="status" ng-hide="status === 0"></error-message>
+    </ion-content>
+    <ion-content ng-show="status === 0">
         <div ng-class="{'take-photo': imgURI === undefined}" ng-click="takePhoto()">
             <div ng-show="imgURI === undefined" class="photo-not-taken">
                 <div class="new-photo">
@@ -13,6 +15,29 @@
             </div>
             <img ng-show="imgURI !== undefined" ng-src="{{imgURI}}" class="item-photo"/>
         </div>
+
+        <div class="padding">
+            <div class="legend">
+                <h4>{{ 'addItem.category_select' | translate }}</h4>
+            </div>
+            <div class="list category-list" ng-repeat="categories in allCategories track by $index">
+                <label class="item item-input item-select category-select">
+                    <div class="input-label category-label" ng-show="$index === 0">
+                        {{ 'addItem.category' | translate }}
+                    </div>
+                    <div class="input-label" ng-show="$index === 1">
+                        {{ 'addItem.sub_category' | translate }}
+                    </div>
+                    <select ng-change="getChildCategories($index+1)" ng-model="select[$index]">
+                        <option ng-repeat="category in categories"
+                                 value="{{$index}}">
+                            {{category.nazev}}
+                        </option>
+                    </select>
+                </label>
+            </div>
+        </div>
+
         <form name="forms.addItemForm">
             <div class="padding">
                 <div class="legend">
@@ -82,5 +107,45 @@
                 </div>
             </div>
         </form>
-    </ion-content>
+
+        <div class="padding">
+            <div class="legend">
+                <h4>{{ 'addItem.where_and_when' | translate }}</h4>
+            </div>
+
+            <!--<div class="centering">
+                <div ng-repeat="locality in selectedLocalities track by $index">
+                    {{locality.ulice_cp}}, {{locality.mesto}} <i class="ion-close-round delete-item-icon" ng-click="deleteLocality($index)"></i>
+                </div>
+            </div>-->
+
+            <div class="centering">
+                <table class="prices-table">
+                    <tr ng-repeat="locality in selectedLocalities track by $index">
+                        <td style="text-align: left">{{locality.ulice_cp}}, {{locality.mesto}}</td>
+                        <td><i class="ion-close-round delete-item-icon" ng-click="deleteLocality($index)"></i></td>
+                    </tr>
+                </table>
+            </div>
+
+            <div class="list category-list">
+                <label class="item item-input item-select category-select">
+                    <div class="input-label">
+                        {{ 'addItem.locality' | translate }}
+                    </div>
+                    <select ng-model="selectedLocality.value">
+                        <option ng-repeat="locality in localities" value="{{$index}}">
+                            {{locality.ulice_cp}}, {{locality.mesto}}
+                        </option>
+                    </select>
+                </label>
+            </div>
+            <div class="centering">
+                <button class="button button-outline button-calm margin-top-btn" type="button"
+                        ng-disabled="selectedLocality.value === undefined" ng-click="addLocality()">
+                    {{ 'addItem.add_locality' | translate }}
+                </button>
+            </div>
+        </div>
+</ion-content>
 </ion-view>

@@ -1,4 +1,7 @@
 ﻿<ion-view view-title="{{item.nazev}}" cache-view="false">
+    <ion-nav-buttons side="primary">
+        <button class="button back-button buttons button-clear header-item icon ion-ios-arrow-back" ng-if="forceBackButton" ng-click="backToParentView()"></button>
+    </ion-nav-buttons>
     <ion-nav-title>
         {{item.nazev}}
     </ion-nav-title>

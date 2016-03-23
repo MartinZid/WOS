@@ -57,17 +57,8 @@
                 {{ 'profile.show_reviews' | translate }}
             </button>
 
-            <div ng-show="profile.prumerne_hodnoceni > -1" class="profile-data">
-                <span ng-repeat="i in getFullStars(profile.prumerne_hodnoceni) track by $index" class="item-rating">
-                    <i class="ion-android-star"></i>
-                </span>
-                <span class="item-rating" ng-show="hasHalfStar(profile.prumerne_hodnoceni)">
-                    <i class="ion-android-star-half"></i>
-                </span>
-                <span ng-repeat="i in getEmptyStars(profile.prumerne_hodnoceni) track by $index" class="item-rating">
-                    <i class="ion-android-star-outline"></i>
-                </span>
-            </div>
+            <stars-rating rating="{{profile.prumerne_hodnoceni}}"></stars-rating>
+
         </div>
 
         <p ng-show="userItemsSum !== 0" class="padding">{{ 'profile.user_items' | translate }} <b>{{userItemsSum}}</b></p>
