@@ -23,6 +23,7 @@ angular.module('wos.controllers.registration', [])
                     $scope.status = 0;
                 } else { // registration failed
                     $scope.status = 1;
+                    console.log(data);
                 }
             }).error(function () { // server error
                 $scope.status = 2;

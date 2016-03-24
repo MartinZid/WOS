@@ -105,6 +105,7 @@ angular.module('wos', ['ionic',
         },
         'close': 'Zavřít',
         'delete': 'Smazat',
+        'save': 'Uložit',
         'registration': {
             'registration': 'Registrace',
             'name': 'Jméno',
@@ -123,7 +124,8 @@ angular.module('wos', ['ionic',
             'is_required2': 'Neplatný',
             'is_required3': 'je povinný',
             'is_reguired4': 'je povinná',
-            'wrong_price': 'musí být kladná'
+            'wrong_price': 'musí být kladná',
+            'too_small': 'Malá hodnota'
         },
         'login': {
             'login': 'Přihlášení',
@@ -146,12 +148,33 @@ angular.module('wos', ['ionic',
             'sub_category': 'Podkategorie',
             'where_and_when': 'Kdy a kde půjčovat',
             'locality': 'Lokalita',
-            'add_locality': 'Přidat lokalitu'
+            'add_locality': 'Přidat lokalitu',
+            'create_new_locality': 'Vytvořit novou lokalitu',
+            'new_locality': 'Nová lokalita',
+            'address': 'Adresa',
+            'street': 'Ulice',
+            'city': 'Město',
+            'postal_code': 'Číslo popisné',
+            'opening_hours': 'Otevírací doba',
+            'opening_hours_info': 'Doba kdy je možné položku převzít/vrátit',
+            'from': 'Od',
+            'to': 'Do',
+            'day': 'Den',
+            'finish': 'Dokončit'
         },
         'hour': 'Hodina',
         'day': 'Den',
         'month': 'Měsíc',
         'year': 'Rok',
+        'days_full': {
+            'monday':'Pondělí',
+            'tuesday':'Úterý',
+            'wednesday':'Středa',
+            'thursday':'Čtvrtek',
+            'friday':'Pátek',
+            'saturday':'Sobota',
+            'sunday': 'Neděle',
+        }
         
     });
     $translateProvider.preferredLanguage('cs');

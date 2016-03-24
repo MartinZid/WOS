@@ -6,7 +6,9 @@
         stateParams,
         ionicSlideBoxDelegateMock,
         ionicPopoverMock,
-        response;
+        response,
+        ionicHistoryMock,
+        stateMock;
 
     beforeEach(module('wos.controllers.itemDetail'));
 
@@ -34,6 +36,14 @@
             fromTemplateUrl: jasmine.createSpy('popover spy')
                              .and.returnValue($q.defer().promise)
         };
+        ionicHistoryMock = {
+            backView: jasmine.createSpy('backView spy').and.returnValue({
+                stateId: {
+                    indexOf: function() { return true}
+                }
+            })
+        }
+        stateMock = jasmine.createSpy('$state spy', ['go']);
         cordovaGeolocationMock = jasmine.createSpyObj('$cordovaGeolocation spy', ['getCurrentPosition']);
         httpBackend.whenGET('http://sp2.binarity-testing.cz/mobile/item?itemID=22').respond({
             data: {
@@ -55,7 +65,8 @@
         var controller = ctrl('ItemDetailCtrl', {
             $scope: $scope, item: $item, $stateParams: stateParams,
             $ionicSlideBoxDelegate: ionicSlideBoxDelegateMock,
-            $ionicPopover: ionicPopoverMock, $cordovaGeolocation: cordovaGeolocationMock
+            $ionicPopover: ionicPopoverMock, $cordovaGeolocation: cordovaGeolocationMock,
+            $ionicHistory: ionicHistoryMock, $state: stateMock
         });
         expect($scope.id).toBe(22);
     });
@@ -65,7 +76,8 @@
         var controller = ctrl('ItemDetailCtrl', {
             $scope: $scope, item: $item, $stateParams: stateParams,
             $ionicSlideBoxDelegate: ionicSlideBoxDelegateMock,
-            $ionicPopover: ionicPopoverMock, $cordovaGeolocation: cordovaGeolocationMock
+            $ionicPopover: ionicPopoverMock, $cordovaGeolocation: cordovaGeolocationMock,
+            $ionicHistory: ionicHistoryMock, $state: stateMock
         });
         expect($scope.status).toBe(3);
     });
@@ -75,7 +87,8 @@
         var controller = ctrl('ItemDetailCtrl', {
             $scope: $scope, item: $item, $stateParams: stateParams,
             $ionicSlideBoxDelegate: ionicSlideBoxDelegateMock,
-            $ionicPopover: ionicPopoverMock, $cordovaGeolocation: cordovaGeolocationMock
+            $ionicPopover: ionicPopoverMock, $cordovaGeolocation: cordovaGeolocationMock,
+            $ionicHistory: ionicHistoryMock, $state: stateMock
         });
         expect(typeof $scope.doRefresh).toBe('function');
     });
@@ -85,7 +98,8 @@
         var controller = ctrl('ItemDetailCtrl', {
             $scope: $scope, item: $item, $stateParams: stateParams,
             $ionicSlideBoxDelegate: ionicSlideBoxDelegateMock,
-            $ionicPopover: ionicPopoverMock, $cordovaGeolocation: cordovaGeolocationMock
+            $ionicPopover: ionicPopoverMock, $cordovaGeolocation: cordovaGeolocationMock,
+            $ionicHistory: ionicHistoryMock, $state: stateMock
         });
         expect(ionicPopoverMock.fromTemplateUrl).toHaveBeenCalled();
     });

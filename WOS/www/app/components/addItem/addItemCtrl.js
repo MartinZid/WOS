@@ -1,7 +1,8 @@
 ﻿'use strict';
 angular.module('wos.controllers.addItem', [])
 
-.controller('AddItemCtrl', function ($scope, $cordovaCamera, $ionicHistory, $state, category, locality) {
+.controller('AddItemCtrl', function ($scope, $cordovaCamera, $ionicHistory,
+                                     $state, category, locality, $ionicModal, item) {
     /// <summary>
     /// Controller for add item view.
     /// </summary>
@@ -20,18 +21,31 @@ angular.module('wos.controllers.addItem', [])
     $scope.localities;
     $scope.selectedLocality = {};
     $scope.selectedLocalities = [];
+    $scope.locality = {
+        street: '',
+        city: '',
+        postal_code: '',
+        days: [],
+        from: null,
+        to: null,
+        day: undefined
+    };
+
+    console.log(parseInt(undefined));
 
     $scope.addPrice = function () {
         /// <summary>
         /// Adds new price into prices array and sets prices form to default values.
         /// </summary>
         var period = parseInt($scope.price.period);
+        if (period === NaN || $scope.item.price === null)
+            return;
         $scope.prices.push({
             price: $scope.item.price,
             period: period
         });
         $scope.price = { period: 0 };
-        $scope.item = { price: null };
+        $scope.item.price = null;
         $scope.forms.addItemForm.price.$setUntouched();
     };
 
@@ -94,6 +108,9 @@ angular.module('wos.controllers.addItem', [])
     };
 
     $scope.getLocalities = function () {
+        /// <summary>
+        /// Get user's localities.
+        /// </summary>
         locality.getUserLocalities(18)
             .success(function (data) {
                 $scope.localities = data;
@@ -104,12 +121,104 @@ angular.module('wos.controllers.addItem', [])
     $scope.getLocalities();
 
     $scope.addLocality = function () {
-        console.log($scope.localities[$scope.selectedLocality.value]);
+        /// <summary>
+        /// Adds selected locality into selected localities array.
+        /// </summary>
+        if ($scope.selectedLocality.value === undefined)
+            return;
         $scope.selectedLocalities.push($scope.localities[$scope.selectedLocality.value]);
-        //$scope.selectedLocality.value = -1;
+        $scope.selectedLocality.value = undefined;
     };
 
     $scope.deleteLocality = function (index) {
+        /// <summary>
+        /// Deletes selected locality from array on position index.
+        /// </summary>
+        /// <param name="index" type="type"></param>
         $scope.selectedLocalities.splice(index, 1);
+    };
+
+    $scope.saveNewLocality = function (locality) {
+        /// <summary>
+        /// Adds created locality into selected localities array. Also resets modal for new locality creation.
+        /// </summary>
+        /// <param name="locality" type="type"></param>
+        $scope.selectedLocalities.push({
+            mesto: locality.city,
+            ulice_cp: locality.street + ' ' + locality.postal_code,
+            days: locality.days
+        });
+
+        $scope.locality.street = '';
+        $scope.locality.city = '';
+        $scope.locality.postal_code = '';
+        $scope.locality.from = null;
+        $scope.locality.to = null;
+        $scope.locality.day = undefined;
+        $scope.locality.days = [];
+        console.log($scope.forms.newLocality);
+        $scope.forms.newLocality.street.$setUntouched();
+        $scope.forms.newLocality.city.$setUntouched();
+        $scope.forms.newLocality.postal_code.$setUntouched();
+        $scope.forms.newLocality.from.$setUntouched();
+        $scope.forms.newLocality.to.$setUntouched();
+
+        $scope.closeModal();
+    };
+    $scope.addDay = function () {
+        /// <summary>
+        /// Saves day availibility to days array. Resets form for new day avalibility.
+        /// </summary>
+        $scope.locality.days.push({
+            from: $scope.locality.from,
+            to: $scope.locality.to,
+            day: $scope.locality.day
+        });
+        $scope.locality.from = null;
+        $scope.locality.to = null;
+        $scope.locality.day = undefined;
+        console.log($scope.forms.newLocality);
+        $scope.forms.newLocality.from.$setUntouched();
+        $scope.forms.newLocality.to.$setUntouched();
+    };
+    $scope.deleteDay = function (index) {
+        /// <summary>
+        /// Deletes created day availibility from array on position index.s
+        /// </summary>
+        /// <param name="index" type="type"></param>
+        $scope.locality.days.splice(index, 1);
     }
+
+    $ionicModal.fromTemplateUrl('new_locality.html', {
+        scope: $scope,
+        animation: 'slide-in-up',
+    }).then(function (modal) {
+        $scope.modal = modal;
+    });
+    $scope.openModal = function () {
+        $scope.modal.show();
+    };
+    $scope.closeModal = function () {
+        $scope.modal.hide();
+    };
+
+    $scope.createItem = function () {
+        $scope.addLocality();
+        $scope.addPrice();
+        var createdItem = {
+            name: $scope.item.name,
+            prices: $scope.prices,
+            localities: $scope.selectedLocalities,
+            photo: $scope.imgURI,
+            category: $scope.selectedCategory,
+            user_id: 18
+        };
+        console.log(createdItem);
+        item.addItem(createdItem)
+            .success(function (data) {
+                console.log('add item successful');
+            }).error(function (data) {
+                console.log('add item failed');
+            });
+    };
 })
