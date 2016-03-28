@@ -41,6 +41,12 @@ angular.module('wos.services.item', [])
                 method: 'GET',
                 url: api.url + 'mobile/item?search=' + query
             })
+        },
+        addItem: function (item) {
+            return $http({
+                method: 'POST',
+                url: api.url + 'mobile/item/add-item?item=' + item
+            });
         }
     }
 

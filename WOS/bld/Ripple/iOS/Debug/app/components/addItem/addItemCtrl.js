@@ -203,6 +203,9 @@ angular.module('wos.controllers.addItem', [])
     };
 
     $scope.createItem = function () {
+        /// <summary>
+        /// Uploads new item to server.
+        /// </summary>
         $scope.addLocality();
         $scope.addPrice();
         var createdItem = {

@@ -304,7 +304,7 @@ angular.module('wos', ['ionic',
    });
 
   // if none of the above states are matched
-    $urlRouterProvider.otherwise('/tab/home/addItem');
+    $urlRouterProvider.otherwise('/tab/home');
    //$urlRouterProvider.otherwise('tab/home/profile/25');
    //$urlRouterProvider.otherwise('tab/account/login');
 });

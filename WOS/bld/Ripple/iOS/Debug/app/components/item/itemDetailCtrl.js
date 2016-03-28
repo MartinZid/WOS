@@ -27,7 +27,7 @@ angular.module('wos.controllers.itemDetail', [])
         item.getDetail(id)
             .success(function (data) { ///if success save loaded data to $scope.items
                 //any code in here will automatically have an apply run afterwards
-                $scope.item = data;
+                $scope.item = data[0];
                 console.log(data);
                 $scope.status = 0;
                 $ionicSlideBoxDelegate.update();
