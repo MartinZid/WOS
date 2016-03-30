@@ -1,6 +1,12 @@
 ﻿<ion-view view-title="{{ 'addItem.addItem' | translate }}" cache-view="false">
-    <ion-nav-buttons side="primary">
-        <button class="button back-button buttons button-clear header-item icon ion-ios-arrow-back" ng-if="forceBackButton" ng-click="backToParentView()"></button>
+    <ion-nav-buttons side="left">
+        <button class="button back-button buttons button-clear header-item"
+                ng-if="forceBackButton"
+                ng-click="backToParentView()">
+            <i ng-class="{
+                'ion-ios-arrow-back force-back-ios': platform !== 'android',
+                'ion-android-arrow-back force-back-android ': platform === 'android' }"></i>
+        </button>
     </ion-nav-buttons>
     <ion-content ng-show="status === 0 || status !== 3">
         <error-message reload="doRefresh()" status="status" ng-hide="status === 0"></error-message>

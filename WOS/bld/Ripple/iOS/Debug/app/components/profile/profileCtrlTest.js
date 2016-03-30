@@ -29,7 +29,7 @@
         httpBackend = $httpBackend;
         stateParams = { profileId: 28 };
         response = httpBackend.whenGET('http://sp2.binarity-testing.cz/mobile/user/user-profile?userID=28');
-        response.respond({ items: [] });
+        response.respond({ instances: [] });
         ionicModalMock = {
             fromTemplateUrl: jasmine.createSpy('modal spy')
                              .and.returnValue($q.defer().promise)
@@ -96,7 +96,7 @@
             'id': 28,
             'jmeno': 'Martin',
             'prijmeni': 'Žid',
-            items: [],
+            instances: [],
         });
         var controller = ctrl('ProfileCtrl', {
             $scope: $scope, $stateParams: stateParams,

@@ -100,11 +100,11 @@ a.button.button-icon.icon.ion-ios-search-strong:before {
     border-width: 0px !important;
 }
 .has-order-btn {
-    margin-bottom: 50px !important;
+    padding-bottom: 50px !important;
 }
-.platform-ios .has-order-btn {
+/*.platform-ios .has-order-btn {
     margin-bottom: 100px !important;
-}
+}*/
 .no-decor-a {
     color: black;
     text-decoration: none;
@@ -290,7 +290,19 @@ a.button.button-icon.icon.ion-ios-search-strong:before {
 .category-label {
     z-index: 50;
 }
-.delete-item-icon{
+.delete-item-icon {
     margin-left: 10px;
     color: red;
+}
+.legend {
+    font-size: 115%;
+}
+.similar-items {
+    border: none;
+}
+.force-back-ios {
+    font-size: 180%;
+}
+.force-back-android {
+    font-size: 145%;
 }

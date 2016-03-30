@@ -78,6 +78,11 @@ angular.module('wos', ['ionic',
             'address': 'Adresa',
             'availability': 'Dostupnost'
         },
+        'item': {
+            'localities': 'Lokality',
+            'similar_items': 'Podobné nabídky',
+            'availibility': 'Dostupnost'
+        },
         'notifications': {
             'notifications': 'Upozornění',
             'no_data': 'Zatím nemáte žádná upozornění.',

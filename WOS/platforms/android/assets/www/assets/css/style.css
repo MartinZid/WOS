@@ -100,7 +100,7 @@ a.button.button-icon.icon.ion-ios-search-strong:before {
     border-width: 0px !important;
 }
 .has-order-btn {
-    margin-bottom: 50px !important;
+    padding-bottom: 50px !important;
 }
 .platform-ios .has-order-btn {
     margin-bottom: 100px !important;
@@ -290,7 +290,13 @@ a.button.button-icon.icon.ion-ios-search-strong:before {
 .category-label {
     z-index: 50;
 }
-.delete-item-icon{
+.delete-item-icon {
     margin-left: 10px;
     color: red;
+}
+.legend {
+    font-size: 115%;
+}
+.similar-items {
+    border: none;
 }

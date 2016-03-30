@@ -30,6 +30,6 @@
 
     it('Replaces the element with the appropriate content', function () {
         // Compile a piece of HTML containing the directive
-        expect(element.html()).toContain('<div ng-show="rating > -1">');
+        expect(element.html()).toContain('ng-show="rating > -1"');
     });
 });

@@ -17,7 +17,7 @@ angular.module('wos.services.locality', [])
             /// <returns type="promise"></returns>
             return $http({
                 method: 'GET',
-                url: api.url + '/mobile/user/locality?userID=' + id
+                url: api.url + 'mobile/user/locality?userID=' + id
             });
         }
     }

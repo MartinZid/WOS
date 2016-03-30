@@ -5,11 +5,16 @@
     <ion-nav-buttons side="secondary">
         <a class="button button-icon icon icon ion-ios-email-outline" ng-click="openMessageModal($event, profile)"></a>
     </ion-nav-buttons>
-    <ion-nav-buttons side="primary">
-        <button class="button back-button buttons button-clear header-item icon ion-ios-arrow-back" ng-if="forceBackButton" ng-click="backToParentView()"></button>
+    <ion-nav-buttons side="left">
+        <button class="button back-button buttons button-clear header-item" 
+                ng-if="forceBackButton" 
+                ng-click="backToParentView()" >
+            <i ng-class="{
+                'ion-ios-arrow-back force-back-ios': platform !== 'android',
+                'ion-android-arrow-back force-back-android ': platform === 'android' }"></i>
+        </button>
     </ion-nav-buttons>
     <ion-content>
-
         <script id="message.html" type="text/ng-template">
             <ion-modal-view>
                 <ion-header-bar>
@@ -66,7 +71,7 @@
 
         <p ng-show="userItemsSum !== 0" class="padding">{{ 'profile.user_items' | translate }} <b>{{userItemsSum}}</b></p>
 
-        <div ng-repeat="item in profile.items">
+        <div ng-repeat="item in profile.instances">
             <wos-item name="item"></wos-item>
         </div>
 

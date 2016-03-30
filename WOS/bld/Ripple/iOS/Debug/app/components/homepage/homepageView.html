@@ -12,7 +12,7 @@
             <p>{{ 'errors.no_data' | translate }}</p>
         </div>
 
-        <div ng-repeat="item in items">
+        <div ng-repeat="item in items | filter:search:strict">
             <wos-item name="item"></wos-item>
         </div>
     </ion-content>

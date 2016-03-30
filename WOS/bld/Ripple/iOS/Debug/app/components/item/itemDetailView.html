@@ -1,9 +1,15 @@
-﻿<ion-view view-title="{{item.nazev}}" cache-view="false">
-    <ion-nav-buttons side="primary">
-        <button class="button back-button buttons button-clear header-item icon ion-ios-arrow-back" ng-if="forceBackButton" ng-click="backToParentView()"></button>
+﻿<ion-view view-title="{{item.jmeno}}" cache-view="false">
+    <ion-nav-buttons side="left">
+        <button class="button back-button buttons button-clear header-item"
+                ng-if="forceBackButton"
+                ng-click="backToParentView()">
+            <i ng-class="{
+                'ion-ios-arrow-back force-back-ios': platform !== 'android',
+                'ion-android-arrow-back force-back-android ': platform === 'android' }"></i>
+        </button>
     </ion-nav-buttons>
     <ion-nav-title>
-        {{item.nazev}}
+        {{item.jmeno}}
     </ion-nav-title>
     <ion-content>
         <ion-refresher pulling-text="Pull to refresh..."
@@ -12,7 +18,7 @@
         <error-message reload="doRefresh()" status="status" ng-hide="status === 0"></error-message>
 
         <div>
-            <ion-slide-box on-slide-changed="slideHasChanged($index)" show-pager="false">
+            <ion-slide-box on-slide-changed="slideHasChanged($index)">
                 <ion-slide ng-repeat="photo in item.photos">
                     <div><img ng-src="http://sp2.binarity-testing.cz/images/photos/{{photo.jmeno}}" class="carousel" /></div>
                 </ion-slide>
@@ -35,7 +41,7 @@
             <div class="row item-detail-user">
 
                 <div class="col col-25">
-                    <a ng-href="#/tab/home/profile/{{item.id_uzivatel}}"><img ng-src="http://www.gravatar.com/avatar/{{item.gravatar}}s=20" class="gravatar" /></a>
+                    <a ng-href="#/tab/home/profile/{{item.user.id_uzivatel}}"><img ng-src="http://www.gravatar.com/avatar/{{item.user.gravatar}}s=20" class="gravatar" /></a>
                 </div>
 
                 <script id="popover.html" type="text/ng-template">
@@ -69,25 +75,47 @@
 
                 <div class="col col-50">
                     <a ng-href="#/tab/home/profile/{{item.id_uzivatel}}" class="no-decor-a">
-                        <div>{{item.jmeno}} {{item.prijmeni}}</div>
+                        <div>{{item.user.jmeno}} {{item.user.prijmeni}}</div>
                     </a>
                     <!--item.rating is owner's rating-->
-                    <stars-rating rating="item.prumerne_hodnoceni"></stars-rating>
+                    <stars-rating rating="{{item.prumerne_hodnoceni}}"></stars-rating>
                     <div>
                         <span ng-repeat="item in item.availability" ng-click="openPopover($event, item)" class="locality">{{item.town}} </span>
                     </div>
                 </div>
 
             </div>
-            <div ng-repeat="item in item.instances">
+            <div>
                 <p ng-bind-html="item.popis"></p>
             </div>            
         </div>
-        <div id="map" data-tap-disabled="true" ng-show="status === 0"></div>
-        <div class="has-order-btn" >
-            <p>Some text Some textSome textSome textSome textSome textSome textSome textSome text</p>
+
+        <div class="padding legend" ng-show="status === 0">
+            {{ 'item.localities' | translate }}
         </div>
-        
+        <div id="map" data-tap-disabled="true" ng-show="status === 0 && !mapDisabled"></div>
+
+        <div class="padding legend" ng-show="status === 0 && item.similarItems.length > 0">
+            {{ 'item.similar_items' | translate }}
+        </div>
+        <ion-list>
+            <ion-item ng-repeat="item in item.similarItems" item="item" 
+                      class="item-text-wrap item-thumbnail-left similar-items">
+                <img ng-src="{{imgUrl}}/images/photos/{{item.jmeno_fotky}}"
+                     ng-click="goTo(item.id_instance)">
+                <a ng-href="#/tab/home/{{item.id_instance}}" class="no-decor-a">
+                    <h2>{{item.jmeno}}</h2>
+                </a>
+                <stars-rating rating="{{item.prumerne_hodnoceni}}"></stars-rating>
+                <span>{{item.price.cena}} {{item.price.mena}}/{{item.price.jednotka}}</span>
+                <br />
+                <span ng-repeat="locality in item.locality">
+                    {{locality.mesto}}
+                </span>
+            </ion-item>
+        </ion-list>
+        <div class="has-order-btn"></div>  
+              
     </ion-content>
 
     <div class="bar bar-footer bar-assertive order-btn-footer" ng-show="status === 0">

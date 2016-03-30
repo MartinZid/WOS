@@ -13,6 +13,14 @@
     beforeEach(module('wos.controllers.itemDetail'));
 
     beforeEach(module(function ($provide) {
+        $provide.factory('api', function ($http) {
+            return {
+                url: 'http://sp2.binarity-testing.cz/'
+            }
+        })
+    }));
+
+    beforeEach(module(function ($provide) {
         $provide.factory('item', function ($http) {
             return {
                 getAll: function () { },
@@ -26,11 +34,12 @@
         })
     }));
 
-    beforeEach(inject(function (_$controller_, item, $httpBackend, $q) {
+    beforeEach(inject(function (_$controller_, item, api, $httpBackend, $q) {
         ctrl = _$controller_;
         $item = item;
         httpBackend = $httpBackend;
         stateParams = { itemId: 22 };
+        api = api;
         ionicSlideBoxDelegateMock = jasmine.createSpyObj('$ionicSlideBoxDelegate spy', ['update']);
         ionicPopoverMock = {
             fromTemplateUrl: jasmine.createSpy('popover spy')

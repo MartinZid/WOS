@@ -10,6 +10,9 @@ angular.module('wos.controllers.homepage', [])
 
     $scope.items; /// all items
     $scope.status = 0; /// status variable for errors (0 = no error, 1 = there are no items; 2 = server error) 
+    $scope.search = {
+        itemState: 2
+    };
 
     getAllItems();
 

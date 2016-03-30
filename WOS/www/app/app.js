@@ -78,6 +78,11 @@ angular.module('wos', ['ionic',
             'address': 'Adresa',
             'availability': 'Dostupnost'
         },
+        'item': {
+            'localities': 'Lokality',
+            'similar_items': 'Podobné nabídky',
+            'availibility': 'Dostupnost'
+        },
         'notifications': {
             'notifications': 'Upozornění',
             'no_data': 'Zatím nemáte žádná upozornění.',
@@ -192,6 +197,7 @@ angular.module('wos', ['ionic',
   //remove text from back button
     $ionicConfigProvider.backButton.previousTitleText(false).text('');
     $ionicConfigProvider.tabs.position('bottom');
+    $ionicConfigProvider.navBar.alignTitle('center');
 
     $stateProvider
 

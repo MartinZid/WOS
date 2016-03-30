@@ -1,9 +1,11 @@
 ﻿<!--<a>-->
 <div class="list card">
 
-    <a ng-href="#/tab/home/{{item.id_polozka}}">
+    <!--<a ng-href="#/tab/home/{{item.id_polozka}}">-->
+    <a ng-href="#/tab/home/{{item.id_instance}}">
         <div class="item item-image">
-            <img ng-src="{{url}}/images/tiles/square/small_{{item.jmeno_fotky}}">
+            <!--<img ng-src="{{url}}/images/tiles/square/small_{{item.jmeno_fotky}}">-->
+            <img ng-src="{{url}}/images/photos/{{item.jmeno_fotky}}" />
             <div class="item-prices">
                 {{item.price_html}}
             </div>
@@ -12,12 +14,12 @@
 
     <div class="item item-body">
         <span class="item-name">
-            {{item.nazev}}
+            {{item.jmeno}}
         </span>
         <p>
             {{item.locality_html}}
         </p>
-        <stars-rating rating="item.rating"></stars-rating>
+        <stars-rating data-rating="{{item.rating}}"></stars-rating>
     </div>
 
 </div>

@@ -177,7 +177,6 @@ angular.module('wos.controllers.addItem', [])
         $scope.locality.from = null;
         $scope.locality.to = null;
         $scope.locality.day = undefined;
-        console.log($scope.forms.newLocality);
         $scope.forms.newLocality.from.$setUntouched();
         $scope.forms.newLocality.to.$setUntouched();
     };

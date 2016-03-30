@@ -1,7 +1,7 @@
 ﻿'use strict';
 angular.module('wos.controllers.itemDetail', [])
 
-.controller('ItemDetailCtrl', function ($scope, item, $stateParams, $ionicSlideBoxDelegate,
+.controller('ItemDetailCtrl', function ($scope, item, $stateParams, $ionicSlideBoxDelegate, api,
                                         $ionicPopover, $cordovaGeolocation, $ionicHistory, $state) {
     /// <summary>
     /// Controller for item detail view.
@@ -17,6 +17,8 @@ angular.module('wos.controllers.itemDetail', [])
         'prumerne_hodnoceni': 0 ///this has to be defined, because rating.getFullStars is called event before all data is loaded
     };
     $scope.status = 3;
+    $scope.imgUrl = api.url;
+    $scope.platform = ionic.Platform.platform();
 
     getItemDetail($scope.id);
 
@@ -29,6 +31,9 @@ angular.module('wos.controllers.itemDetail', [])
                 //any code in here will automatically have an apply run afterwards
                 $scope.item = data[0];
                 console.log(data);
+                $scope.item.photos.unshift({
+                    jmeno: $scope.item.mainPhoto
+                });
                 $scope.status = 0;
                 $ionicSlideBoxDelegate.update();
                 loadMap();
@@ -142,13 +147,21 @@ angular.module('wos.controllers.itemDetail', [])
 
         }, function (error) {
             console.log("Could not get location");
+            $scope.mapDisabled = true;
         });
     };
 
-    $scope.forceBackButton = $ionicHistory.backView().stateId.indexOf('home') < 0 && $ionicHistory.backView().stateId.indexOf('profile-detail') < 0; //we navigated from another tab
+    //we navigated from another tab
+    $scope.forceBackButton = $ionicHistory.backView().stateId.indexOf('home') < 0
+                             && $ionicHistory.backView().stateId.indexOf('profile-detail') < 0
+                             && $ionicHistory.backView().stateId.indexOf('item-detail') < 0;
 
     $scope.backToParentView = function () {
         $state.go('tab.home', {}, { location: 'repalce', inherit: 'false' });
     };
+
+    $scope.goTo = function (id) {
+        $state.go('tab.item-detail', { itemId: id });
+    }
 
 })

@@ -18,6 +18,7 @@ angular.module('wos.controllers.addItem', [])
     $scope.allCategories = [];
     $scope.select = [];
     $scope.status = 3;
+    $scope.platform = ionic.Platform.platform();
     $scope.localities;
     $scope.selectedLocality = {};
     $scope.selectedLocalities = [];
@@ -72,8 +73,8 @@ angular.module('wos.controllers.addItem', [])
         });
     };
 
-    if(false)
-        $scope.forceBackButton = $ionicHistory.backView().stateId.indexOf('home') < 0; //we navigated from another tab
+    //if(false)
+    $scope.forceBackButton = $ionicHistory.backView().stateId.indexOf('home') < 0; //we navigated from another tab
 
     $scope.backToParentView = function () {
         $state.go('tab.home', {}, { location: 'repalce', inherit: 'false' });
@@ -177,7 +178,6 @@ angular.module('wos.controllers.addItem', [])
         $scope.locality.from = null;
         $scope.locality.to = null;
         $scope.locality.day = undefined;
-        console.log($scope.forms.newLocality);
         $scope.forms.newLocality.from.$setUntouched();
         $scope.forms.newLocality.to.$setUntouched();
     };

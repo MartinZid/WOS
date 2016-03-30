@@ -15,6 +15,7 @@ angular.module('wos.controllers.profile', [])
     $scope.profile;
     $scope.status = 3;
     $scope.userItemsSum = 0;
+    $scope.platform = ionic.Platform.platform();
 
     getProfileData($scope.id);
 
@@ -48,7 +49,7 @@ angular.module('wos.controllers.profile', [])
         /// Return size of user's items array.
         /// </summary>
         /// <returns type="integer"></returns>
-        return $scope.profile.items.length;
+        return $scope.profile.instances.length;
     };
 
     $scope.goBack = function () {
