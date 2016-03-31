@@ -1,16 +1,25 @@
 ﻿'use strict';
 angular.module('wos.controllers.account', [])
 
-.controller('AccountCtrl', function ($scope, $state, profile) {
+.controller('AccountCtrl', function ($scope, $state, profile, rent, $ionicModal, rating) {
     /// <summary>
     /// Controller for homepage tab
     /// </summary>
     /// <param name="$scope" type="type"></param>
-    $scope.selectedSection = 1;
+    $scope.selectedSection = 3;
     $scope.status = 0;
+    $scope.isRentsArray = true;
+    $scope.isBorrowsArray = false;
     $scope.profile;
+    $scope.rents;
+    $scope.borrows;
+    $scope.rating = 4;
+
+    //TODO update after login
+    $scope.userId = 18;
 
     getUserData();
+    getUserRents();
 
     $scope.doRefresh = function () {
         /// <summary>
@@ -18,14 +27,15 @@ angular.module('wos.controllers.account', [])
         /// </summary>
         console.log('refreshing...');
         getUserData();
+        getUserRents();
     }
 
     function getUserData() {
         /// <summary>
         /// Downloads data for account
         /// </summary>
-        profile.getProfileData(25)
-            .success(function (data) { ///if success save loaded data to $scope.items
+        profile.getProfileData($scope.userId)
+            .success(function (data) { ///if success save loaded data to $scope.profile
                 $scope.profile = data;
                 console.log(data);
                 $scope.status = 0;
@@ -35,6 +45,73 @@ angular.module('wos.controllers.account', [])
             }).finally(function () { /// Stop the ion-refresher from spinning
                 $scope.$broadcast('scroll.refreshComplete');
             });
+    };
+
+    function getUserRents() {
+        /// <summary>
+        /// Downloads rents and borrows for user profile.
+        /// </summary>
+        rent.getAll($scope.userId)
+            .success(function (data) {///if success save loaded data to $scope.rents and $scope.borrows
+                $scope.rents = data[1][0];
+                $scope.borrows = data[0][0];
+                $scope.covertBorrowsDate();
+                console.log(data);
+                $scope.status = 0;
+                if ($scope.borrows.length == 0) {
+                    $scope.isBorrowsArray = false;
+                } else {
+                    $scope.isBorrowsArray = true;
+                }
+                if ($scope.rents.length == 0) {
+                    $scope.isRentsArray = false;
+                } else {
+                    $scope.isRentsArray = true;
+                }
+            }).error(function (data) { ///if can not load data from server set $scope.status, for error handling
+                console.log('profile.getRents: Can not load data from server.');
+                $scope.status = 2;
+            }).finally(function () { /// Stop the ion-refresher from spinning
+                $scope.$broadcast('scroll.refreshComplete');
+            });
+    };
+
+    $scope.covertBorrowsDate = function () {
+        /// <summary>
+        /// Covert date format for all leases.
+        /// "2016-02-29 17:11:00" -> "29.02.2016"
+        /// </summary>
+        /// <param name="data" type="type"></param>
+
+        if ($scope.borrows == undefined) return;
+
+        $scope.borrows.forEach(function (entry) {
+            entry.leases.forEach(function (lease) {
+                var from = lease.od.date.split(' ')[0].split('-');
+                lease.from = from[2] + '.';
+                lease.from += from[1] + '.';
+                lease.from += from[0];
+
+                var to = lease.do.date.split(' ')[0].split('-');
+                lease.to = to[2] + '.';
+                lease.to += to[1] + '.';
+                lease.to += to[0];
+            });
+        });
+
+        $scope.rents.forEach(function (entry) {
+            var from = entry.od.date.split(' ')[0].split('-');
+            entry.from = from[2] + '.';
+            entry.from += from[1] + '.';
+            entry.from += from[0];
+
+            var to = entry.do.date.split(' ')[0].split('-');
+            entry.to = to[2] + '.';
+            entry.to += to[1] + '.';
+            entry.to += to[0];
+            entry.loading = false;
+            entry.actionError = 0;
+        });
     }
 
     //$rootScope.notifications = '#/tab/notifications';
@@ -59,4 +136,107 @@ angular.module('wos.controllers.account', [])
         /// <param name="state" type="integer"></param>
         $scope.selectedSection = state;
     };
+
+    $scope.goToItem = function (id) {
+        /// <summary>
+        /// Redirect user item with given id.
+        /// </summary>
+        /// <param name="id" type="integer"></param>
+        $state.go('tab.item-detail', { itemId: id });
+    }
+
+    $ionicModal.fromTemplateUrl('new_rating.html', {
+        scope: $scope,
+        animation: 'slide-in-up'
+    }).then(function (modal) {
+        $scope.modal = modal;
+    });
+    $scope.openModal = function (id) {
+        $scope.modal.show();
+        $scope.leaseId = id;
+        $scope.status = 0;  
+    };
+    $scope.closeModal = function () {
+        $scope.modal.hide();
+        $scope.status = 0;
+    };
+
+    $scope.ratingsObject = {
+        iconOn: 'ion-ios-star',   
+        iconOff: 'ion-ios-star-outline',  
+        iconOnColor: 'rgb(255, 200, 0)',
+        iconOffColor: 'rgb(255, 200, 0)',    
+        rating: 4, 
+        minRating: 1,  
+        readOnly: true, 
+        callback: function (rating) { 
+            $scope.ratingsCallback(rating);
+        }
+    };
+
+    $scope.ratingsCallback = function (rating) {
+        /// <summary>
+        /// When rating is submitted, saves rating into $scope.rating.
+        /// </summary>
+        /// <param name="rating" type="type"></param>
+        $scope.rating = rating;
+    };
+
+    $scope.doRate = function (text) {
+        /// <summary>
+        /// Rating form submit. Sends rating with text to server.
+        /// </summary>
+        /// <param name="text" type="String"></param>
+        console.log($scope.rating + '\n' + text.value);
+        rating.rateLease($scope.leaseId, $scope.rating, text)
+        .success(function (data) {
+            console.log('rating successful');
+            $scope.status = 0;
+            text.value = undefined;
+            $scope.closeModal();
+        }).error(function () {
+            console.log('rating failed');
+            $scope.status = 2;
+        });
+    };
+
+    $scope.approve = function (index) {
+        console.log(index);
+        $scope.rents[index].spinning = true;
+        rent.approve($scope.rents[index].id_vypujcka)
+            .success(function () {
+                $scope.rents[index].spinning = false;
+                $scope.rents[index].actionError = 0;
+                scope.rents[index].stav_vypujcky = 'schváleno';
+            }).error(function () {
+                $scope.rents[index].spinning = false;
+                $scope.rents[index].actionError = 1;
+            })
+    };
+    $scope.decline = function (index) {
+        console.log(index);
+        $scope.rents[index].spinning = true;
+        rent.decline($scope.rents[index].id_vypujcka)
+            .success(function () {
+                $scope.rents[index].spinning = false;
+                $scope.rents[index].actionError = 0;
+                $scope.rents[index].stav_vypujcky = 'zamítnuto';
+            }).error(function () {
+                $scope.rents[index].spinning = false;
+                $scope.rents[index].actionError = 1;
+            })
+    };
+    $scope.repeatAction = function (index) {
+        if ($scope.rents[index].actionError == 1)
+            $scope.approve(index);
+        if ($scope.rents[index].actionError == 2)
+            $scope.decline(index);
+    }
+    $scope.doReturn = function (lease) {
+        console.log(lease);
+        //TODO set action error
+        //     set spinning
+        //     call rent.return
+        lease.stav_vypujcky = 'ukončeno';
+    }
 })

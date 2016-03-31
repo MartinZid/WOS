@@ -40,9 +40,155 @@
                 {{ 'profile.rents' | translate }}
             </a>
         </div>
-        <div ng-repeat="item in profile.items" ng-show="selectedSection == 1">
+        <div ng-repeat="item in profile.instances" ng-show="selectedSection == 1">
             <wos-item name="item"></wos-item>
         </div>
+
+        <div class="padding" ng-show="selectedSection == 2">
+            <div class="error-message" ng-show="!isBorrowsArray">
+                <p>{{ 'profile.leases.no_borrows' | translate }}</p>
+            </div>
+            <div ng-repeat="borrow in borrows track by $index">
+                <div class="card" ng-repeat="lease in borrow.leases">
+                    <div class="item item-text-wrap" >
+                        <table ng-click="goToItem(lease.instance.id_instance_original)" style="width: 100%">
+                            <tbody>
+                                <tr>
+                                    <th class="rent-card-th">{{ 'profile.leases.item' | translate}}</th>
+                                    <td class="rent-card-td">{{lease.instance.jmeno}}</td>
+                                </tr>
+                                <tr>
+                                    <th class="rent-card-th">{{ 'profile.leases.from' | translate}}</th>
+                                    <td class="rent-card-td">{{lease.from}}</td>
+                                </tr>
+                                <tr>
+                                    <th class="rent-card-th">{{ 'profile.leases.to' | translate}}</th>
+                                    <td class="rent-card-td">{{lease.to}}</td>
+                                </tr>
+                                <tr>
+                                    <th class="rent-card-th">{{ 'profile.leases.from_user' | translate}}</th>
+                                    <td class="rent-card-td">{{lease.thatUser.jmeno}} {{lease.thatUser.prijmeni}}</td>
+                                </tr>
+                                <tr>
+                                    <th class="rent-card-th">{{ 'profile.leases.state' | translate}}</th>
+                                    <td class="rent-card-td" ng-show="lease.stav_vypujcky === 'ukončeno'">{{ 'profile.leases.returned' | translate }}</td>
+                                    <td class="rent-card-td" ng-show="lease.stav_vypujcky === 'vytvořeno'">{{ 'profile.leases.waiting_for_approval' | translate }}</td>
+                                    <td class="rent-card-td" ng-show="lease.stav_vypujcky === 'schváleno'">{{ 'profile.leases.borrowed' | translate }}</td>
+                                    <td class="rent-card-td" ng-show="lease.stav_vypujcky === 'zamítnuto'">{{ 'profile.leases.refused' | translate }}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class="centering">
+                            <button class="button button-clear button-calm" ng-click="openModal(lease.id_vypujcka)"
+                                    ng-show="lease.stav_vypujcky === 'ukončeno'">
+                                {{ 'profile.leases.do_rate' | translate }}
+                            </button> 
+                        </div>
+                        <div class="centering" ng-show="lease.stav_vypujcky === 'schváleno'">
+                            <button class="button button-clear button-positive" ng-click="doReturn(lease)">
+                                {{ 'profile.leases.do_return' | translate }}
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script id="new_rating.html" type="text/ng-template">
+            <ion-modal-view>
+                <ion-header-bar>
+                    <h1 class="title">{{ 'profile.rating_title' | translate }}</h1>
+                    <div class="button button-clear button-positive" ng-click="modal.hide()">{{ 'close' | translate }}</div>
+                </ion-header-bar>
+                <ion-content class="padding">
+
+                    <error-message reload="doRate(text)" status="status" ng-hide="status === 0"></error-message>
+
+                    <ionic-ratings ratingsobj='ratingsObject'></ionic-ratings>
+
+                    <form name="ratingForm" ng-submit="doRate(text)">
+                        <label class="item item-input item-stacked-label no-error">
+                            <span class="input-label">{{ 'profile.rating_title' | translate }}</span>
+                            <input type="text" name="text" ng-model="text.value" placeholder="{{ 'profile.rating_title' | translate }}">
+                        </label>
+                        <div class="centering">
+                            <button class="button button-outline button-calm registration-btn" type="submit">
+                                {{ 'profile.leases.do_rate' | translate }}
+                            </button>
+                        </div>
+                    </form>
+
+                </ion-content>
+            </ion-modal-view>
+        </script>
+
+        <div class="padding" ng-show="selectedSection == 3">
+            <div class="error-message" ng-show="!isRentsArray">
+                <p>{{ 'profile.leases.no_borrows' | translate }}</p>
+            </div>
+            <div ng-repeat="rent in rents track by $index">
+                <div class="card">
+                    <div class="item item-text-wrap">
+                        <table ng-click="goToItem(rent.instance.id_instance_original)" style="width: 100%">
+                            <tbody>
+                                <tr>
+                                    <th class="rent-card-th">{{ 'profile.leases.item' | translate}}</th>
+                                    <td class="rent-card-td">{{rent.instance.jmeno}}</td>
+                                </tr>
+                                <tr>
+                                    <th class="rent-card-th">{{ 'profile.leases.from' | translate}}</th>
+                                    <td class="rent-card-td">{{rent.from}}</td>
+                                </tr>
+                                <tr>
+                                    <th class="rent-card-th">{{ 'profile.leases.to' | translate}}</th>
+                                    <td class="rent-card-td">{{rent.to}}</td>
+                                </tr>
+                                <tr>
+                                    <th class="rent-card-th">{{ 'profile.leases.to_user' | translate}}</th>
+                                    <td class="rent-card-td">{{rent.thatUser.jmeno}} {{rent.thatUser.prijmeni}}</td>
+                                </tr>
+                                <tr>
+                                    <th class="rent-card-th">{{ 'profile.leases.state' | translate}}</th>
+                                    <td class="rent-card-td" ng-show="rent.stav_vypujcky === 'ukončeno'">{{ 'profile.leases.returned' | translate }}</td>
+                                    <td class="rent-card-td" ng-show="rent.stav_vypujcky === 'vytvořeno'">{{ 'profile.leases.waiting_for_approval' | translate }}</td>
+                                    <td class="rent-card-td" ng-show="rent.stav_vypujcky === 'schváleno'">{{ 'profile.leases.borrowed' | translate }}</td>
+                                    <td class="rent-card-td" ng-show="rent.stav_vypujcky === 'zamítnuto'">{{ 'profile.leases.refused' | translate }}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class="centering">
+                            <button class="button button-clear button-calm" ng-click="openModal(rent.id_vypujcka)"
+                                    ng-show="rent.stav_vypujcky === 'ukončeno'">
+                                {{ 'profile.leases.do_rate' | translate }}
+                            </button>
+                        </div>
+                        <div class="centering" ng-show="rent.stav_vypujcky === 'schváleno'">
+                            <button class="button button-clear button-positive" ng-click="doReturn(rent)">
+                                {{ 'profile.leases.do_return' | translate }}
+                            </button>
+                        </div>
+                        <div class="centering" ng-show="rent.stav_vypujcky === 'vytvořeno' && rent.actionError == 0">
+                            <div ng-show="rent.spinning">
+                                <ion-spinner></ion-spinner>
+                            </div>
+                            <button class="button button-clear button-assertive" ng-click="decline($index)">
+                                {{ 'profile.leases.decline' | translate }}
+                            </button>
+                            <button class="button button-clear button-balanced" ng-click="approve($index)">
+                                {{ 'profile.leases.approve' | translate }}
+                            </button>
+                        </div>
+                        <div ng-show="rent.actionError > 0" class="centering">
+                            <p style="margin-top: 1.5em">{{ 'profile.leases.action_failed' | translate }}</p>
+                            <button class="button button-clear button-positive" ng-click="repeatAction($index)">
+                                {{ 'try_again' | translate }}
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </ion-content>
     <a ng-href="#/tab/home/addItem" ng-show="selectedSection == 1">
         <div class="floating-btn">

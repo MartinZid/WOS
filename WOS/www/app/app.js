@@ -18,6 +18,7 @@ angular.module('wos', ['ionic',
                        'wos.services.notifications',
                        'wos.services.category',
                        'wos.services.locality',
+                       'wos.services.rent',
                        'wos.rating',
                        'wos.directives.item',
                        'wos.directives.errorMessage',
@@ -25,7 +26,8 @@ angular.module('wos', ['ionic',
                        'wos.api',
                        'ngIOS9UIWebViewPatch',
                        'ngCordova',
-                       'pascalprecht.translate'])
+                       'pascalprecht.translate',
+                       'ionic-ratings'])
 
 .run(function ($ionicPlatform, $cordovaSQLite) {
   $ionicPlatform.ready(function() {
@@ -56,6 +58,7 @@ angular.module('wos', ['ionic',
             'cart': 'Košík',
             'me': 'Já',
         },
+        'try_again': 'Zkusit znovu',
         'errors': {
             'no_data': 'Zde budou všechny položky.',
             'server_error': 'V komunikaci se serverem došlo k chybě. :-(',
@@ -107,6 +110,26 @@ angular.module('wos', ['ionic',
             'show_reviews': 'Zobrazit hodnocení',
             'reviews': 'Hodnocení',
             'message_for_user': 'Zpráva uživateli',
+            'leases': {
+                'item': 'Položka',
+                'from': 'Od',
+                'to': 'Do',
+                'from_user': 'Uživatelem',
+                'to_user': 'Uživateli',
+                'state': 'Stav',
+                'no_borrows': 'Zde budou Vaše výpůjčky.',
+                'returned': 'Vráceno',
+                'waiting_for_approval': 'Čeká na schválení',
+                'borrowed': 'Vypůjčeno',
+                'refused': 'Zamítnuto',
+                'do_rate': 'Hodnotit',
+                'already_rated': 'Již ohodnoceno',
+                'decline': 'Zamítnout',
+                'approve': 'Schválit',
+                'action_failed': 'Akce se nezdařila.',
+                'do_return': 'Vrátit'
+            },
+            'rating_title': 'Hodnocení'
         },
         'close': 'Zavřít',
         'delete': 'Smazat',
@@ -310,7 +333,7 @@ angular.module('wos', ['ionic',
    });
 
   // if none of the above states are matched
-    $urlRouterProvider.otherwise('/tab/home');
+    $urlRouterProvider.otherwise('/tab/account');
    //$urlRouterProvider.otherwise('tab/home/profile/25');
    //$urlRouterProvider.otherwise('tab/account/login');
 });
