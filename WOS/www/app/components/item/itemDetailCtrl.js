@@ -2,7 +2,8 @@
 angular.module('wos.controllers.itemDetail', [])
 
 .controller('ItemDetailCtrl', function ($scope, item, $stateParams, $ionicSlideBoxDelegate, api,
-                                        $ionicPopover, $cordovaGeolocation, $ionicHistory, $state) {
+                                        $ionicPopover, $cordovaGeolocation, $ionicHistory, $state,
+                                        $ionicModal, $timeout) {
     /// <summary>
     /// Controller for item detail view.
     /// </summary>
@@ -19,6 +20,7 @@ angular.module('wos.controllers.itemDetail', [])
     $scope.status = 3;
     $scope.imgUrl = api.url;
     $scope.platform = ionic.Platform.platform();
+    $scope.events = [];
 
     getItemDetail($scope.id);
 
@@ -37,6 +39,7 @@ angular.module('wos.controllers.itemDetail', [])
                 $scope.status = 0;
                 $ionicSlideBoxDelegate.update();
                 loadMap();
+                $scope.createCalendarEvents();
 
             }).error(function (data) { ///if can not load data from server set $scope.status, for error handling
                 console.log('item.getItemDetail: Can not load data from server.');
@@ -107,7 +110,8 @@ angular.module('wos.controllers.itemDetail', [])
                 zoom: 6,
                 mapTypeId: google.maps.MapTypeId.ROADMAP
             };
-
+            var map_id = "map" + $scope.item.id_instance;
+            console.log(map_id);
             $scope.map = new google.maps.Map(document.getElementById("map"), mapOptions);
 
             //Wait until the map is loaded
@@ -164,4 +168,80 @@ angular.module('wos.controllers.itemDetail', [])
         $state.go('tab.item-detail', { itemId: id });
     }
 
+    $scope.uiConfig = {
+        calendar: {
+            height: 450,
+            firstDay:1,
+            editable: true,
+            header: {
+                left: 'title',
+                center: '',
+                right: 'prev,next'
+            },
+            dayNames: ["Neděle", "Pondělí", "Úterý", "Středa", "Čtvrtek", "Pátek", "Sobota"],
+            dayNamesShort: ["Ne", "Po", "Út", "St", "Čt", "Pá", "So"],
+            monthNames: ["Leden", "Únor", "Březen", "Duben", "Květen", "Červen", "Červenec", "Srpen", "Září", "Říjen", "Listopad", "Prosinec"]
+        }
+    };
+
+    function isInArray(event, array) {
+        /// <summary>
+        /// Returns true if events in already in array.
+        /// </summary>
+        /// <param name="event" type="object"></param>
+        /// <param name="array" type="array"></param>
+        /// <returns type="bool"></returns>
+        var returnValue = false
+        array.forEach(function (entry) {
+            if (entry.start.getTime() == event.start.getTime() && entry.end.getTime() == event.end.getTime())
+                returnValue = true;
+        });
+        return returnValue;
+    }
+
+    $scope.createCalendarEvents = function () {
+        /// <summary>
+        /// Creates events from item.leases to calendar format.
+        /// </summary>
+
+        for (var key in $scope.item.leases) {
+            // skip loop if the property is from prototype
+            if (!$scope.item.leases.hasOwnProperty(key)) continue;
+
+            var obj = $scope.item.leases[key];
+            //console.log(obj);
+            for (var prop in obj) {
+                // skip loop if the property is from prototype
+                if(!obj.hasOwnProperty(prop)) continue;
+
+                var from = obj[prop].od.date.split(' ')[0].split('-');
+                var to = obj[prop].do.date.split(' ')[0].split('-');
+                var event = {
+                    start: new Date(from[0], from[1], from[2]),
+                    end: new Date(to[0], to[1], to[2]),
+                    stick: true
+                };
+                var inArray = isInArray(event, $scope.events);
+                if (!inArray) {
+                    $scope.events.push(event);
+                };
+            }
+        }
+    }
+
+    $scope.eventSources = [$scope.events];
+
+    $ionicModal.fromTemplateUrl('reviews.html', {
+        scope: $scope,
+        animation: 'slide-in-up'
+    }).then(function (modal) {
+        $scope.reviewsModal = modal;
+    });
+    $scope.openReviewsModal = function ($event, reviews) {
+        $scope.reviewsModal.show();
+        $scope.reviews = reviews;
+    };
+    $scope.closeReviewsModal = function () {
+        $scope.reviewsModal.hide();
+    };
 })

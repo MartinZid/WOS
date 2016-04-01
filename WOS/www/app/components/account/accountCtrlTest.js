@@ -55,7 +55,7 @@
         profileResponse.respond({});
         rentResponse = httpBackend.whenGET('http://sp2.binarity-testing.cz/mobile/rent?userID=25');
         rentResponse.respond([
-            [[],[]],[[],[]]
+            [],[]
         ]);
         stateMock = jasmine.createSpyObj('$state spy', ['go']);
         ionicModalMock = {
@@ -139,7 +139,9 @@
         var $scope = {};
         httpBackend.whenPOST('http://sp2.binarity-testing.cz/mobile/rent/rating?leaseID=24&rating=4&text=text').respond(200, '');
         var controller = ctrl('AccountCtrl', { $scope: $scope, $state: stateMock, $ionicModal: ionicModalMock });
-        var text = 'text';
+        var text = {
+            value: 'text'
+        };
         $scope.leaseId = 24;
         $scope.rating = 4;
         $scope.doRate(text);
@@ -155,5 +157,68 @@
         var controller = ctrl('AccountCtrl', { $scope: $scope, $state: stateMock, $ionicModal: ionicModalMock });
         httpBackend.flush();
         expect(ionicModalMock.fromTemplateUrl).toHaveBeenCalled();
+    });
+    it('should set isBorrowsArray and isRentsArray to false, when borrows and rents are empty', function () {
+        var $scope = {};
+        var controller = ctrl('AccountCtrl', { $scope: $scope, $state: stateMock, $ionicModal: ionicModalMock });
+        httpBackend.flush();
+        expect($scope.isBorrowsArray && $scope.isRentsArray).toBe(false);
+    });
+    it('it should set actionError for every lease to 0', function () {
+        var $scope = {};
+        var controller = ctrl('AccountCtrl', { $scope: $scope, $state: stateMock, $ionicModal: ionicModalMock });
+        rentResponse.respond([
+            [{
+                leases: [
+                    {
+                        'od': {
+                            date: '2016-02-29 17:11:00'
+                        },
+                        'do': {
+                            date: '2016-03-29 17:11:00'
+                        }
+                    }
+                ]
+            }], []
+        ]);
+        httpBackend.flush();
+        expect($scope.borrows[0].leases[0].actionError).toBe(0);
+    });
+    it('it should convert date to correct formar', function () {
+        var $scope = {};
+        var controller = ctrl('AccountCtrl', { $scope: $scope, $state: stateMock, $ionicModal: ionicModalMock });
+        rentResponse.respond([
+            [{
+                leases: [
+                    {
+                        'od': {
+                            date: '2016-02-29 17:11:00'
+                        },
+                        'do': {
+                            date: '2016-03-29 17:11:00'
+                        }
+                    }
+                ]
+            }], []
+        ]);
+        httpBackend.flush();
+        expect($scope.borrows[0].leases[0].from).toBe('29.02.2016');
+    });
+    it('should call $state.go with correct params, when goToItem is called', function () {
+        var $scope = {};
+        var controller = ctrl('AccountCtrl', { $scope: $scope, $state: stateMock, $ionicModal: ionicModalMock });
+        httpBackend.flush();
+        $scope.goToItem(2);
+        expect(stateMock.go).toHaveBeenCalledWith('tab.item-detail', { itemId: 2});
+    });
+    it('when modal is opened with id, it should set leaseId to correct value', function () {
+        var $scope = {};
+        var controller = ctrl('AccountCtrl', { $scope: $scope, $state: stateMock, $ionicModal: ionicModalMock });
+        httpBackend.flush();
+        $scope.modal = {
+            show: jasmine.createSpy('modal spy', ['hide'])
+        };
+        $scope.openModal(2);
+        expect($scope.leaseId).toBe(2);
     });
 })

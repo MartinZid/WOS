@@ -27,7 +27,8 @@ angular.module('wos', ['ionic',
                        'ngIOS9UIWebViewPatch',
                        'ngCordova',
                        'pascalprecht.translate',
-                       'ionic-ratings'])
+                       'ionic-ratings',
+                       'ui.calendar'])
 
 .run(function ($ionicPlatform, $cordovaSQLite) {
   $ionicPlatform.ready(function() {
@@ -84,7 +85,9 @@ angular.module('wos', ['ionic',
         'item': {
             'localities': 'Lokality',
             'similar_items': 'Podobné nabídky',
-            'availibility': 'Dostupnost'
+            'availibility': 'Dostupnost',
+            'reviews': 'Hodnocení',
+            'show_all': 'Zobrazit vše'
         },
         'notifications': {
             'notifications': 'Upozornění',
@@ -273,6 +276,7 @@ angular.module('wos', ['ionic',
    })
 
    .state('tab.item-detail', {
+       cache: false,
        url: '/home/:itemId',
        views: {
            'homepage': {
@@ -333,7 +337,7 @@ angular.module('wos', ['ionic',
    });
 
   // if none of the above states are matched
-    $urlRouterProvider.otherwise('/tab/account');
+    $urlRouterProvider.otherwise('/tab/home');
    //$urlRouterProvider.otherwise('tab/home/profile/25');
    //$urlRouterProvider.otherwise('tab/account/login');
 });

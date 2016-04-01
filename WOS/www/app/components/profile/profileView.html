@@ -53,7 +53,7 @@
                         <ion-list>
                             <ion-item ng-repeat="review in reviews">
                                 <div>{{review.jmeno}}</div>
-                                <stars-rating rating="review.skore"></stars-rating>
+                                <stars-rating rating="{{review.skore}}"></stars-rating>
                                 <div>{{review.komentar}}</div>
                             </ion-item>
                         </ion-list>
@@ -61,7 +61,9 @@
                 </ion-modal-view>
             </script>
 
-            <button class="button button-outline button-positive button-small" ng-click="openReviewsModal($event, profile.reviews)">
+            <button class="button button-outline button-positive button-small" 
+                    ng-click="openReviewsModal($event, profile.reviews)"
+                    ng-show="profile.reviews.length > 0">
                 {{ 'profile.show_reviews' | translate }}
             </button>
 

@@ -29,7 +29,7 @@ angular.module('wos.services.rent', [])
             /// <returns type="promise"></returns>
             return $http({
                 method: 'PUT',
-                url: api.url + 'action/approve/' + id
+                url: api.url + 'action/approveasd/' + id
             });
         },
         decline: function (id) {
@@ -51,7 +51,7 @@ angular.module('wos.services.rent', [])
             /// <returns type="promise"></returns>
             return $http({
                 method: 'PUT',
-                url: api.url + 'action/return/' + id
+                url: api.url + 'action/returnsdaf/' + id
             });
         }
     }

@@ -48,7 +48,7 @@
             <div class="error-message" ng-show="!isBorrowsArray">
                 <p>{{ 'profile.leases.no_borrows' | translate }}</p>
             </div>
-            <div ng-repeat="borrow in borrows track by $index">
+            <div ng-repeat="borrow in borrows">
                 <div class="card" ng-repeat="lease in borrow.leases">
                     <div class="item item-text-wrap" >
                         <table ng-click="goToItem(lease.instance.id_instance_original)" style="width: 100%">
@@ -84,9 +84,20 @@
                                 {{ 'profile.leases.do_rate' | translate }}
                             </button> 
                         </div>
-                        <div class="centering" ng-show="lease.stav_vypujcky === 'schváleno'">
+                        <div class="centering" ng-show="lease.stav_vypujcky === 'schváleno' && lease.actionError == 0">
                             <button class="button button-clear button-positive" ng-click="doReturn(lease)">
                                 {{ 'profile.leases.do_return' | translate }}
+                            </button>
+                        </div>
+                        <div class="centering">
+                            <div ng-show="lease.spinning">
+                                <ion-spinner></ion-spinner>
+                            </div>
+                        </div>
+                        <div ng-show="lease.actionError > 0" class="centering">
+                            <p style="margin-top: 1.5em">{{ 'profile.leases.action_failed' | translate }}</p>
+                            <button class="button button-clear button-positive" ng-click="repeatAction(lease)">
+                                {{ 'try_again' | translate }}
                             </button>
                         </div>
                     </div>
@@ -126,7 +137,7 @@
             <div class="error-message" ng-show="!isRentsArray">
                 <p>{{ 'profile.leases.no_borrows' | translate }}</p>
             </div>
-            <div ng-repeat="rent in rents track by $index">
+            <div ng-repeat="rent in rents">
                 <div class="card">
                     <div class="item item-text-wrap">
                         <table ng-click="goToItem(rent.instance.id_instance_original)" style="width: 100%">
@@ -162,25 +173,27 @@
                                 {{ 'profile.leases.do_rate' | translate }}
                             </button>
                         </div>
-                        <div class="centering" ng-show="rent.stav_vypujcky === 'schváleno'">
+                        <div class="centering" ng-show="rent.stav_vypujcky === 'schváleno' && rent.actionError == 0">
                             <button class="button button-clear button-positive" ng-click="doReturn(rent)">
                                 {{ 'profile.leases.do_return' | translate }}
                             </button>
                         </div>
-                        <div class="centering" ng-show="rent.stav_vypujcky === 'vytvořeno' && rent.actionError == 0">
+                        <div class="centering">
                             <div ng-show="rent.spinning">
                                 <ion-spinner></ion-spinner>
                             </div>
-                            <button class="button button-clear button-assertive" ng-click="decline($index)">
+                        </div>
+                        <div class="centering" ng-show="rent.stav_vypujcky === 'vytvořeno' && rent.actionError == 0">
+                            <button class="button button-clear button-assertive" ng-click="decline(rent)">
                                 {{ 'profile.leases.decline' | translate }}
                             </button>
-                            <button class="button button-clear button-balanced" ng-click="approve($index)">
+                            <button class="button button-clear button-balanced" ng-click="approve(rent)">
                                 {{ 'profile.leases.approve' | translate }}
                             </button>
                         </div>
                         <div ng-show="rent.actionError > 0" class="centering">
                             <p style="margin-top: 1.5em">{{ 'profile.leases.action_failed' | translate }}</p>
-                            <button class="button button-clear button-positive" ng-click="repeatAction($index)">
+                            <button class="button button-clear button-positive" ng-click="repeatAction(rent)">
                                 {{ 'try_again' | translate }}
                             </button>
                         </div>

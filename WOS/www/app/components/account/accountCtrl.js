@@ -6,7 +6,7 @@ angular.module('wos.controllers.account', [])
     /// Controller for homepage tab
     /// </summary>
     /// <param name="$scope" type="type"></param>
-    $scope.selectedSection = 3;
+    $scope.selectedSection = 1;
     $scope.status = 0;
     $scope.isRentsArray = true;
     $scope.isBorrowsArray = false;
@@ -16,7 +16,7 @@ angular.module('wos.controllers.account', [])
     $scope.rating = 4;
 
     //TODO update after login
-    $scope.userId = 18;
+    $scope.userId = 25;
 
     getUserData();
     getUserRents();
@@ -53,10 +53,10 @@ angular.module('wos.controllers.account', [])
         /// </summary>
         rent.getAll($scope.userId)
             .success(function (data) {///if success save loaded data to $scope.rents and $scope.borrows
-                $scope.rents = data[1][0];
-                $scope.borrows = data[0][0];
-                $scope.covertBorrowsDate();
+                $scope.rents = data[1];
+                $scope.borrows = data[0];
                 console.log(data);
+                $scope.covertBorrowsDate();
                 $scope.status = 0;
                 if ($scope.borrows.length == 0) {
                     $scope.isBorrowsArray = false;
@@ -96,8 +96,11 @@ angular.module('wos.controllers.account', [])
                 lease.to = to[2] + '.';
                 lease.to += to[1] + '.';
                 lease.to += to[0];
+                lease.actionError = 0;
             });
         });
+
+        if ($scope.rents == undefined) return;
 
         $scope.rents.forEach(function (entry) {
             var from = entry.od.date.split(' ')[0].split('-');
@@ -188,55 +191,82 @@ angular.module('wos.controllers.account', [])
         /// </summary>
         /// <param name="text" type="String"></param>
         console.log($scope.rating + '\n' + text.value);
-        rating.rateLease($scope.leaseId, $scope.rating, text)
-        .success(function (data) {
-            console.log('rating successful');
-            $scope.status = 0;
-            text.value = undefined;
-            $scope.closeModal();
-        }).error(function () {
-            console.log('rating failed');
-            $scope.status = 2;
-        });
+        rating.rateLease($scope.leaseId, $scope.rating, text.value)
+            .success(function (data) {
+                console.log('rating successful');
+                $scope.status = 0;
+                text.value = undefined;
+                $scope.closeModal();
+            }).error(function () {
+                console.log('rating failed');
+                $scope.status = 2;
+            });
     };
 
-    $scope.approve = function (index) {
-        console.log(index);
-        $scope.rents[index].spinning = true;
-        rent.approve($scope.rents[index].id_vypujcka)
+    $scope.approve = function (lease) {
+        /// <summary>
+        /// Lease is selected approved. It contacts server and when response is recieved
+        /// it stops spinner and sets actionError to propriate value.
+        /// </summary>
+        /// <param name="lease" type="type"></param>
+        console.log('approving...');
+        lease.spinning = true;
+        rent.approve(lease.id_vypujcka)
             .success(function () {
-                $scope.rents[index].spinning = false;
-                $scope.rents[index].actionError = 0;
-                scope.rents[index].stav_vypujcky = 'schváleno';
+                lease.spinning = false;
+                lease.actionError = 0;
+                lease.stav_vypujcky = 'schváleno';
             }).error(function () {
-                $scope.rents[index].spinning = false;
-                $scope.rents[index].actionError = 1;
+                lease.spinning = false;
+                lease.actionError = 1;
             })
     };
-    $scope.decline = function (index) {
-        console.log(index);
-        $scope.rents[index].spinning = true;
-        rent.decline($scope.rents[index].id_vypujcka)
+    $scope.decline = function (lease) {
+        /// <summary>
+        /// Lease is selected declined. It contacts server and when response is recieved
+        /// it stops spinner and sets actionError to propriate value.
+        /// </summary>
+        /// <param name="lease" type="type"></param>
+        console.log('declining...');
+        lease.spinning = true;
+        rent.decline(lease.id_vypujcka)
             .success(function () {
-                $scope.rents[index].spinning = false;
-                $scope.rents[index].actionError = 0;
-                $scope.rents[index].stav_vypujcky = 'zamítnuto';
+                lease.spinning = false;
+                lease.actionError = 0;
+                lease.stav_vypujcky = 'zamítnuto';
             }).error(function () {
-                $scope.rents[index].spinning = false;
-                $scope.rents[index].actionError = 1;
+                lease.spinning = false;
+                lease.actionError = 2;
             })
     };
-    $scope.repeatAction = function (index) {
-        if ($scope.rents[index].actionError == 1)
-            $scope.approve(index);
-        if ($scope.rents[index].actionError == 2)
-            $scope.decline(index);
+    $scope.repeatAction = function (lease) {
+        /// <summary>
+        /// It repeats a action acording to actionError.
+        /// </summary>
+        /// <param name="lease" type="type"></param>
+        if (lease.actionError == 1)
+            $scope.approve(lease);
+        if (lease.actionError == 2)
+            $scope.decline(lease);
+        if (lease.actionError == 3)
+            $scope.doReturn(lease);
     }
     $scope.doReturn = function (lease) {
-        console.log(lease);
-        //TODO set action error
-        //     set spinning
-        //     call rent.return
-        lease.stav_vypujcky = 'ukončeno';
+        /// <summary>
+        /// Lease is selected returned. It contacts server and when response is recieved
+        /// it stops spinner and sets actionError to propriate value.
+        /// </summary>
+        /// <param name="lease" type="type"></param>
+        console.log('returning...');
+        lease.spinning = true;
+        rent.return(lease.id_vypujcka)
+            .success(function () {
+                lease.spinning = false;
+                lease.actionError = 0;
+                lease.stav_vypujcky = 'ukončeno';
+            }).error(function () {
+                lease.spinning = false;
+                lease.actionError = 3;
+            })
     }
 })

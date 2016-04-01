@@ -42,12 +42,15 @@ a.button.button-icon.icon.ion-ios-search-strong:before {
     margin: auto;
     height: 80%;
 }
+.photos-prices{
+    position: relative;
+}
 .item-detail-prices {
     left: 51%;
-    position: relative;
-    /*bottom: -0.7em;*/
-    /*background-color: rgba(255,255,255,0.5);*/
-    background-color: rgba(60, 60, 60, 0.75);
+    position: absolute;
+    bottom: 0.36em;
+    background-color: rgba(255,255,255,0.5);
+    /*background-color: rgba(60, 60, 60, 0.75);*/
     padding: 0.1em 0.5em 0.2em;
     font-size: 110%;
     color: black;
@@ -316,4 +319,19 @@ a.button.button-icon.icon.ion-ios-search-strong:before {
 }
 .ionic_ratings .icon {
     font-size: 35px;
+}
+.fc-basic-view .fc-body .fc-row {
+    min-height: 0em !important;
+    height: 3.5em !important;
+}
+.fc-toolbar h2 {
+    font-size: 105%;
+    font-weight: 300;
+}
+.fc-toolbar {
+    margin-bottom: 0.3em !important;
+}
+.main-rating {
+    border: none;
+    padding-top: 0px;
 }
