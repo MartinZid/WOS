@@ -17,7 +17,7 @@ angular.module('wos.services.category', [])
             /// <returns type="promise"></returns>
             return $http({
                 method: 'GET',
-                url: api.url + '/add-item/returnchildcategories?data=' + id
+                url: api.url + 'mobile/category/child-categories?categoryID=' + id
             });
         }
     }

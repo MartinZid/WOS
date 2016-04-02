@@ -30,7 +30,8 @@ module.exports = function(config){
             'www/app/components/search/*.js',
             'www/app/components/category/*.js',
             'www/app/components/locality/*.js',
-            'www/app/components/addItem/*.js'
+            'www/app/components/addItem/*.js',
+            'www/app/components/rent/*js'
         ],
 
         autoWatch : true,

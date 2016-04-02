@@ -29,7 +29,7 @@ angular.module('wos.services.rent', [])
             /// <returns type="promise"></returns>
             return $http({
                 method: 'PUT',
-                url: api.url + 'action/approveasd/' + id
+                url: api.url + 'mobile/rent/approve?rentID=' + id
             });
         },
         decline: function (id) {
@@ -40,7 +40,7 @@ angular.module('wos.services.rent', [])
             /// <returns type="promise"></returns>
             return $http({
                 method: 'PUT',
-                url: api.url + 'action/decline/' + id
+                url: api.url + 'mobile/rent/decline?rentID=' + id
             });
         },
         return: function (id) {
@@ -51,7 +51,7 @@ angular.module('wos.services.rent', [])
             /// <returns type="promise"></returns>
             return $http({
                 method: 'PUT',
-                url: api.url + 'action/returnsdaf/' + id
+                url: api.url + 'mobile/rent/return?rentID=' + id
             });
         }
     }

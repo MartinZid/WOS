@@ -3,7 +3,7 @@ angular.module('wos.controllers.itemDetail', [])
 
 .controller('ItemDetailCtrl', function ($scope, item, $stateParams, $ionicSlideBoxDelegate, api,
                                         $ionicPopover, $cordovaGeolocation, $ionicHistory, $state,
-                                        $ionicModal, $timeout) {
+                                        $ionicModal) {
     /// <summary>
     /// Controller for item detail view.
     /// </summary>
@@ -68,21 +68,6 @@ angular.module('wos.controllers.itemDetail', [])
         $scope.popover.hide();
     };
 
-    //Cleanup the popover when we're done with it!
-    $scope.$on('$destroy', function () {
-        $scope.popover.remove();
-    });
-
-    // Execute action on hide popover
-    $scope.$on('popover.hidden', function () {
-        // Execute action
-    });
-
-    // Execute action on remove popover
-    $scope.$on('popover.removed', function () {
-        // Execute action
-    });
-
     $scope.$on("$ionicView.enter", function (scopes, states) {
         /// <summary>
         /// When view is loaded it refreshes the map (also with the markers).
@@ -110,8 +95,7 @@ angular.module('wos.controllers.itemDetail', [])
                 zoom: 6,
                 mapTypeId: google.maps.MapTypeId.ROADMAP
             };
-            var map_id = "map" + $scope.item.id_instance;
-            console.log(map_id);
+
             $scope.map = new google.maps.Map(document.getElementById("map"), mapOptions);
 
             //Wait until the map is loaded
@@ -165,6 +149,10 @@ angular.module('wos.controllers.itemDetail', [])
     };
 
     $scope.goTo = function (id) {
+        /// <summary>
+        /// Redirects user to item detail with given id.
+        /// </summary>
+        /// <param name="id" type="integer">itemId</param>
         $state.go('tab.item-detail', { itemId: id });
     }
 
@@ -184,7 +172,7 @@ angular.module('wos.controllers.itemDetail', [])
         }
     };
 
-    function isInArray(event, array) {
+    $scope.isInArray = function (event, array) {
         /// <summary>
         /// Returns true if events in already in array.
         /// </summary>
@@ -208,20 +196,19 @@ angular.module('wos.controllers.itemDetail', [])
             // skip loop if the property is from prototype
             if (!$scope.item.leases.hasOwnProperty(key)) continue;
 
-            var obj = $scope.item.leases[key];
-            //console.log(obj);
-            for (var prop in obj) {
+            var entry = $scope.item.leases[key];
+            for (var x in entry) {
                 // skip loop if the property is from prototype
-                if(!obj.hasOwnProperty(prop)) continue;
+                if (!entry.hasOwnProperty(x)) continue;
 
-                var from = obj[prop].od.date.split(' ')[0].split('-');
-                var to = obj[prop].do.date.split(' ')[0].split('-');
+                var from = entry[x].od.date.split(' ')[0].split('-');
+                var to = entry[x].do.date.split(' ')[0].split('-');
                 var event = {
                     start: new Date(from[0], from[1], from[2]),
                     end: new Date(to[0], to[1], to[2]),
                     stick: true
                 };
-                var inArray = isInArray(event, $scope.events);
+                var inArray = $scope.isInArray(event, $scope.events);
                 if (!inArray) {
                     $scope.events.push(event);
                 };

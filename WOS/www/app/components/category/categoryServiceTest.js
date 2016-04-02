@@ -27,7 +27,7 @@ describe('Category service', function () {
 
     it('getChildcategories() should get correct data', function () {
         var categories;
-        httpBackend.whenGET('http://sp2.binarity-testing.cz//add-item/returnchildcategories?data=44').respond([
+        httpBackend.whenGET('http://sp2.binarity-testing.cz/mobile/category/child-categories?categoryID=44').respond([
             {
                 'name': 'Zahradni nabytek',
                 'id': 1
