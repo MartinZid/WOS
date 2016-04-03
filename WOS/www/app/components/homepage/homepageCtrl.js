@@ -9,7 +9,7 @@ angular.module('wos.controllers.homepage', [])
     /// <param name="item" type="type"></param>
 
     $scope.items; /// all items
-    $scope.status = 0; /// status variable for errors (0 = no error, 1 = there are no items; 2 = server error) 
+    $scope.status = 3; /// status variable for errors (0 = no error, 1 = there are no items; 2 = server error, 3 = loading) 
     $scope.search = {
         itemState: 2
     };

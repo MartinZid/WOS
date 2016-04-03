@@ -7,7 +7,7 @@ angular.module('wos.controllers.account', [])
     /// </summary>
     /// <param name="$scope" type="type"></param>
     $scope.selectedSection = 1;
-    $scope.status = 0;
+    $scope.status = 3;
     $scope.isRentsArray = true;
     $scope.isBorrowsArray = false;
     $scope.profile;

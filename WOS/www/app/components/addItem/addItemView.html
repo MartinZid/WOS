@@ -11,6 +11,13 @@
     <ion-content ng-show="status === 0 || status !== 3">
         <error-message reload="doRefresh()" status="status" ng-hide="status === 0"></error-message>
     </ion-content>
+    <ion-content ng-show="status === 3 ">
+        <div class="centering">
+            <div>
+                <ion-spinner></ion-spinner>
+            </div>
+        </div>
+    </ion-content>
     <ion-content ng-show="status === 0">
         <div ng-class="{'take-photo': imgURI === undefined}" ng-click="takePhoto()">
             <div ng-show="imgURI === undefined" class="photo-not-taken">
@@ -65,7 +72,7 @@
                         <tr ng-repeat="p in prices">
                             <td ng-show="p.period === 1">{{ 'hour' | translate }}</td>
                             <td ng-show="p.period === 2">{{ 'day' | translate }}</td>
-                            <td ng-show="p.period === 3">{{ 'month' | translate }}</td>
+                            <td ng-show="p.period === 3">{{ 'week' | translate }}</td>
                             <td ng-show="p.period === 4">{{ 'month' | translate }}</td>
                             <td>{{p.price}} Kč</td>
                         </tr>
@@ -92,8 +99,8 @@
                                 <select class="period-select" ng-model="price.period">
                                     <option value="1" selected ng-selected="selected">{{ 'hour' | translate }}</option>
                                     <option value="2">{{ 'day' | translate }}</option>
-                                    <option value="3">{{ 'month' | translate }}</option>
-                                    <option value="4">{{ 'year' | translate }}</option>
+                                    <option value="3">{{ 'week' | translate }}</option>
+                                    <option value="4">{{ 'month' | translate }}</option>
                                 </select>
                             </label>
                         </div>

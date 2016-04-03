@@ -1,0 +1,171 @@
+﻿<ion-view view-title="{{ 'order.order' | translate }}">
+    <ion-content class=" padding">
+        <h4 class="order-name">{{item.jmeno}}</h4>
+        <div class="row">
+            <div class="col col-50">
+                <div class="padding">
+                    <table style="width: 100%">
+                        <tbody>
+                            <tr ng-repeat="price in item.prices">
+                                <th class="price-unit" ng-show="price.jednotka == 'hodina'">{{ 'hour' | translate }}</th>
+                                <th class="price-unit" ng-show="price.jednotka == 'den'">{{ 'day' | translate }}</th>
+                                <th class="price-unit" ng-show="price.jednotka == 'týden'">{{ 'week' | translate }}</th>
+                                <th class="price-unit" ng-show="price.jednotka == 'měsíc'">{{ 'month' | translate }}</th>
+                                <td class="price">{{price.cena}} {{price.mena}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <h4>
+            {{ 'order.item_take_over' | translate }}
+        </h4>
+        <div>
+            <div class="list category-list">
+                <label class="item item-input item-select category-select">
+                    <div class="input-label">
+                        {{ 'order.take_over_type' | translate }}
+                    </div>
+                    <select ng-model="takeOverOption.value">
+                        <option value="0">{{ 'order.to_my_address' | translate }}</option>
+                        <option selected value="1">{{ 'order.owners_address' | translate }}</option>
+                        <option value="2">{{ 'order.new_address' | translate }}</option>
+                    </select>
+                </label>
+            </div>
+            <div class="list" ng-show="takeOverOption.value == 0">
+                <label class="item item-input item-select category-select">
+                    <div class="input-label">
+                        {{ 'addItem.locality' | translate }}
+                    </div>
+                    <select ng-model="selectedLocality.value">
+                        <option ng-repeat="locality in userLocality"
+                                value="{{$index}}">
+                            {{locality.ulice_cp}}, {{locality.mesto}}
+                        </option>
+                    </select>
+                </label>
+            </div>
+            <div class="list" ng-show="takeOverOption.value == 1">
+                <label class="item item-input item-select category-select">
+                    <div class="input-label">
+                        {{ 'addItem.locality' | translate }}
+                    </div>
+                    <select ng-model="selectedLocality.value">
+                        <option ng-repeat="locality in item.locality"
+                                value="{{$index}}">
+                            {{locality.ulice_cp}}, {{locality.mesto}}
+                        </option>
+                    </select>
+                </label>
+            </div>
+            <form name="forms.newLocality" ng-show="takeOverOption.value == 2">
+                <div class="addItem-input">
+                    <label class="item item-input item-stacked-label no-error"
+                           ng-class="{ 'has-error' : forms.newLocality.street.$invalid && forms.newLocality.street.$touched,
+                                                   'no-error' : forms.newLocality.street.$valid || forms.newLocality.street.$untouched }">
+                        <span class="input-label">{{ 'addItem.street' | translate }}</span>
+                        <input type="text" name="street" ng-model="locality.street" placeholder="{{ 'addItem.street' | translate }}" required>
+                    </label>
+                    <div class="error-msg" ng-show="forms.newLocality.street.$invalid && forms.newLocality.street.$touched">
+                        {{ 'addItem.street' | translate }} {{ 'form.is_reguired4' | translate }}!
+                    </div>
+                </div>
+                <div class="addItem-input">
+                    <label class="item item-input item-stacked-label no-error"
+                           ng-class="{ 'has-error' : forms.newLocality.city.$invalid && forms.newLocality.city.$touched,
+                                                   'no-error' : forms.newLocality.city.$valid || forms.newLocality.city.$untouched }">
+                        <span class="input-label">{{ 'addItem.city' | translate }}</span>
+                        <input type="text" name="city" ng-model="locality.city" placeholder="{{ 'addItem.city' | translate }}" required>
+                    </label>
+                    <div class="error-msg" ng-show="forms.newLocality.city.$invalid && forms.newLocality.city.$touched">
+                        {{ 'addItem.city' | translate }} {{ 'form.is_required' | translate }}!
+                    </div>
+                </div>
+                <div class="addItem-input">
+                    <label class="item item-input item-stacked-label no-error"
+                           ng-class="{ 'has-error' : forms.newLocality.postal_code.$invalid && forms.newLocality.postal_code.$touched,
+                                                   'no-error' : forms.newLocality.postal_code.$valid || forms.newLocality.postal_code.$untouched }">
+                        <span class="input-label">{{ 'addItem.street' | translate }}</span>
+                        <input type="number" name="postal_code" ng-model="locality.postal_code" placeholder="{{ 'addItem.postal_code' | translate }}"
+                               min="0" required>
+                    </label>
+                    <div class="error-msg" ng-show="forms.newLocality.postal_code.$invalid && forms.newLocality.postal_code.$touched && !forms.newLocality.postal_code.$error.min">
+                        {{ 'addItem.postal_code' | translate }} {{ 'form.is_required' | translate }}!
+                    </div>
+                    <div class="error-msg" ng-show="forms.newLocality.postal_code.$error.min">
+                        {{ 'addItem.postal_code' | translate }} {{ 'form.wrong_price' | translate }}!
+                    </div>
+                </div>
+            </form>
+        </div>
+        <h4>{{ 'order.date' | translate }}</h4>
+        <div>
+            <form name="forms.dateForm">
+                <div class="row">
+                    <div class="col col-50">
+                        <label class="item item-input item-stacked-label no-error"
+                               ng-class="{ 'has-error' : forms.dateForm.timeFrom.$invalid && forms.dateForm.timeFrom.$touched,
+                                                   'no-error' : forms.dateForm.timeFrom.$valid || forms.dateForm.timeFrom.$untouched }">
+                            <span class="input-label">{{ 'addItem.from' | translate }}</span>
+                            <input type="time" name="timeFrom" ng-model="from.time" placeholder="{{ 'addItem.from' | translate }}" required>
+                        </label>
+                    </div>
+                    <div class="col col-50">
+                        <label class="item item-input item-stacked-label no-error"
+                               ng-class="{ 'has-error' : forms.dateForm.dateFrom.$invalid && forms.dateForm.dateFrom.$touched,
+                                                   'no-error' : forms.dateForm.dateFrom.$valid || forms.dateForm.dateFrom.$untouched }">
+                            <span class="input-label">&nbsp;</span>
+                            <input type="date" name="dateFrom" ng-model="from.date" placeholder="{{ 'addItem.from' | translate }}" required>
+                        </label>
+                        <div class="error-msg" ng-show="forms.dateForm.dateFrom.$invalid && forms.dateForm.dateFrom.$touched ||
+                                                        forms.dateForm.timeFrom.$invalid && forms.dateForm.timeFrom.$touched">
+                            {{ 'order.select_from' | translate }}
+                        </div>
+                    </div>
+                </div>
+                <div class="row new-address-fix">
+                    <div class="col col-50">
+                        <label class="item item-input item-stacked-label no-error"
+                               ng-class="{ 'has-error' : forms.dateForm.timeTo.$invalid && forms.dateForm.timeTo.$touched,
+                                                   'no-error' : forms.dateForm.timeTo.$valid || forms.dateForm.timeTo.$untouched }">
+                            <span class="input-label">{{ 'addItem.from' | translate }}</span>
+                            <input type="time" name="timeTo" ng-model="to.time" placeholder="{{ 'addItem.to' | translate }}" required>
+                        </label>
+                    </div>
+                    <div class="col col-50">
+                        <label class="item item-input item-stacked-label no-error"
+                               ng-class="{ 'has-error' : forms.dateForm.dateTo.$invalid && forms.dateForm.dateTo.$touched,
+                                           'no-error' : forms.dateForm.dateTo.$valid || forms.dateForm.dateTo.$untouched }">
+                            <span class="input-label">&nbsp;</span>
+                            <input type="date" name="dateTo" ng-model="to.date" placeholder="{{ 'addItem.to' | translate }}" required>
+                        </label>
+                        <div class="error-msg" ng-show="forms.dateForm.dateTo.$invalid && forms.dateForm.dateTo.$touched ||
+                                                        forms.dateForm.timeTo.$invalid && forms.dateForm.timeTo.$touched">
+                            {{ 'order.select_to' | translate }}
+                        </div>
+                        <div class="error-msg" ng-show="from.date > to.date || 
+                             (from.date.getTime() == to.date.getTime() && (from.date != undefined || to.date != undefined) &&
+                              from.time > to.time)">
+                            {{ 'order.date_too_low' | translate }}!
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </ion-content>
+    <div class="bar bar-footer bar-assertive order-btn-footer" ng-show="status === 0">
+        <div class="title button button-assertive order-btn" 
+             ng-disabled="
+             takeOverOption.value == undefined ||
+             ((takeOverOption.value == 0 || takeOverOption.value == 1) && selectedLocality.value == undefined) ||
+             (takeOverOption.value == 2 && (forms.newLocality.city.$invalid || forms.newLocality.street.$invalid || forms.newLocality.postal_code.$invalid)) ||
+             (forms.dateForm.timeTo.$invalid || forms.dateForm.dateTo.$invalid || forms.dateForm.timeFrom.$invalid || forms.dateForm.dateTo.$invalid) ||
+             (from.date > to.date || (from.date.getTime() == to.date.getTime() && (from.date != undefined || to.date != undefined) && from.time > to.time))
+             "
+             ng-click="addToCart()">
+            {{ 'order.add_to_cart' | translate }}
+        </div>
+    </div>
+</ion-view>

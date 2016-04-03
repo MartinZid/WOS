@@ -15,12 +15,17 @@
         <ion-refresher pulling-text="Pull to refresh..."
                        on-refresh="doRefresh()">
         </ion-refresher>
+        <div class="centering">
+            <div ng-show="status === 3">
+                <ion-spinner></ion-spinner>
+            </div>
+        </div>
         <error-message reload="doRefresh()" status="status" ng-hide="status === 0"></error-message>
 
         <div class="photos-prices">
             <ion-slide-box on-slide-changed="slideHasChanged($index)">
                 <ion-slide ng-repeat="photo in item.photos">
-                    <div><img ng-src="http://sp2.binarity-testing.cz/images/photos/{{photo.jmeno}}" class="carousel" /></div>
+                    <div><img ng-src="{{imgUrl}}images/photos/{{photo.jmeno}}" class="carousel" /></div>
                 </ion-slide>
             </ion-slide-box>
 

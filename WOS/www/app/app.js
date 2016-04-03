@@ -13,6 +13,7 @@ angular.module('wos', ['ionic',
                        'wos.controllers.registration',
                        'wos.controllers.login',
                        'wos.controllers.addItem',
+                       'wos.controllers.order',
                        'wos.services.item',
                        'wos.services.profile',
                        'wos.services.notifications',
@@ -196,7 +197,7 @@ angular.module('wos', ['ionic',
         'hour': 'Hodina',
         'day': 'Den',
         'month': 'Měsíc',
-        'year': 'Rok',
+        'week': 'Týden',
         'days_full': {
             'monday':'Pondělí',
             'tuesday':'Úterý',
@@ -205,6 +206,20 @@ angular.module('wos', ['ionic',
             'friday':'Pátek',
             'saturday':'Sobota',
             'sunday': 'Neděle',
+        },
+        'order': {
+            'order': 'Objednávka',
+            'item_take_over': 'Převzetí položky',
+            'take_over_type': 'Způsob',
+            'to_my_address': 'Doprava na uloženou adresu',
+            'owners_address': 'Osobní odběr',
+            'new_address': 'Doprava na novou adresu',
+            'date': 'Termín',
+            'datetime': 'Datum',
+            'select_from': 'Zvolte si termín, od kdy si chcete položku vypůjčit.',
+            'select_to': 'Zvolte si termín, do kdy si chcete položku vypůjčit.',
+            'add_to_cart': 'Vložit do košíku',
+            'date_too_low': 'Datum do musí být pozdější termín než datum od'
         }
         
     });
@@ -296,6 +311,16 @@ angular.module('wos', ['ionic',
        }
    })
 
+   .state('tab.order', {
+       url: '/home/order/:itemId',
+       views: {
+           'homepage': {
+               templateUrl: 'app/components/order/orderView.html',
+               controller: 'OrderCtrl'
+           }
+       }
+   })
+
    .state('tab.cart', {
        url: '/cart',
        views: {
@@ -336,8 +361,9 @@ angular.module('wos', ['ionic',
        }
    });
 
-  // if none of the above states are matched
+    // if none of the above states are matched
     $urlRouterProvider.otherwise('/tab/home');
+    //$urlRouterProvider.otherwise('/tab/home/order/29');
    //$urlRouterProvider.otherwise('tab/home/profile/25');
    //$urlRouterProvider.otherwise('tab/account/login');
 });

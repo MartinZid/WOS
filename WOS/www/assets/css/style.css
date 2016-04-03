@@ -14,6 +14,10 @@
 .nav-search {
     margin-top: 0px;
 }
+.platform-android .nav-search{
+    width: 90%;
+    margin-left: 20px;
+}
 .platform-ios .nav-search {
     margin-top: -28px;
 }
@@ -334,4 +338,16 @@ a.button.button-icon.icon.ion-ios-search-strong:before {
 .main-rating {
     border: none;
     padding-top: 0px;
+}
+.price-unit {
+    text-align: left;
+}
+.order-photo { 
+    width: 100%;
+}
+.order-name {
+    margin-bottom: 0px;
+}
+.new-address-fix {
+    padding-bottom: 100px;
 }
