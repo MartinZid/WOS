@@ -1,8 +1,8 @@
 ﻿'use strict';
 angular.module('wos.controllers.addItem', [])
 
-.controller('AddItemCtrl', function ($scope, $cordovaCamera, $ionicHistory,
-                                     $state, category, locality, $ionicModal, item) {
+.controller('AddItemCtrl', function ($scope, $cordovaCamera, $ionicHistory, $cordovaFileTransfer,
+                                     $state, category, locality, $ionicModal, item, api) {
     /// <summary>
     /// Controller for add item view.
     /// </summary>
@@ -18,9 +18,11 @@ angular.module('wos.controllers.addItem', [])
     $scope.allCategories = [];
     $scope.select = [];
     $scope.status = 3;
+    $scope.platform = ionic.Platform.platform();
     $scope.localities;
     $scope.selectedLocality = {};
     $scope.selectedLocalities = [];
+    $scope.upload = 'not uploading';
     $scope.locality = {
         street: '',
         city: '',
@@ -67,13 +69,14 @@ angular.module('wos.controllers.addItem', [])
 
         $cordovaCamera.getPicture(options).then(function (imageData) {
             $scope.imgURI = "data:image/jpeg;base64," + imageData;
+            $scope.uploadImage();
         }, function (err) {
             // An error occured. Show a message to the user
         });
     };
 
     if(false)
-        $scope.forceBackButton = $ionicHistory.backView().stateId.indexOf('home') < 0; //we navigated from another tab
+    $scope.forceBackButton = $ionicHistory.backView().stateId.indexOf('home') < 0; //we navigated from another tab
 
     $scope.backToParentView = function () {
         $state.go('tab.home', {}, { location: 'repalce', inherit: 'false' });
@@ -201,6 +204,26 @@ angular.module('wos.controllers.addItem', [])
         $scope.modal.hide();
     };
 
+    $scope.uploadImage = function () {
+        //TODO: add actual server path
+        var server = api.url;
+        $scope.upload = 'in upload function';
+        var options = {};
+        $cordovaFileTransfer.upload(server, $scope.imgURI, options)
+            .then(function(result) {
+                console.log('Upload succeeded');
+                $scope.upload = 'Upload succeeded';
+            }, function(err) {
+                console.log('Upload failed');
+                $scope.upload = 'Upload failed';
+            }, function (progress) {
+                console.log('Uploading...', progress);
+                $scope.upload = progress;
+            });
+    };
+
+    $scope.uploadImage();
+
     $scope.createItem = function () {
         /// <summary>
         /// Uploads new item to server.
@@ -222,5 +245,7 @@ angular.module('wos.controllers.addItem', [])
             }).error(function (data) {
                 console.log('add item failed');
             });
+        $scope.uploadImage();
+        // TODO: redirect user to his new item
     };
 })

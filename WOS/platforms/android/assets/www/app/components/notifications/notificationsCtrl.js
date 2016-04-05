@@ -6,7 +6,7 @@ angular.module('wos.controllers.notifications', [])
     /// Controller for notifications view.
     /// </summary>
     /// <param name="$scope" type="type"></param>
-    $scope.status = 0;
+    $scope.status = 3;
     $scope.item;
 
     getAllNotifications();
@@ -53,6 +53,7 @@ angular.module('wos.controllers.notifications', [])
             entry.myDate += tmpDate[0];
 
             entry.type = entry.obsah.split('.')[2];
+            entry.param = new Number(entry.link_parametr);
         });
     };
 

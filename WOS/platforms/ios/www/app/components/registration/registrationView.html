@@ -1,5 +1,12 @@
 ﻿<ion-view view-title="{{ 'registration.registration' | translate }}" ng-cloak hide-back-button="true" cache-view="false">
     <ion-content ng-cloak>
+        <div class="error-message" ng-show="status === 1">
+            <p>{{ 'registration.already_registred' | translate }}</p>
+        </div>
+        <div class="error-message" ng-show="status === 0">
+            <p>{{ 'registration.success' | translate }}</p>
+        </div>
+        <error-message reload="doRefresh()" status="status" ng-hide="status === 0"></error-message>
         <div class="registration">
             <div class="centering">
                 <img class="registration-logo"src="assets/img/main_logo.png" />
@@ -8,7 +15,7 @@
                 <form name="registrationForm" ng-submit="registration(user)">
                     <label class="item item-input item-stacked-label no-error"
                             ng-class="{ 'has-error' : registrationForm.name.$invalid && registrationForm.name.$touched, 
-                                        'no-error' : registrationForm.name.$valid || registrationForm.email.$untouched }" >
+                                        'no-error' : registrationForm.name.$valid || registrationForm.name.$untouched }" >
                         <span class="input-label">{{ 'registration.name' | translate }}</span>
                         <input type="text" name="name" ng-model="user.name" placeholder="{{ 'registration.name' | translate }}" required>
                     </label>
@@ -18,7 +25,7 @@
 
                     <label class="item item-input item-stacked-label no-error"
                            ng-class="{ 'has-error' : registrationForm.surname.$invalid && registrationForm.surname.$touched, 
-                                       'no-error' : registrationForm.surname.$valid || registrationForm.email.$untouched }" >
+                                       'no-error' : registrationForm.surname.$valid || registrationForm.surname.$untouched }" >
                         <span class="input-label">{{ 'registration.surname' | translate }}</span>
                         <input type="text" name="surname" ng-model="user.surname" placeholder="{{ 'registration.surname' | translate }}" required>
                     </label>

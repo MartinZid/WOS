@@ -1,7 +1,7 @@
 ﻿'use strict';
 angular.module('wos.controllers.homepage', [])
 
-.controller('HomepageCtrl', function ($scope, item) {
+.controller('HomepageCtrl', function ($scope, item, $ionicNavBarDelegate) {
     /// <summary>
     /// Controller for homepage tab
     /// </summary>
@@ -9,7 +9,10 @@ angular.module('wos.controllers.homepage', [])
     /// <param name="item" type="type"></param>
 
     $scope.items; /// all items
-    $scope.status = 0; /// status variable for errors (0 = no error, 1 = there are no items; 2 = server error) 
+    $scope.status = 3; /// status variable for errors (0 = no error, 1 = there are no items; 2 = server error, 3 = loading) 
+    $scope.search = {
+        itemState: 2
+    };
 
     getAllItems();
 
@@ -44,5 +47,15 @@ angular.module('wos.controllers.homepage', [])
 
     ///navTitle stores a html img for app icon
     $scope.navTitle = '<img class="title-image" src="assets/img/main_logo.png" />';
+
+    $ionicNavBarDelegate.showBackButton(false);
+
+    $scope.$on('$ionicView.beforeEnter', function () {
+        $ionicNavBarDelegate.showBackButton(false);
+    });
+
+    $scope.$on('$ionicView.leave', function () {
+        $ionicNavBarDelegate.showBackButton(true);
+    });
 
 })

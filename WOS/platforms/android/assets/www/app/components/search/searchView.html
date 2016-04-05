@@ -13,6 +13,13 @@
         <ion-refresher pulling-text="Pull to refresh..."
                        on-refresh="doRefresh()">
         </ion-refresher>
+
+        <div class="centering">
+            <div ng-show="status === 3">
+                <ion-spinner></ion-spinner>
+            </div>
+        </div>
+
         <error-message reload="doRefresh()" status="status" ng-hide="status === 0"></error-message>
         <div class="error-message" ng-show="status === 1">
             <p>{{ 'search.no_data' | translate }}</p>

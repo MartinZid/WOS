@@ -14,6 +14,10 @@
 .nav-search {
     margin-top: 0px;
 }
+.platform-android .nav-search{
+    width: 90%;
+    margin-left: 20px;
+}
 .platform-ios .nav-search {
     margin-top: -28px;
 }
@@ -42,12 +46,15 @@ a.button.button-icon.icon.ion-ios-search-strong:before {
     margin: auto;
     height: 80%;
 }
+.photos-prices{
+    position: relative;
+}
 .item-detail-prices {
     left: 51%;
-    position: relative;
-    /*bottom: -0.7em;*/
-    /*background-color: rgba(255,255,255,0.5);*/
-    background-color: rgba(60, 60, 60, 0.75);
+    position: absolute;
+    bottom: 0.36em;
+    background-color: rgba(255,255,255,0.5);
+    /*background-color: rgba(60, 60, 60, 0.75);*/
     padding: 0.1em 0.5em 0.2em;
     font-size: 110%;
     color: black;
@@ -88,7 +95,7 @@ a.button.button-icon.icon.ion-ios-search-strong:before {
 } 
 #map {
     width: 100%;
-    height: 60%;
+    height: 40%;
 }
 .order-btn-footer {
     width: 100%;
@@ -102,9 +109,9 @@ a.button.button-icon.icon.ion-ios-search-strong:before {
 .has-order-btn {
     padding-bottom: 50px !important;
 }
-.platform-ios .has-order-btn {
+/*.platform-ios .has-order-btn {
     margin-bottom: 100px !important;
-}
+}*/
 .no-decor-a {
     color: black;
     text-decoration: none;
@@ -142,7 +149,7 @@ a.button.button-icon.icon.ion-ios-search-strong:before {
 .cart-edit-btn {
     position: absolute;
     right: 5%;
-    margin-top: -1.5em;
+    margin-top: -1.8em;
     margin-bottom: -1.2em;
 }
 .form-search {
@@ -299,4 +306,48 @@ a.button.button-icon.icon.ion-ios-search-strong:before {
 }
 .similar-items {
     border: none;
+}
+.force-back-ios {
+    font-size: 180%;
+}
+.force-back-android {
+    font-size: 145%;
+}
+.rent-card-th {
+    text-align: left;
+    font-weight: 600;
+}
+.rent-card-td {
+    position: absolute;
+    right: 5%;
+}
+.ionic_ratings .icon {
+    font-size: 35px;
+}
+.fc-basic-view .fc-body .fc-row {
+    min-height: 0em !important;
+    height: 3.5em !important;
+}
+.fc-toolbar h2 {
+    font-size: 105%;
+    font-weight: 300;
+}
+.fc-toolbar {
+    margin-bottom: 0.3em !important;
+}
+.main-rating {
+    border: none;
+    padding-top: 0px;
+}
+.price-unit {
+    text-align: left;
+}
+.order-photo { 
+    width: 100%;
+}
+.order-name {
+    margin-bottom: 0px;
+}
+.new-address-fix {
+    padding-bottom: 100px;
 }

@@ -20,6 +20,7 @@ angular.module('wos', ['ionic',
                        'wos.services.category',
                        'wos.services.locality',
                        'wos.services.rent',
+                       'wos.services.cart',
                        'wos.rating',
                        'wos.directives.item',
                        'wos.directives.errorMessage',
@@ -102,8 +103,10 @@ angular.module('wos', ['ionic',
         },
         'cart': {
             'cart': 'Košík',
-            'no_data': 'Váš košík je zatím prázdný.',
-            'edit': 'Upravit'
+            'no_data': 'Váš košík je prázdný.',
+            'edit': 'Upravit',
+            'from': 'Od',
+            'to': 'Do'
         },
         'profile': {
             'user_items': 'Nabízené položky',
@@ -362,7 +365,7 @@ angular.module('wos', ['ionic',
    });
 
     // if none of the above states are matched
-    $urlRouterProvider.otherwise('/tab/home');
+    $urlRouterProvider.otherwise('/tab/home/addItem');
     //$urlRouterProvider.otherwise('/tab/home/order/29');
    //$urlRouterProvider.otherwise('tab/home/profile/25');
    //$urlRouterProvider.otherwise('tab/account/login');

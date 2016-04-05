@@ -2,7 +2,7 @@
 
 angular.module('wos.controllers.profile', [])
 
-.controller('ProfileCtrl', function ($scope, $stateParams, profile, $ionicModal) {
+.controller('ProfileCtrl', function ($scope, $stateParams, profile, $ionicModal, $ionicHistory, $state) {
     /// <summary>
     /// Controller for profile view.
     /// </summary>
@@ -15,6 +15,7 @@ angular.module('wos.controllers.profile', [])
     $scope.profile;
     $scope.status = 3;
     $scope.userItemsSum = 0;
+    $scope.platform = ionic.Platform.platform();
 
     getProfileData($scope.id);
 
@@ -24,7 +25,7 @@ angular.module('wos.controllers.profile', [])
         /// </summary>
         /// <param name="id" type="integer"></param>
         profile.getProfileData(id)
-            .success(function (data) { ///if success save loaded data to $scope.items
+            .success(function (data) {
                 $scope.profile = data;
                 console.log(data);
                 $scope.status = 0;
@@ -48,34 +49,44 @@ angular.module('wos.controllers.profile', [])
         /// Return size of user's items array.
         /// </summary>
         /// <returns type="integer"></returns>
-        return $scope.profile.items.length;
+        return $scope.profile.instances.length;
+    };
+
+    $scope.goBack = function () {
+        $ionicHistory.goBack();
+    };
+
+    $ionicModal.fromTemplateUrl('message.html', {
+        scope: $scope,
+        animation: 'slide-in-up'
+    }).then(function (modal) {
+        $scope.messageModal = modal;
+    });
+    $scope.openMessageModal = function ($event, profile) {
+        $scope.messageModal.show();
+        $scope.reviews = profile;
+    };
+    $scope.closeMessageModal = function () {
+        $scope.messageModal.hide();
     };
 
     $ionicModal.fromTemplateUrl('reviews.html', {
         scope: $scope,
         animation: 'slide-in-up'
     }).then(function (modal) {
-        $scope.modal = modal;
+        $scope.reviewsModal = modal;
     });
-    $scope.openModal = function ($event, reviews) {
-        $scope.modal.show();
+    $scope.openReviewsModal = function ($event, reviews) {
+        $scope.reviewsModal.show();
         $scope.reviews = reviews;
     };
-    $scope.closeModal = function () {
-        $scope.modal.hide();
+    $scope.closeReviewsModal = function () {
+        $scope.reviewsModal.hide();
     };
-    ////Cleanup the modal when we're done with it!
-    //$scope.$on('$destroy', function () {
-    //    $scope.modal.remove();
-    //});
-    //// Execute action on hide modal
-    //$scope.$on('modal.hidden', function () {
-    //    // Execute action
-    //});
-    //// Execute action on remove modal
-    //$scope.$on('modal.removed', function () {
-    //    // Execute action
-    //});
 
+    $scope.forceBackButton = $ionicHistory.backView().stateId.indexOf('item-detail') < 0; //we navigated from another tab
 
+    $scope.backToParentView = function () {
+        $state.go('tab.home', {}, { location: 'repalce', inherit: 'false' });
+    };
 })

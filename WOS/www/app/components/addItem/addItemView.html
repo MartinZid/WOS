@@ -28,7 +28,6 @@
             </div>
             <img ng-show="imgURI !== undefined" ng-src="{{imgURI}}" class="item-photo"/>
         </div>
-
         <div class="padding">
             <div class="legend">
                 <h4>{{ 'addItem.category_select' | translate }}</h4>
@@ -274,7 +273,7 @@
     <div class="bar bar-footer bar-assertive order-btn-footer" ng-show="status === 0" >
         <div class="title button button-assertive order-btn" ng-disabled="forms.addItemForm.name.$invalid || 
              (prices.length == 0 && (forms.addItemForm.price.$invalid || !price.period)) ||
-             (selectedLocalities == 0 && selectedLocality.value == undefined)" 
+             (selectedLocalities == 0 && selectedLocality.value == undefined) || imgURI == undefined"
              ng-click="createItem()">
             {{ 'addItem.finish' | translate }}
         </div>

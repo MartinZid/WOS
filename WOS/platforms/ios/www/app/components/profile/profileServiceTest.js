@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-describe('Tests for profile service', function () {
+describe('Profile service', function () {
     var profileService,
         httpBackend;
 
@@ -20,7 +20,13 @@ describe('Tests for profile service', function () {
         httpBackend = $httpBackend;
     }));
 
+    afterEach(function () {
+        httpBackend.verifyNoOutstandingExpectation();
+        httpBackend.verifyNoOutstandingRequest();
+    });
+
     it('getProfileData() should get correct data', function () {
+        var user;
         httpBackend.whenGET('http://sp2.binarity-testing.cz/mobile/user/user-profile?userID=28').respond({
             user: {
                 'id': 28,
@@ -29,8 +35,18 @@ describe('Tests for profile service', function () {
             }
         });
         profileService.getProfileData(28).then(function (data) {
-            console.log(data);
-            expect(data.user.jmeno).toBe('Martin');
-        })
+            user = data;
+        });
+        httpBackend.flush();
+        expect(user.data.user.jmeno).toBe('Martin');
+    });
+    it('registerUser() should get correct data', function () {
+        var response;
+        httpBackend.whenGET('http://sp2.binarity-testing.cz/mobile/registration/?name=Martin&surname=Zid&email=zidmarti@fit.cvut.cz&pass=123456').respond(true);
+        profileService.registerUser('Martin', 'Zid', 'zidmarti@fit.cvut.cz', '123456').then(function (data) {
+            response = data;
+        });
+        httpBackend.flush();
+        expect(response.data).toBe(true);
     });
 })

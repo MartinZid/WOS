@@ -2,7 +2,8 @@
 angular.module('wos.controllers.itemDetail', [])
 
 .controller('ItemDetailCtrl', function ($scope, item, $stateParams, $ionicSlideBoxDelegate, api,
-                                        $ionicPopover, $cordovaGeolocation, $ionicHistory, $state) {
+                                        $ionicPopover, $cordovaGeolocation, $ionicHistory, $state,
+                                        $ionicModal) {
     /// <summary>
     /// Controller for item detail view.
     /// </summary>
@@ -18,6 +19,8 @@ angular.module('wos.controllers.itemDetail', [])
     };
     $scope.status = 3;
     $scope.imgUrl = api.url;
+    $scope.platform = ionic.Platform.platform();
+    $scope.events = [];
 
     getItemDetail($scope.id);
 
@@ -36,6 +39,7 @@ angular.module('wos.controllers.itemDetail', [])
                 $scope.status = 0;
                 $ionicSlideBoxDelegate.update();
                 loadMap();
+                $scope.createCalendarEvents();
 
             }).error(function (data) { ///if can not load data from server set $scope.status, for error handling
                 console.log('item.getItemDetail: Can not load data from server.');
@@ -63,21 +67,6 @@ angular.module('wos.controllers.itemDetail', [])
     $scope.closePopover = function () {
         $scope.popover.hide();
     };
-
-    //Cleanup the popover when we're done with it!
-    $scope.$on('$destroy', function () {
-        $scope.popover.remove();
-    });
-
-    // Execute action on hide popover
-    $scope.$on('popover.hidden', function () {
-        // Execute action
-    });
-
-    // Execute action on remove popover
-    $scope.$on('popover.removed', function () {
-        // Execute action
-    });
 
     $scope.$on("$ionicView.enter", function (scopes, states) {
         /// <summary>
@@ -146,13 +135,104 @@ angular.module('wos.controllers.itemDetail', [])
 
         }, function (error) {
             console.log("Could not get location");
+            $scope.mapDisabled = true;
         });
     };
 
-    $scope.forceBackButton = $ionicHistory.backView().stateId.indexOf('home') < 0 && $ionicHistory.backView().stateId.indexOf('profile-detail') < 0; //we navigated from another tab
+    //we navigated from another tab
+    $scope.forceBackButton = $ionicHistory.backView().stateId.indexOf('home') < 0
+                             && $ionicHistory.backView().stateId.indexOf('profile-detail') < 0
+                             && $ionicHistory.backView().stateId.indexOf('item-detail') < 0;
 
     $scope.backToParentView = function () {
         $state.go('tab.home', {}, { location: 'repalce', inherit: 'false' });
     };
 
+    $scope.goTo = function (id) {
+        /// <summary>
+        /// Redirects user to item detail with given id.
+        /// </summary>
+        /// <param name="id" type="integer">itemId</param>
+        $state.go('tab.item-detail', { itemId: id });
+    }
+
+    $scope.uiConfig = {
+        calendar: {
+            height: 450,
+            firstDay:1,
+            editable: true,
+            header: {
+                left: 'title',
+                center: '',
+                right: 'prev,next'
+            },
+            dayNames: ["Neděle", "Pondělí", "Úterý", "Středa", "Čtvrtek", "Pátek", "Sobota"],
+            dayNamesShort: ["Ne", "Po", "Út", "St", "Čt", "Pá", "So"],
+            monthNames: ["Leden", "Únor", "Březen", "Duben", "Květen", "Červen", "Červenec", "Srpen", "Září", "Říjen", "Listopad", "Prosinec"]
+        }
+    };
+
+    $scope.isInArray = function (event, array) {
+        /// <summary>
+        /// Returns true if events in already in array.
+        /// </summary>
+        /// <param name="event" type="object"></param>
+        /// <param name="array" type="array"></param>
+        /// <returns type="bool"></returns>
+        var returnValue = false
+        array.forEach(function (entry) {
+            if (entry.start.getTime() == event.start.getTime() && entry.end.getTime() == event.end.getTime())
+                returnValue = true;
+        });
+        return returnValue;
+    }
+
+    $scope.createCalendarEvents = function () {
+        /// <summary>
+        /// Creates events from item.leases to calendar format.
+        /// </summary>
+
+        for (var key in $scope.item.leases) {
+            // skip loop if the property is from prototype
+            if (!$scope.item.leases.hasOwnProperty(key)) continue;
+
+            var entry = $scope.item.leases[key];
+            for (var x in entry) {
+                // skip loop if the property is from prototype
+                if (!entry.hasOwnProperty(x)) continue;
+
+                var from = entry[x].od.date.split(' ')[0].split('-');
+                var to = entry[x].do.date.split(' ')[0].split('-');
+                var event = {
+                    start: new Date(from[0], from[1], from[2]),
+                    end: new Date(to[0], to[1], to[2]),
+                    stick: true
+                };
+                var inArray = $scope.isInArray(event, $scope.events);
+                if (!inArray) {
+                    $scope.events.push(event);
+                };
+            }
+        }
+    }
+
+    $scope.eventSources = [$scope.events];
+
+    $ionicModal.fromTemplateUrl('reviews.html', {
+        scope: $scope,
+        animation: 'slide-in-up'
+    }).then(function (modal) {
+        $scope.reviewsModal = modal;
+    });
+    $scope.openReviewsModal = function ($event, reviews) {
+        $scope.reviewsModal.show();
+        $scope.reviews = reviews;
+    };
+    $scope.closeReviewsModal = function () {
+        $scope.reviewsModal.hide();
+    };
+
+    $scope.order = function () {
+        $state.go('tab.order', { itemId: $scope.item.id_instance })
+    }
 })

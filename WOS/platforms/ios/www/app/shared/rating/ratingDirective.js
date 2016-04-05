@@ -12,9 +12,20 @@ angular.module('wos.directives.rating', [])
 
     return {
         templateUrl: 'app/shared/rating/ratingView.html',
+        //scope: {
+        //    rating: '=',
+        //    getFullStars: rating.getFullStars,
+        //    hasHalfStar: rating.hasHalfStar,
+        //    getEmptyStars: rating.getEmptyStars
+        //}
         link: function (scope, elem, attrs) {
-            scope.rating = $parse(attrs.rating)(scope);
-            
+
+            attrs.$observe('rating', function (value) {
+                scope.rating = value;
+            });
+
+            //scope.rating = $parse(attrs.rating)(scope);
+
             scope.getFullStars = rating.getFullStars;
             scope.hasHalfStar = rating.hasHalfStar;
             scope.getEmptyStars = rating.getEmptyStars;

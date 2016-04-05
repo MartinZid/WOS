@@ -1,13 +1,30 @@
 ﻿'use strict';
 
 describe('rating factory test', function () {
-    var rating;
+    var rating,
+        httpBackend;
 
     beforeEach(module('wos.rating'));
+    beforeEach(module('wos.api'));
 
-    beforeEach(inject(function (_rating_) {
-        rating = _rating_;
+    beforeEach(module(function ($provide) {
+        $provide.factory('api', function () {
+            return {
+                url: 'http://sp2.binarity-testing.cz/'
+            }
+        });
     }));
+
+
+    beforeEach(inject(function (_rating_, $httpBackend) {
+        rating = _rating_;
+        httpBackend = $httpBackend;
+    }));
+
+    afterEach(function () {
+        httpBackend.verifyNoOutstandingExpectation();
+        httpBackend.verifyNoOutstandingRequest();
+    });
 
     describe('Tests for rating factory method hasHalfStar', function () {
         it('Should have a half star with rating 4.3', function () {
@@ -40,5 +57,15 @@ describe('rating factory test', function () {
         });
     });
 
-    
+    it('rateLease should post data to server', function () {
+        var response;
+        httpBackend.whenPOST('http://sp2.binarity-testing.cz/mobile/rent/rating?leaseID=24&rating=4&text=text').respond(200, '');
+        rating.rateLease(24, 4, 'text').then(function (data) {
+            response = data;
+        })
+        httpBackend.flush();
+        console.log(response);
+        expect(response.status).toBe(200);
+    });
+       
 })

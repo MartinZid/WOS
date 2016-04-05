@@ -1,8 +1,8 @@
 ﻿'use strict';
 angular.module('wos.controllers.addItem', [])
 
-.controller('AddItemCtrl', function ($scope, $cordovaCamera, $ionicHistory,
-                                     $state, category, locality, $ionicModal, item) {
+.controller('AddItemCtrl', function ($scope, $cordovaCamera, $ionicHistory, $cordovaFileTransfer,
+                                     $state, category, locality, $ionicModal, item, api) {
     /// <summary>
     /// Controller for add item view.
     /// </summary>
@@ -22,6 +22,7 @@ angular.module('wos.controllers.addItem', [])
     $scope.localities;
     $scope.selectedLocality = {};
     $scope.selectedLocalities = [];
+    $scope.upload = 'not uploading';
     $scope.locality = {
         street: '',
         city: '',
@@ -56,7 +57,8 @@ angular.module('wos.controllers.addItem', [])
         /// </summary>
         var options = {
             quality: 100,
-            destinationType: Camera.DestinationType.DATA_URL,
+            //destinationType: Camera.DestinationType.DATA_URL,
+            destinationType: Camera.DestinationType.FILE_URI,
             sourceType: Camera.PictureSourceType.CAMERA,
             allowEdit: true,
             encodingType: Camera.EncodingType.JPEG,
@@ -67,13 +69,15 @@ angular.module('wos.controllers.addItem', [])
         };
 
         $cordovaCamera.getPicture(options).then(function (imageData) {
-            $scope.imgURI = "data:image/jpeg;base64," + imageData;
+            //$scope.imgURI = "data:image/jpeg;base64," + imageData;
+            $scope.imgURI = imageData;
+            $scope.uploadImage(imageData);
         }, function (err) {
             // An error occured. Show a message to the user
         });
     };
 
-    //if(false)
+    if(false)
     $scope.forceBackButton = $ionicHistory.backView().stateId.indexOf('home') < 0; //we navigated from another tab
 
     $scope.backToParentView = function () {
@@ -202,6 +206,24 @@ angular.module('wos.controllers.addItem', [])
         $scope.modal.hide();
     };
 
+    $scope.uploadImage = function () {
+        var server = api.url + 'Upload.php';
+        $scope.upload = 'in upload function';
+        var options = {
+            fileKey: 'file',
+            mimeType: "image/jpeg",
+            chunkedMode: false
+        };
+        $cordovaFileTransfer.upload(server, $scope.imgURI, options, true)
+            .then(function(result) {
+                $scope.upload = 'Upload succeeded';
+            }, function(err) {
+                $scope.upload = 'Upload failed ' + server + ' ' + angular.toJson(err.code);
+            }, function (progress) {
+                $scope.upload = progress;
+            });
+    };
+
     $scope.createItem = function () {
         /// <summary>
         /// Uploads new item to server.
@@ -223,5 +245,7 @@ angular.module('wos.controllers.addItem', [])
             }).error(function (data) {
                 console.log('add item failed');
             });
+        $scope.uploadImage();
+        // TODO: redirect user to his new item
     };
 })

@@ -5,6 +5,12 @@
                        on-refresh="doRefresh()">
         </ion-refresher>
 
+        <div class="centering">
+            <div ng-show="status === 3">
+                <ion-spinner></ion-spinner>
+            </div>
+        </div>
+
         <error-message reload="doRefresh()" status="status" ng-hide="status === 0"></error-message>
         <div class="error-message" ng-show="status === 1">
             <p>{{ 'notifications.no_data' | translate }}</p>
@@ -12,8 +18,24 @@
 
         <ion-list show-delete="data.showDelete">
             <ion-item ng-repeat="item in items" item="item" class="item-remove-animate item-text-wrap">               
-                {{ item.text }}
-                <p class="notifications-date">28.02.2016</p>
+                <span ng-show="item.type === 'new_rating'">
+                    <a ng-href="#/tab/home/profile/{{item.id_uzivatel}}">{{ 'notifications.new_rating' | translate }}!</a>
+                </span>
+                <span ng-show="item.type === 'item_added_into_cart'">
+                    {{ 'notifications.your_item' | translate }} <a ng-href="#/tab/account">{{ item.parametry.instance }}</a> {{ 'notifications.was_added_into_cart' | translate }}.
+                </span>
+                <span ng-show="item.type === 'item_hidden'">
+                    {{ 'notifications.your_item' | translate }} <a ng-href="#/tab/account">{{ item.parametry.name }}</a> {{ 'notifications.was_hidden' | translate }}.
+                </span>
+                <span ng-show="item.type === 'item_approved'">
+                    {{ 'notifications.your_item' | translate }} <a ng-href="#tab/account">{{ item.parametry.name }}</a> {{ 'notifications.was_approved' | translate }}.
+                </span>
+                <span ng-show="item.type === 'item_deleted'">
+                    {{ 'notifications.your_item' | translate }} <a ng-href="#/tab/account">{{ item.parametry.name }}</a> {{ 'notifications.was_deleted' | translate }}.
+                </span>
+                <p class="notifications-date">
+                    {{item.myDate}}
+                </p>
                 <ion-option-button class="button-assertive" ng-click="deleteItem(item)">
                     {{ 'delete' | translate }}
                 </ion-option-button>

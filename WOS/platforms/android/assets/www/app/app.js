@@ -13,11 +13,14 @@ angular.module('wos', ['ionic',
                        'wos.controllers.registration',
                        'wos.controllers.login',
                        'wos.controllers.addItem',
+                       'wos.controllers.order',
                        'wos.services.item',
                        'wos.services.profile',
                        'wos.services.notifications',
                        'wos.services.category',
                        'wos.services.locality',
+                       'wos.services.rent',
+                       'wos.services.cart',
                        'wos.rating',
                        'wos.directives.item',
                        'wos.directives.errorMessage',
@@ -25,7 +28,9 @@ angular.module('wos', ['ionic',
                        'wos.api',
                        'ngIOS9UIWebViewPatch',
                        'ngCordova',
-                       'pascalprecht.translate'])
+                       'pascalprecht.translate',
+                       'ionic-ratings',
+                       'ui.calendar'])
 
 .run(function ($ionicPlatform, $cordovaSQLite) {
   $ionicPlatform.ready(function() {
@@ -56,6 +61,7 @@ angular.module('wos', ['ionic',
             'cart': 'Košík',
             'me': 'Já',
         },
+        'try_again': 'Zkusit znovu',
         'errors': {
             'no_data': 'Zde budou všechny položky.',
             'server_error': 'V komunikaci se serverem došlo k chybě. :-(',
@@ -81,7 +87,9 @@ angular.module('wos', ['ionic',
         'item': {
             'localities': 'Lokality',
             'similar_items': 'Podobné nabídky',
-            'availibility': 'Dostupnost'
+            'availibility': 'Dostupnost',
+            'reviews': 'Hodnocení',
+            'show_all': 'Zobrazit vše'
         },
         'notifications': {
             'notifications': 'Upozornění',
@@ -95,8 +103,10 @@ angular.module('wos', ['ionic',
         },
         'cart': {
             'cart': 'Košík',
-            'no_data': 'Váš košík je zatím prázdný.',
-            'edit': 'Upravit'
+            'no_data': 'Váš košík je prázdný.',
+            'edit': 'Upravit',
+            'from': 'Od',
+            'to': 'Do'
         },
         'profile': {
             'user_items': 'Nabízené položky',
@@ -107,6 +117,26 @@ angular.module('wos', ['ionic',
             'show_reviews': 'Zobrazit hodnocení',
             'reviews': 'Hodnocení',
             'message_for_user': 'Zpráva uživateli',
+            'leases': {
+                'item': 'Položka',
+                'from': 'Od',
+                'to': 'Do',
+                'from_user': 'Uživatelem',
+                'to_user': 'Uživateli',
+                'state': 'Stav',
+                'no_borrows': 'Zde budou Vaše výpůjčky.',
+                'returned': 'Vráceno',
+                'waiting_for_approval': 'Čeká na schválení',
+                'borrowed': 'Vypůjčeno',
+                'refused': 'Zamítnuto',
+                'do_rate': 'Hodnotit',
+                'already_rated': 'Již ohodnoceno',
+                'decline': 'Zamítnout',
+                'approve': 'Schválit',
+                'action_failed': 'Akce se nezdařila.',
+                'do_return': 'Vrátit'
+            },
+            'rating_title': 'Hodnocení'
         },
         'close': 'Zavřít',
         'delete': 'Smazat',
@@ -170,7 +200,7 @@ angular.module('wos', ['ionic',
         'hour': 'Hodina',
         'day': 'Den',
         'month': 'Měsíc',
-        'year': 'Rok',
+        'week': 'Týden',
         'days_full': {
             'monday':'Pondělí',
             'tuesday':'Úterý',
@@ -179,6 +209,20 @@ angular.module('wos', ['ionic',
             'friday':'Pátek',
             'saturday':'Sobota',
             'sunday': 'Neděle',
+        },
+        'order': {
+            'order': 'Objednávka',
+            'item_take_over': 'Převzetí položky',
+            'take_over_type': 'Způsob',
+            'to_my_address': 'Doprava na uloženou adresu',
+            'owners_address': 'Osobní odběr',
+            'new_address': 'Doprava na novou adresu',
+            'date': 'Termín',
+            'datetime': 'Datum',
+            'select_from': 'Zvolte si termín, od kdy si chcete položku vypůjčit.',
+            'select_to': 'Zvolte si termín, do kdy si chcete položku vypůjčit.',
+            'add_to_cart': 'Vložit do košíku',
+            'date_too_low': 'Datum do musí být pozdější termín než datum od'
         }
         
     });
@@ -197,6 +241,7 @@ angular.module('wos', ['ionic',
   //remove text from back button
     $ionicConfigProvider.backButton.previousTitleText(false).text('');
     $ionicConfigProvider.tabs.position('bottom');
+    $ionicConfigProvider.navBar.alignTitle('center');
 
     $stateProvider
 
@@ -249,6 +294,7 @@ angular.module('wos', ['ionic',
    })
 
    .state('tab.item-detail', {
+       cache: false,
        url: '/home/:itemId',
        views: {
            'homepage': {
@@ -264,6 +310,16 @@ angular.module('wos', ['ionic',
            'homepage': {
                templateUrl: 'app/components/profile/profileView.html',
                controller: 'ProfileCtrl'
+           }
+       }
+   })
+
+   .state('tab.order', {
+       url: '/home/order/:itemId',
+       views: {
+           'homepage': {
+               templateUrl: 'app/components/order/orderView.html',
+               controller: 'OrderCtrl'
            }
        }
    })
@@ -308,8 +364,9 @@ angular.module('wos', ['ionic',
        }
    });
 
-  // if none of the above states are matched
-    $urlRouterProvider.otherwise('/tab/home');
+    // if none of the above states are matched
+    $urlRouterProvider.otherwise('/tab/home/addItem');
+    //$urlRouterProvider.otherwise('/tab/home/order/29');
    //$urlRouterProvider.otherwise('tab/home/profile/25');
    //$urlRouterProvider.otherwise('tab/account/login');
 });

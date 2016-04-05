@@ -2,7 +2,7 @@
 
 angular.module('wos.rating', [])
 
-.factory('rating', function () {
+.factory('rating', function ($http, api) {
     function countFullStars(num) {
         /// <summary>
         /// Counts how many full star should be generated from given rating.
@@ -57,6 +57,19 @@ angular.module('wos.rating', [])
             if (fullStars == 0)
                 intvalue = 0;
             return new Array(intvalue);
+        },
+        rateLease: function (id, rating, text) {
+            /// <summary>
+            /// Uploads rating of given lease (id) to server.
+            /// </summary>
+            /// <param name="id" type="integer">Lease id</param>
+            /// <param name="rating" type="integer"></param>
+            /// <param name="text" type="String"></param>
+            /// <returns type="promise"></returns>
+            return $http({
+                method: 'POST',
+                url: api.url + 'mobile/rent/rating?leaseID=' + id + '&rating=' + rating + '&text=' + text
+            })
         }
     }
 })

@@ -1,6 +1,12 @@
 ﻿<ion-view view-title="{{item.jmeno}}" cache-view="false">
-    <ion-nav-buttons side="primary">
-        <button class="button back-button buttons button-clear header-item icon ion-ios-arrow-back" ng-if="forceBackButton" ng-click="backToParentView()"></button>
+    <ion-nav-buttons side="left">
+        <button class="button back-button buttons button-clear header-item"
+                ng-if="forceBackButton"
+                ng-click="backToParentView()">
+            <i ng-class="{
+                'ion-ios-arrow-back force-back-ios': platform !== 'android',
+                'ion-android-arrow-back force-back-android ': platform === 'android' }"></i>
+        </button>
     </ion-nav-buttons>
     <ion-nav-title>
         {{item.jmeno}}
@@ -9,26 +15,31 @@
         <ion-refresher pulling-text="Pull to refresh..."
                        on-refresh="doRefresh()">
         </ion-refresher>
+        <div class="centering">
+            <div ng-show="status === 3">
+                <ion-spinner></ion-spinner>
+            </div>
+        </div>
         <error-message reload="doRefresh()" status="status" ng-hide="status === 0"></error-message>
 
-        <div>
+        <div class="photos-prices">
             <ion-slide-box on-slide-changed="slideHasChanged($index)">
                 <ion-slide ng-repeat="photo in item.photos">
-                    <div><img ng-src="http://sp2.binarity-testing.cz/images/photos/{{photo.jmeno}}" class="carousel" /></div>
+                    <div><img ng-src="{{imgUrl}}images/photos/{{photo.jmeno}}" class="carousel" /></div>
                 </ion-slide>
             </ion-slide-box>
 
-            <!--<div class="item-detail-prices">
+            <div class="item-detail-prices">
                 <table>
-                    <tbody ng-repeat="instance in item.instances">
-                        <tr ng-repeat="price in instance.prices">
+                    <tbody>
+                        <tr ng-repeat="price in item.prices">
                             <td class="price-unit">{{price.jednotka}}</td>
                             <td class="price">{{price.cena}}</td>
                             <td class="price-currency"> {{price.mena}}</td>
                         </tr>
                     </tbody>
                 </table>
-            </div>-->
+            </div>
         </div>
 
         <div class="padding item-detail-content" ng-show="status === 0">
@@ -84,20 +95,44 @@
             </div>            
         </div>
 
+        <div ng-show="item.reviews.length > 0">
+            <div class="padding legend" ng-show="status === 0">
+                {{ 'item.reviews' | translate }}
+            </div>
+            <ion-list>
+                <ion-item class="main-rating">
+                    <div>{{item.reviews[0].jmeno}}</div>
+                    <stars-rating rating="{{item.reviews[0].skore}}"></stars-rating>
+                    <div>{{item.reviews[0].komentar}}</div>
+                </ion-item>
+            </ion-list>
+            <div class="centering">
+                <button class="button button-outline button-calm"
+                        ng-click="openReviewsModal($event, item.reviews)">
+                    {{ 'item.show_all' | translate }}
+                </button>
+            </div>
+        </div>
+
         <div class="padding legend" ng-show="status === 0">
             {{ 'item.localities' | translate }}
         </div>
-        <div id="map" data-tap-disabled="true" ng-show="status === 0"></div>
+        <div id="map" data-tap-disabled="true" ng-show="status === 0 && !mapDisabled"></div>
 
         <div class="padding legend" ng-show="status === 0">
+            {{ 'item.availibility' | translate }}
+        </div>
+        <div ui-calendar="uiConfig.calendar" ng-model="eventSources" class="padding"></div>
+
+        <div class="padding legend" ng-show="status === 0 && item.similarItems.length > 0">
             {{ 'item.similar_items' | translate }}
         </div>
         <ion-list>
             <ion-item ng-repeat="item in item.similarItems" item="item" 
                       class="item-text-wrap item-thumbnail-left similar-items">
-
-                <img ng-src="{{imgUrl}}/images/photos/{{item.jmeno_fotky}}">
-                <a ng-href="#/tab/home/{{item.id_istance}}" class="no-decor-a">
+                <img ng-src="{{imgUrl}}/images/photos/{{item.jmeno_fotky}}"
+                     ng-click="goTo(item.id_instance)">
+                <a ng-href="#/tab/home/{{item.id_instance}}" class="no-decor-a">
                     <h2>{{item.jmeno}}</h2>
                 </a>
                 <stars-rating rating="{{item.prumerne_hodnoceni}}"></stars-rating>
@@ -113,11 +148,25 @@
     </ion-content>
 
     <div class="bar bar-footer bar-assertive order-btn-footer" ng-show="status === 0">
-        <div class="title button button-assertive order-btn">Objednat</div>
+        <div class="title button button-assertive order-btn" ng-click="order()">Objednat</div>
     </div>
 
 </ion-view>
 
-<!--<div ng-repeat="i in [1,2,3,4]">
-    <a ng-href="#/tab/home/profile/{{i}}">{{i}}</a>
-</div>-->
+<script id="reviews.html" type="text/ng-template">
+    <ion-modal-view>
+        <ion-header-bar>
+            <h1 class="title">{{ 'profile.reviews' | translate }}</h1>
+            <div class="button button-clear button-positive" ng-click="reviewsModal.hide()">{{ 'close' | translate }}</div>
+        </ion-header-bar>
+        <ion-content>
+            <ion-list>
+                <ion-item ng-repeat="review in reviews">
+                    <div>{{review.jmeno}}</div>
+                    <stars-rating rating="{{review.skore}}"></stars-rating>
+                    <div>{{review.komentar}}</div>
+                </ion-item>
+            </ion-list>
+        </ion-content>
+    </ion-modal-view>
+</script>

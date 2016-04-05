@@ -75,4 +75,14 @@ describe('Tests for item service', function () {
         httpBackend.flush();
         expect(name).toBe('sekacka');
     });
+    it('should POST /item/add-item?item when addItem is called', function () {
+        var item = {},
+            response;
+        httpBackend.whenPOST('http://sp2.binarity-testing.cz/mobile/item/add-item?item=[object Object]').respond(200, '');
+        itemService.addItem(item).then(function (data) {
+            response = data;
+        });
+        httpBackend.flush();
+        expect(response.status).toBe(200);
+    });
 })

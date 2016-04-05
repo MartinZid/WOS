@@ -231,4 +231,8 @@ angular.module('wos.controllers.itemDetail', [])
     $scope.closeReviewsModal = function () {
         $scope.reviewsModal.hide();
     };
+
+    $scope.order = function () {
+        $state.go('tab.order', { itemId: $scope.item.id_instance })
+    }
 })

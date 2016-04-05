@@ -17,9 +17,9 @@ angular.module('wos.controllers.search', [])
         /// <summary>
         /// Downloads data for search
         /// </summary>
+        $scope.status = 3;
         item.search($scope.searchText.value)
             .success(function (data) { ///if success save loaded data to $scope.items
-                //any code in here will automatically have an apply run afterwards
                 $scope.items = data;
                 console.log(data);
                 $scope.status = 0;
