@@ -1,7 +1,7 @@
 ﻿'use strict';
 angular.module('wos.services.cart', [])
 
-.factory('cart', function () {
+.factory('cart', function ($http, api) {
     /// <summary>
     /// Factory for cart.
     /// </summary>
@@ -35,6 +35,23 @@ angular.module('wos.services.cart', [])
             var cart = JSON.parse(localStorage.getItem("cart"));
             cart.splice(index, 1);
             localStorage.setItem("cart", JSON.stringify(cart));
+        },
+        clearCart: function () {
+            /// <summary>
+            /// Deletes whole cart from localStorage.
+            /// </summary>
+            localStorage.setItem("cart", null);
+        },
+        sendOrders: function (orders) {
+            /// <summary>
+            /// Sends all orders (whole cart) to server.
+            /// </summary>
+            /// <param name="orders" type="object"></param>
+            /// <returns type="promise"></returns>
+            return $http({
+                method: 'POST',
+                url: api.url + 'mobile/rent/order?data=' + orders
+            })
         }
     }
 })

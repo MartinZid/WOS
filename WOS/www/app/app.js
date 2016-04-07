@@ -63,6 +63,7 @@ angular.module('wos', ['ionic',
         },
         'not_logged_in': 'Nejste přihlášeni.',
         'try_again': 'Zkusit znovu',
+        'pull_to_refresh': 'Stáhněte pro obnovení...',
         'errors': {
             'no_data': 'Zde budou všechny položky.',
             'server_error': 'V komunikaci se serverem došlo k chybě. :-(',
@@ -109,7 +110,8 @@ angular.module('wos', ['ionic',
             'from': 'Od',
             'to': 'Do',
             'return_to_cart': 'Vrátit zpět',
-            'recently_deleted': 'Možná chcete vrátit zpět?'
+            'recently_deleted': 'Možná chcete vrátit zpět?',
+            'orderds_successfully_posted': 'Vaše objednávka byla úspěšně odeslána!'
         },
         'profile': {
             'user_items': 'Nabízené položky',
@@ -320,16 +322,6 @@ angular.module('wos', ['ionic',
        }
    })
 
-   .state('tab.order', {
-       url: '/home/order/:itemId',
-       views: {
-           'homepage': {
-               templateUrl: 'app/components/order/orderView.html',
-               controller: 'OrderCtrl'
-           }
-       }
-   })
-
    .state('tab.cart', {
        url: '/cart',
        views: {
@@ -339,6 +331,17 @@ angular.module('wos', ['ionic',
            }
        }
    })
+
+   .state('tab.order', {
+       url: '/home/order/:itemId',
+       views: {
+           'cart': {
+               templateUrl: 'app/components/order/orderView.html',
+               controller: 'OrderCtrl'
+           }
+       }
+   })
+
 
    .state('tab.account', {
        url: '/account',

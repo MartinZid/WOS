@@ -1,8 +1,12 @@
-﻿<ion-view view-title="{{ 'cart.cart' | translate }}">
+﻿<ion-view view-title="{{ 'cart.cart' | translate }}" hide-back-button="true">
     <ion-content>
         <div class="error-message" ng-show="orders.length == 0">
             <p>{{ 'cart.no_data' | translate }}</p>
         </div>
+        <div class="error-message" ng-show="status === 1">
+            <p>{{ 'cart.orderds_successfully_posted' | translate }}</p>
+        </div>
+        <error-message reload="finishOrders()" status="status" ng-hide="status === 0"></error-message>
 
         <ion-list show-delete="data.showDelete">
             <ion-item ng-repeat="order in orders track by $index" item="item" class="item-remove-animate item-text-wrap item-thumbnail-left">
@@ -40,11 +44,16 @@
             </ion-item>
         </ion-list>
 
+        <div class="centering">
+            <div ng-show="spinning">
+                <ion-spinner></ion-spinner>
+            </div>
+        </div>
 
     </ion-content>
 
-    <div class="bar bar-footer bar-assertive order-btn-footer" ng-show="status === 0 && orders.length > 0">
-        <div class="title button button-assertive order-btn">Zaplatit {{countPrice()}} Kč</div>
+    <div class="bar bar-footer bar-assertive order-btn-footer" ng-show="orders.length > 0">
+        <div class="title button button-assertive order-btn" ng-click="finishOrders()">Zaplatit {{countPrice()}} Kč</div>
     </div>
 
 </ion-view>

@@ -11,7 +11,7 @@
                 <ion-spinner></ion-spinner>
             </div>
         </div>
-        <ion-refresher pulling-text="Pull to refresh..."
+        <ion-refresher pulling-text="{{ 'pull_to_refresh' | translate }}"
                        on-refresh="doRefresh()">
         </ion-refresher>
         <error-message reload="doRefresh()" status="status" ng-hide="status === 0"></error-message>

@@ -156,7 +156,7 @@
                         </div>
                         <div class="error-msg" ng-show="from.date > to.date || 
                              (from.date.getTime() == to.date.getTime() && (from.date != undefined || to.date != undefined) &&
-                              from.time > to.time)">
+                              from.time >= to.time)">
                             {{ 'order.date_too_low' | translate }}!
                         </div>
                     </div>
@@ -171,7 +171,7 @@
              ((takeOverOption.value == 0 || takeOverOption.value == 1) && selectedLocality.value == undefined) ||
              (takeOverOption.value == 2 && (forms.newLocality.city.$invalid || forms.newLocality.street.$invalid || forms.newLocality.postal_code.$invalid)) ||
              (forms.dateForm.timeTo.$invalid || forms.dateForm.dateTo.$invalid || forms.dateForm.timeFrom.$invalid || forms.dateForm.dateTo.$invalid) ||
-             (from.date > to.date || (from.date.getTime() == to.date.getTime() && (from.date != undefined || to.date != undefined) && from.time > to.time))
+             (from.date > to.date || (from.date.getTime() == to.date.getTime() && (from.date != undefined || to.date != undefined) && from.time >= to.time))
              "
              ng-click="addToCart()">
             {{ 'order.add_to_cart' | translate }} <span ng-show="finalPrice > 0">({{finalPrice}} Kč)</span>

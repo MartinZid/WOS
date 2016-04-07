@@ -1,7 +1,7 @@
 ﻿'use strict';
 angular.module('wos.controllers.cart', [])
 
-.controller('CartCtrl', function ($scope, cart, api, $state) {
+.controller('CartCtrl', function ($scope, cart, api, $state, profile) {
     /// <summary>
     /// Controller for cart view.
     /// </summary>
@@ -33,6 +33,7 @@ angular.module('wos.controllers.cart', [])
             order.stringFrom += tmpfromDate[2] + '.';
             order.stringFrom += tmpfromDate[1] + '.';
             order.stringFrom += tmpfromDate[0];
+            order.from.datetime = order.from.date.split('T')[0] + 'T' + order.from.time.split('T')[1];
 
             var tmpfromDate = order.to.date.split('T')[0].split('-');
             var tmpFromTime = order.to.time.split('T')[1].split('.')[0].split(':');
@@ -40,6 +41,7 @@ angular.module('wos.controllers.cart', [])
             order.stringTo += tmpfromDate[2] + '.';
             order.stringTo += tmpfromDate[1] + '.';
             order.stringTo += tmpfromDate[0];
+            order.to.datetime = order.to.date.split('T')[0] + 'T' + order.to.time.split('T')[1];
         });
     }
 
@@ -89,6 +91,26 @@ angular.module('wos.controllers.cart', [])
         /// <param name="index" type="type"></param>
         $scope.deleteItem(index);
         $state.go('tab.order', { itemId: order.item.id });
-    }
+    };
+
+    $scope.finishOrders = function () {
+        $scope.spinning = true;
+        $scope.user = profile.getLoggedInUserData();
+        var wholeCart = {
+            finalPrice: $scope.countPrice(),
+            user_id: $scope.user.id,
+            orders: $scope.orders
+        };
+        cart.sendOrders(wholeCart)
+            .success(function () {
+                $scope.status = 1;
+                $scope.spinning = false;
+                cart.clearCart();
+            }).error(function () {
+                $scope.status = 2;
+                $scope.spinning = false;
+            });
+        console.log(wholeCart);
+    };
 
 })

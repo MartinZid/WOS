@@ -20,9 +20,11 @@ angular.module('wos.controllers.addItem', [])
     $scope.status = 3;
     $scope.platform = ionic.Platform.platform();
     $scope.localities;
+    $scope.imageName = Math.random().toString(36).slice(2);
     $scope.selectedLocality = {};
     $scope.selectedLocalities = [];
     $scope.upload = 'not uploading';
+    $scope.uploadError = 0; // 0 - no error, 1 - upload error
     $scope.locality = {
         street: '',
         city: '',
@@ -223,13 +225,17 @@ angular.module('wos.controllers.addItem', [])
         var options = {
             fileKey: 'file',
             mimeType: "image/jpeg",
-            chunkedMode: false
+            chunkedMode: false,
+            fileName: $scope.imageName
         };
         $cordovaFileTransfer.upload(server, $scope.imgURI, options, true)
             .then(function(result) {
                 $scope.upload = 'Upload succeeded';
+                $state.go('tab.account');
+                $scope.spinning = false;
             }, function(err) {
                 $scope.upload = 'Upload failed ' + server + ' ' + angular.toJson(err.code);
+                $scope.uploadError = 1;
             }, function (progress) {
                 $scope.upload = progress;
             });
@@ -241,11 +247,12 @@ angular.module('wos.controllers.addItem', [])
         /// </summary>
         $scope.addLocality();
         $scope.addPrice();
+        $scope.spinning = true;
         var createdItem = {
             name: $scope.item.name,
             prices: $scope.prices,
             localities: $scope.selectedLocalities,
-            photo: $scope.imgURI,
+            photo: $scope.imageName,
             category: $scope.selectedCategory,
             user_id: 18
         };
@@ -254,10 +261,13 @@ angular.module('wos.controllers.addItem', [])
         item.addItem(createdItem)
             .success(function (data) {
                 console.log('add item successful');
+                $scope.spinning = false;
+                $scope.uploadImage();
+                $scope.uploadError = 0;
             }).error(function (data) {
                 console.log('add item failed');
+                $scope.uploadError = 1;
             });
-        $scope.uploadImage();
         // TODO: redirect user to his new item
     };
 })

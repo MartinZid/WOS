@@ -153,6 +153,19 @@
                 </button>
             </div>
 
+            <div class="error-message has-order-btn">
+                <p ng-show="uploadError === 1">{{ 'errors.server_error' | translate }}</p>
+                <button class="button button-clear button-positive" ng-click="createItem()" ng-show="uploadError === 1">
+                    {{ 'try_again' | translate }}
+                </button>
+            </div>
+
+            <div class="centering has-order-btn">
+                <div ng-show="spinning">
+                    <ion-spinner></ion-spinner>
+                </div>
+            </div>
+
             <script id="new_locality.html" type="text/ng-template">
                 <ion-modal-view>
                     <ion-header-bar>
@@ -272,13 +285,12 @@
                     </ion-content>
                 </ion-modal-view>
             </script>
-
         </div>
     </ion-content>
     <div class="bar bar-footer bar-assertive order-btn-footer" ng-show="status === 0" >
         <div class="title button button-assertive order-btn" ng-disabled="forms.addItemForm.name.$invalid || 
              (prices.length == 0 && (forms.addItemForm.price.$invalid || !price.period)) ||
-             (selectedLocalities == 0 && selectedLocality.value == undefined)"
+             (selectedLocalities == 0 && selectedLocality.value == undefined) || imgURI == undefined"
              ng-click="createItem()">
             {{ 'addItem.finish' | translate }}
         </div>
