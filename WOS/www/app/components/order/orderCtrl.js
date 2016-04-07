@@ -2,7 +2,7 @@
 angular.module('wos.controllers.order', [])
 
 .controller('OrderCtrl', function ($scope, $stateParams, item,
-                                   api, locality, cart, $state) {
+                                   api, locality, cart, $state, profile) {
     /// <summary>
     /// Controller for order view.
     /// </summary>
@@ -20,6 +20,7 @@ angular.module('wos.controllers.order', [])
     $scope.to = {};
     $scope.forms = {};
     $scope.finalPrice = 0;
+    $scope.user;
 
     getItemDetail($scope.itemId);
     getUserLocality();
@@ -42,6 +43,9 @@ angular.module('wos.controllers.order', [])
     };
 
     function getUserLocality() {
+        /// <summary>
+        /// Downloads user locality.
+        /// </summary>
         locality.getUserLocalities($scope.userId)
             .success(function (data) {
                 $scope.userLocality = data;
@@ -105,6 +109,10 @@ angular.module('wos.controllers.order', [])
     };
     
     $scope.addToCart = function () {
+        /// <summary>
+        /// Gets data from form, created new order object a adds this object to a cart.
+        /// Redirects user to the cart.
+        /// </summary>
         var takeOver = $scope.takeOverOption.value;
         var locality,
             order,
@@ -140,8 +148,24 @@ angular.module('wos.controllers.order', [])
             },
             'price': $scope.finalPrice
         };
-        console.log(order);
         cart.addToCart(order);
         $state.go('tab.cart');
     };
+
+    $scope.$on('$ionicView.beforeEnter', function () {
+        /// <summary>
+        /// Is user logged in?
+        /// </summary>
+        if (profile.getLoggedInUserData() === null) {
+            return;
+        }
+        $scope.user = profile.getLoggedInUserData();
+    })
+
+    $scope.goToLogin = function () {
+        /// <summary>
+        /// Redirects user to login.
+        /// </summary>
+        $state.go('tab.login');
+    }
 })

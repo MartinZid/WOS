@@ -2,7 +2,8 @@
 
 angular.module('wos.controllers.profile', [])
 
-.controller('ProfileCtrl', function ($scope, $stateParams, profile, $ionicModal, $ionicHistory, $state) {
+.controller('ProfileCtrl', function ($scope, $stateParams, profile, $ionicModal, $ionicHistory,
+                                     $state, $filter) {
     /// <summary>
     /// Controller for profile view.
     /// </summary>
@@ -29,6 +30,9 @@ angular.module('wos.controllers.profile', [])
                 $scope.profile = data;
                 console.log(data);
                 $scope.status = 0;
+                // show only instances which are approved
+                $scope.profile.instances = $filter('filter')($scope.profile.instances, { itemState: 2 });
+
                 $scope.userItemsSum = $scope.countUserItems();
 
             }).error(function (data) { ///if can not load data from server set $scope.status, for error handling
@@ -84,7 +88,8 @@ angular.module('wos.controllers.profile', [])
         $scope.reviewsModal.hide();
     };
 
-    $scope.forceBackButton = $ionicHistory.backView().stateId.indexOf('item-detail') < 0; //we navigated from another tab
+    //we navigated from another tab
+    $scope.forceBackButton = $ionicHistory.backView().stateId.indexOf('item-detail') < 0;
 
     $scope.backToParentView = function () {
         $state.go('tab.home', {}, { location: 'repalce', inherit: 'false' });

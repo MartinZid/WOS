@@ -7,6 +7,7 @@ angular.module('wos.services.profile', [])
     /// </summary>
     /// <param name="$http" type="type"></param>
     /// <param name="api" type="type"></param>
+
     return {
         getProfileData: function(id) {
             /// <summary>
@@ -43,6 +44,43 @@ angular.module('wos.services.profile', [])
                 method: 'PUT',
                 url: api.url + 'mobile/user/forgotten-password/defaul?email=' + email
             })
+        },
+        getUSerIdentity: function (email, password) {
+            /// <summary>
+            /// Gets user login data.
+            /// </summary>
+            /// <param name="email" type="String"></param>
+            /// <param name="password" type="String"></param>
+            /// <returns type="promise"></returns>
+            return $http({
+                method: 'GET',
+                url: api.url + 'mobile/user/login?email=' + email + '&password=' + password
+            })
+        },
+        login: function (userIdentity) {
+            /// <summary>
+            /// Saves logged user to localStorage
+            /// </summary>
+            /// <param name="userIdentity" type="type"></param>
+            var user = {
+                id: userIdentity.id_uzivatel,
+                APIkey: userIdentity.mobilelogin
+            };
+            localStorage.setItem("user", JSON.stringify(user));
+        },
+        getLoggedInUserData: function () {
+            /// <summary>
+            /// Returns a user object (info about logged in user from localStorage)
+            /// </summary>
+            /// <returns type="object">User</returns>
+            return JSON.parse(localStorage.getItem("user"));
+        },
+        logout: function () {
+            /// <summary>
+            /// Deletes user identity and cart from localStorage.
+            /// </summary>
+            localStorage.setItem("user", null);
+            localStorage.setItem("cart", null);
         }
     };
 })

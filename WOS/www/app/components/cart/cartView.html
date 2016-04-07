@@ -1,9 +1,5 @@
 ﻿<ion-view view-title="{{ 'cart.cart' | translate }}">
     <ion-content>
-        <ion-refresher pulling-text="Pull to refresh..."
-                       on-refresh="doRefresh()">
-        </ion-refresher>
-
         <div class="error-message" ng-show="orders.length == 0">
             <p>{{ 'cart.no_data' | translate }}</p>
         </div>
@@ -26,6 +22,24 @@
                 </ion-option-button>
             </ion-item>
         </ion-list>
+
+        <p class="padding" ng-show="deletedItem">{{ 'cart.recently_deleted' | translate }}</p>
+        <ion-list show-delete="data.showDelete" ng-show="deletedItem">
+            <ion-item item="item" class="item-remove-animate item-text-wrap item-thumbnail-left deleted-item">
+
+                <img ng-src="{{imgUrl}}images/photos/{{deletedItem.item.mainPhoto}}">
+                <h2>{{deletedItem.item.name}}</h2>
+                <p>{{ 'cart.from' | translate }}: {{deletedItem.stringFrom}}</p>
+                <p>{{ 'cart.to' | translate }}: {{deletedItem.stringTo}}</p>
+                <p>{{deletedItem.price}} Kč</p>
+                <div class="cart-edit-btn">
+                    <button class="button button-clear button-positive" ng-click="returnToCart()">
+                        {{ 'cart.return_to_cart' | translate }}
+                    </button>
+                </div>
+            </ion-item>
+        </ion-list>
+
 
     </ion-content>
 

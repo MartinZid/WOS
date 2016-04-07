@@ -147,7 +147,7 @@
               
     </ion-content>
 
-    <div class="bar bar-footer bar-assertive order-btn-footer" ng-show="status === 0">
+    <div class="bar bar-footer bar-assertive order-btn-footer" ng-show="status === 0 && (user.id != item.user.id_uzivatel)">
         <div class="title button button-assertive order-btn" ng-click="order()">Objednat</div>
     </div>
 

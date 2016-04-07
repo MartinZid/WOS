@@ -38,4 +38,12 @@ angular.module('wos.controllers.registration', [])
     $scope.doRefresh = function () {
         $scope.registration($scope.user);
     };
+    $scope.$on('$ionicView.beforeEnter', function () {
+        /// <summary>
+        /// If user is already logged in, redirect him to his profile.
+        /// </summary>
+        if (profile.getLoggedInUserData() !== null)
+            $state.go('tab.account');
+    })
+
 })

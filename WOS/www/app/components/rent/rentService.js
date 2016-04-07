@@ -10,7 +10,7 @@ angular.module('wos.services.rent', [])
     /// <returns type="object">item</returns>
 
     return {
-        getAll: function (id) {
+        getAll: function (id, code) {
             /// <summary>
             /// Returns a promise of all rents and borrows of user with given id
             /// </summary>
@@ -18,7 +18,7 @@ angular.module('wos.services.rent', [])
             /// <returns type="promise"></returns>
             return $http({
                 method: 'GET',
-                url: api.url + 'mobile/rent?userID=' + id
+                url: api.url + 'mobile/rent?userID=' + id + '&code=' + code
             });
         },
         approve: function (id) {

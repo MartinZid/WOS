@@ -58,7 +58,7 @@ angular.module('wos.rating', [])
                 intvalue = 0;
             return new Array(intvalue);
         },
-        rateLease: function (id, rating, text) {
+        rateLease: function (id, rating, text, user, instance) {
             /// <summary>
             /// Uploads rating of given lease (id) to server.
             /// </summary>
@@ -68,7 +68,8 @@ angular.module('wos.rating', [])
             /// <returns type="promise"></returns>
             return $http({
                 method: 'POST',
-                url: api.url + 'mobile/rent/rating?leaseID=' + id + '&rating=' + rating + '&text=' + text
+                url: api.url + 'mobile/rent/rating?rentID=' + id + '&rating=' + rating + '&text=' + text + "&instanceID=" + instance + "&userID=" + user
+                //rent/rating?rentID&rating&text&instanceID&userID 
             })
         }
     }

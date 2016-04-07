@@ -1,7 +1,7 @@
 ﻿'use strict';
 angular.module('wos.controllers.login', [])
 
-.controller('LoginCtrl', function ($scope, $ionicModal, $state, profile) {
+.controller('LoginCtrl', function ($scope, $ionicModal, $state, profile, $ionicViewSwitcher) {
     /// <summary>
     /// Controller for login.
     /// </summary>
@@ -10,17 +10,31 @@ angular.module('wos.controllers.login', [])
     /// <param name="$state" type="type"></param>
     $scope.email;
     $scope.status = 3;
+    $scope.errorOrigin = 0; // 0 = no error, 1 = login failed, 2 = forgotten password failed
 
     $scope.login = function (user) {
         /// <summary>
         /// Called after user clicks 'login'. It passes form data into model.
         /// </summary>
         /// <param name="user" type="Object"></param>
-        console.log('submited');
-        //console.log(user.email + " " + user.password);
-        if (true) { //if login succeeded redirect user, to home
-            $state.go('tab.account');
-        }
+
+        profile.getUSerIdentity(user.email, user.password)
+            .success(function (data) {
+                if (data[0][0] == 'Error') { // login failed due to invalid credentials
+                    $scope.status = 0;
+                } else { // login succeeded, save user to localStorage and redirect user to his profile.
+                    $scope.status = 0;
+                    profile.login(data[0]);
+                    $state.go('tab.account');
+                }
+            }).error(function () { // login failed due to server error
+                $scope.user = {
+                    email: user.email,
+                    password: user.password
+                };
+                $scope.status = 2;
+                $scope.errorOrigin = 1;
+            });
     };
 
     $scope.forgottenPassword = function (email) {
@@ -33,18 +47,35 @@ angular.module('wos.controllers.login', [])
         profile.forgottenPassword(email)
             .success(function () {
                 console.log('reset successful');
-                $scope.status = 0;
+                $scope.status = 1;
             }).error(function () {
                 console.log('reset failed');
                 $scope.status = 2;
                 $scope.email = email;
+                $scope.errorOrigin = 2
             });
         $scope.closeModal();
     };
 
     $scope.doRefresh = function () {
-        $scope.forgottenPassword($scope.email);
+        /// <summary>
+        /// Calls the function in which occured a server error.
+        /// </summary>
+        if ($scope.errorOrigin == 2) // server error while reseting password
+            $scope.forgottenPassword($scope.email);
+        if ($scope.errorOrigin == 1) // server errror while login
+            $scope.login($scope.user);
     };
+
+    $scope.$on('$ionicView.beforeEnter', function () {
+        /// <summary>
+        /// If user is already logged in, redirect him to his profile.
+        /// </summary>
+        if (profile.getLoggedInUserData() !== null) {
+            $ionicViewSwitcher.nextDirection('none');
+            $state.go('tab.account');
+        }
+    })
 
     $ionicModal.fromTemplateUrl('forgotten_password.html', {
         scope: $scope,

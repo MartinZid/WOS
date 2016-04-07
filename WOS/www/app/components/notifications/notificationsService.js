@@ -9,7 +9,7 @@ angular.module('wos.services.notifications', [])
     /// <param name="api" type="type"></param>
 
     return {
-        getAll: function (userId) {
+        getAll: function (userId, code) {
             /// <summary>
             /// Returns all notifications of given user (userId).
             /// </summary>
@@ -17,7 +17,7 @@ angular.module('wos.services.notifications', [])
             /// <returns type="promise"></returns>
             return $http({
                 method: 'GET',
-                url: api.url + 'mobile/user/notifications?userID=' + userId
+                url: api.url + 'mobile/user/notifications?userID=' + userId + '&code=' + code
             })
         }
     }

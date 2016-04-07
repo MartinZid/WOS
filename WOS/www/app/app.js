@@ -61,6 +61,7 @@ angular.module('wos', ['ionic',
             'cart': 'Košík',
             'me': 'Já',
         },
+        'not_logged_in': 'Nejste přihlášeni.',
         'try_again': 'Zkusit znovu',
         'errors': {
             'no_data': 'Zde budou všechny položky.',
@@ -106,7 +107,9 @@ angular.module('wos', ['ionic',
             'no_data': 'Váš košík je prázdný.',
             'edit': 'Upravit',
             'from': 'Od',
-            'to': 'Do'
+            'to': 'Do',
+            'return_to_cart': 'Vrátit zpět',
+            'recently_deleted': 'Možná chcete vrátit zpět?'
         },
         'profile': {
             'user_items': 'Nabízené položky',
@@ -117,6 +120,7 @@ angular.module('wos', ['ionic',
             'show_reviews': 'Zobrazit hodnocení',
             'reviews': 'Hodnocení',
             'message_for_user': 'Zpráva uživateli',
+            'no_items': 'Zde budou Vaše položky.',
             'leases': {
                 'item': 'Položka',
                 'from': 'Od',
@@ -134,7 +138,7 @@ angular.module('wos', ['ionic',
                 'decline': 'Zamítnout',
                 'approve': 'Schválit',
                 'action_failed': 'Akce se nezdařila.',
-                'do_return': 'Vrátit'
+                'do_return': 'Vrátit',
             },
             'rating_title': 'Hodnocení'
         },
@@ -167,7 +171,8 @@ angular.module('wos', ['ionic',
             'doLogin': 'Přihlásit se',
             'forgotten_password': 'Zapomenuté heslo?',
             'to_registration': 'Zaregistrujte se nyní',
-            'reset_successful': 'Na e-mail Vám byl zaslán odkaz na resetování hesla.'
+            'reset_successful': 'Na e-mail Vám byl zaslán odkaz na resetování hesla.',
+            'login_failed': 'Přihlašovací údaje nejsou správné. Zkuste to znovu.'
         },
         'forgotten_password': 'Zapomenuté heslo',
         'send_link': 'Odeslat odkaz k obnovení',
@@ -186,6 +191,7 @@ angular.module('wos', ['ionic',
             'add_locality': 'Přidat lokalitu',
             'create_new_locality': 'Vytvořit novou lokalitu',
             'new_locality': 'Nová lokalita',
+            'add_new_day': 'Nový den',
             'address': 'Adresa',
             'street': 'Ulice',
             'city': 'Město',
@@ -240,8 +246,8 @@ angular.module('wos', ['ionic',
 
   //remove text from back button
     $ionicConfigProvider.backButton.previousTitleText(false).text('');
-    $ionicConfigProvider.tabs.position('bottom');
-    $ionicConfigProvider.navBar.alignTitle('center');
+    //$ionicConfigProvider.tabs.position('bottom');
+    //$ionicConfigProvider.navBar.alignTitle('center');
 
     $stateProvider
 
@@ -365,7 +371,7 @@ angular.module('wos', ['ionic',
    });
 
     // if none of the above states are matched
-    $urlRouterProvider.otherwise('/tab/home/addItem');
+    $urlRouterProvider.otherwise('/tab/account/login');
     //$urlRouterProvider.otherwise('/tab/home/order/29');
    //$urlRouterProvider.otherwise('tab/home/profile/25');
    //$urlRouterProvider.otherwise('tab/account/login');

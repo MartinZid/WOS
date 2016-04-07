@@ -51,6 +51,14 @@ angular.module('wos.controllers.addItem', [])
         $scope.forms.addItemForm.price.$setUntouched();
     };
 
+    $scope.deletePrice = function (index) {
+        /// <summary>
+        /// Deletes price from prices array on index.
+        /// </summary>
+        /// <param name="index" type="type"></param>
+        $scope.prices.splice(index, 1);
+    }
+
     $scope.takePhoto = function () {
         /// <summary>
         /// Access device's camera.
@@ -77,7 +85,6 @@ angular.module('wos.controllers.addItem', [])
         });
     };
 
-    if(false)
     $scope.forceBackButton = $ionicHistory.backView().stateId.indexOf('home') < 0; //we navigated from another tab
 
     $scope.backToParentView = function () {
@@ -148,9 +155,11 @@ angular.module('wos.controllers.addItem', [])
         /// Adds created locality into selected localities array. Also resets modal for new locality creation.
         /// </summary>
         /// <param name="locality" type="type"></param>
+        $scope.addDay();
         $scope.selectedLocalities.push({
             mesto: locality.city,
-            ulice_cp: locality.street + ' ' + locality.postal_code,
+            ulice_cp: locality.street,
+            psc: locality.postal_code,
             days: locality.days
         });
 
@@ -161,7 +170,6 @@ angular.module('wos.controllers.addItem', [])
         $scope.locality.to = null;
         $scope.locality.day = undefined;
         $scope.locality.days = [];
-        console.log($scope.forms.newLocality);
         $scope.forms.newLocality.street.$setUntouched();
         $scope.forms.newLocality.city.$setUntouched();
         $scope.forms.newLocality.postal_code.$setUntouched();
@@ -174,6 +182,9 @@ angular.module('wos.controllers.addItem', [])
         /// <summary>
         /// Saves day availibility to days array. Resets form for new day avalibility.
         /// </summary>
+        if ($scope.locality.from == null || $scope.locality.to == null || $scope.locality.day == undefined)
+            return;
+
         $scope.locality.days.push({
             from: $scope.locality.from,
             to: $scope.locality.to,
@@ -239,6 +250,7 @@ angular.module('wos.controllers.addItem', [])
             user_id: 18
         };
         console.log(createdItem);
+        console.log(angular.toJson(createdItem));
         item.addItem(createdItem)
             .success(function (data) {
                 console.log('add item successful');

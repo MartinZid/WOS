@@ -1,7 +1,10 @@
 ﻿<ion-view view-title="{{ 'login.login' | translate }}" ng-cloak hide-back-button="true" cache-view="false">
     <ion-content ng-cloak>
-        <div class="error-message" ng-show="status === 0">
+        <div class="error-message" ng-show="status === 1">
             <p>{{ 'login.reset_successful' | translate }}</p>
+        </div>
+        <div class="error-message" ng-show="status === 0">
+            <p>{{ 'login.login_failed' | translate }}</p>
         </div>
         <error-message reload="doRefresh()" status="status" ng-hide="status === 0"></error-message>
         <div class="registration">

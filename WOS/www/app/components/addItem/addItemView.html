@@ -68,12 +68,13 @@
                 </div>
                 <div>
                     <table class="prices-table">
-                        <tr ng-repeat="p in prices">
+                        <tr ng-repeat="p in prices track by $index">
                             <td ng-show="p.period === 1">{{ 'hour' | translate }}</td>
                             <td ng-show="p.period === 2">{{ 'day' | translate }}</td>
                             <td ng-show="p.period === 3">{{ 'week' | translate }}</td>
                             <td ng-show="p.period === 4">{{ 'month' | translate }}</td>
                             <td>{{p.price}} Kč</td>
+                            <td><i class="ion-close-round delete-item-icon" ng-click="deletePrice($index)"></i></td>
                         </tr>
                     </table>
                 </div>
@@ -156,8 +157,12 @@
                 <ion-modal-view>
                     <ion-header-bar>
                         <div class="button button-clear button-positive" ng-click="modal.hide()">{{ 'close' | translate }}</div>
-                        <h1 class="title">{{ 'forgotten_password' | translate }}</h1>
-                        <div class="button button-clear button-positive" ng-click="saveNewLocality(locality)">{{ 'save' | translate }}</div>
+                        <h1 class="title">{{ 'addItem.new_locality' | translate }}</h1>
+                        <div class="button button-clear button-positive" 
+                             ng-disabled="((locality.day === undefined || forms.newLocality.to.$invalid || forms.newLocality.from.$invalid) &&
+                                            locality.days.length == 0) || forms.newLocality.street.$invalid || forms.newLocality.city.$invalid ||
+                                            forms.newLocality.postal_code.$invalid"
+                             ng-click="saveNewLocality(locality)">{{ 'save' | translate }}</div>
                     </ion-header-bar>
                     <ion-content class="padding">
                         <div class="legend">
@@ -260,7 +265,7 @@
                             <div class="centering">
                                 <button class="button button-outline button-calm margin-top-btn" type="button"
                                         ng-disabled="locality.day === undefined || forms.newLocality.to.$invalid || forms.newLocality.from.$invalid" ng-click="addDay()">
-                                    {{ 'addItem.add_locality' | translate }}
+                                    {{ 'addItem.add_new_day' | translate }}
                                 </button>
                             </div>
                         </form>
@@ -273,7 +278,7 @@
     <div class="bar bar-footer bar-assertive order-btn-footer" ng-show="status === 0" >
         <div class="title button button-assertive order-btn" ng-disabled="forms.addItemForm.name.$invalid || 
              (prices.length == 0 && (forms.addItemForm.price.$invalid || !price.period)) ||
-             (selectedLocalities == 0 && selectedLocality.value == undefined) || imgURI == undefined"
+             (selectedLocalities == 0 && selectedLocality.value == undefined)"
              ng-click="createItem()">
             {{ 'addItem.finish' | translate }}
         </div>

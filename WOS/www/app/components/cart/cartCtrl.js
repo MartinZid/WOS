@@ -8,6 +8,7 @@ angular.module('wos.controllers.cart', [])
     /// <param name="$scope" type="type"></param>
     $scope.status = 0;
     $scope.imgUrl = api.url;
+    $scope.deletedItem;
 
     console.log(cart.getAll());
 
@@ -21,6 +22,7 @@ angular.module('wos.controllers.cart', [])
     $scope.getDataFromCart = function () {
         /// <summary>
         /// Gets data from cart service, and parse date to readable format.
+        /// Date: "2016-04-07T22:00:00.000Z" + Time: "1970-01-01T09:00:00.000Z" => "09:00 07.04.2016" 
         /// </summary>
         $scope.orders = cart.getAll();
         console.log($scope.orders);
@@ -49,12 +51,23 @@ angular.module('wos.controllers.cart', [])
 
     $scope.deleteItem = function (index) {
         /// <summary>
-        /// Deletes item on index from cart.
+        /// Deletes item on index from cart. Saves this item to temporary variable, in case user wants to return this item
+        /// back to cart.
         /// </summary>
         /// <param name="index" type="type"></param>
+        $scope.deletedItem = $scope.orders[index];
         cart.deleteFromCart(index);
         $scope.getDataFromCart();
     };
+
+    $scope.returnToCart = function () {
+        /// <summary>
+        /// Return recently deleted item back to cart and refreshs cart.
+        /// </summary>
+        cart.addToCart($scope.deletedItem);
+        $scope.deletedItem = null;
+        $scope.getDataFromCart();
+    }
 
     $scope.countPrice = function () {
         /// <summary>

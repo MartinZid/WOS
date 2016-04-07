@@ -3,7 +3,7 @@ angular.module('wos.controllers.itemDetail', [])
 
 .controller('ItemDetailCtrl', function ($scope, item, $stateParams, $ionicSlideBoxDelegate, api,
                                         $ionicPopover, $cordovaGeolocation, $ionicHistory, $state,
-                                        $ionicModal) {
+                                        $ionicModal, profile) {
     /// <summary>
     /// Controller for item detail view.
     /// </summary>
@@ -21,6 +21,7 @@ angular.module('wos.controllers.itemDetail', [])
     $scope.imgUrl = api.url;
     $scope.platform = ionic.Platform.platform();
     $scope.events = [];
+    $scope.user
 
     getItemDetail($scope.id);
 
@@ -233,6 +234,19 @@ angular.module('wos.controllers.itemDetail', [])
     };
 
     $scope.order = function () {
+        /// <summary>
+        /// Redirects user to order current item.
+        /// </summary>
         $state.go('tab.order', { itemId: $scope.item.id_instance })
     }
+
+    $scope.$on('$ionicView.beforeEnter', function () {
+        /// <summary>
+        /// Is user logged in?
+        /// </summary>
+        if (profile.getLoggedInUserData() === null) {
+            return;
+        }
+        $scope.user = profile.getLoggedInUserData();
+    })
 })
