@@ -50,7 +50,8 @@ angular.module('wos.services.cart', [])
             /// <returns type="promise"></returns>
             return $http({
                 method: 'POST',
-                url: api.url + 'mobile/rent/order?data=' + orders
+                headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+                url: api.url + 'mobile/rent/order?data=' + JSON.stringify(orders)
             })
         }
     }

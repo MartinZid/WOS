@@ -16,6 +16,7 @@ angular.module('wos.controllers.cart', [])
         /// <summary>
         /// Get cart data when entering cart view.
         /// </summary>
+        $scope.status = 0;
         $scope.getDataFromCart();
     });
 
@@ -34,7 +35,7 @@ angular.module('wos.controllers.cart', [])
             order.stringFrom += tmpfromDate[1] + '.';
             order.stringFrom += tmpfromDate[0];
             order.from.datetime = order.from.date.split('T')[0] + 'T' + order.from.time.split('T')[1];
-
+            //TODO: fix - time is -1
             var tmpfromDate = order.to.date.split('T')[0].split('-');
             var tmpFromTime = order.to.time.split('T')[1].split('.')[0].split(':');
             order.stringTo = tmpFromTime[0] + ':' + tmpFromTime[1] + ' ';
@@ -94,6 +95,9 @@ angular.module('wos.controllers.cart', [])
     };
 
     $scope.finishOrders = function () {
+        /// <summary>
+        /// Saves data to object and sends it to server.
+        /// </summary>
         $scope.spinning = true;
         $scope.user = profile.getLoggedInUserData();
         var wholeCart = {
@@ -105,12 +109,13 @@ angular.module('wos.controllers.cart', [])
             .success(function () {
                 $scope.status = 1;
                 $scope.spinning = false;
-                cart.clearCart();
+                //cart.clearCart();
             }).error(function () {
                 $scope.status = 2;
                 $scope.spinning = false;
             });
         console.log(wholeCart);
+        console.log(angular.toJson(wholeCart));
     };
 
 })

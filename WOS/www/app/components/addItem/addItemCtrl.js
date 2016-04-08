@@ -180,6 +180,14 @@ angular.module('wos.controllers.addItem', [])
 
         $scope.closeModal();
     };
+
+    function addZero(i) {
+        if (i < 10) {
+            i = "0" + i;
+        }
+        return i;
+    }
+
     $scope.addDay = function () {
         /// <summary>
         /// Saves day availibility to days array. Resets form for new day avalibility.
@@ -187,9 +195,13 @@ angular.module('wos.controllers.addItem', [])
         if ($scope.locality.from == null || $scope.locality.to == null || $scope.locality.day == undefined)
             return;
 
+        console.log($scope.locality.from.getHours());
+        //var parsedFrom = $scope.locality.from.split('T')[0].split('Z')[0];
+        //var parsedTo = $scope.locality.to.split('T')[0].split('Z')[0];
+      
         $scope.locality.days.push({
-            from: $scope.locality.from,
-            to: $scope.locality.to,
+            from: addZero($scope.locality.from.getHours()) + ':' + addZero($scope.locality.from.getMinutes()),
+            to: addZero($scope.locality.to.getHours()) + ':' + addZero($scope.locality.to.getMinutes()),
             day: $scope.locality.day
         });
         $scope.locality.from = null;
@@ -254,7 +266,9 @@ angular.module('wos.controllers.addItem', [])
             localities: $scope.selectedLocalities,
             photo: $scope.imageName,
             category: $scope.selectedCategory,
-            user_id: 18
+            user_id: 18,
+            currency: 1
+            //TODO: add mobile
         };
         console.log(createdItem);
         console.log(angular.toJson(createdItem));

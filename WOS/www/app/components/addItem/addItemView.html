@@ -290,7 +290,7 @@
     <div class="bar bar-footer bar-assertive order-btn-footer" ng-show="status === 0" >
         <div class="title button button-assertive order-btn" ng-disabled="forms.addItemForm.name.$invalid || 
              (prices.length == 0 && (forms.addItemForm.price.$invalid || !price.period)) ||
-             (selectedLocalities == 0 && selectedLocality.value == undefined) || imgURI == undefined"
+             (selectedLocalities == 0 && selectedLocality.value == undefined)"
              ng-click="createItem()">
             {{ 'addItem.finish' | translate }}
         </div>
