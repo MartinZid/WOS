@@ -143,7 +143,8 @@ angular.module('wos.controllers.itemDetail', [])
     //we navigated from another tab
     $scope.forceBackButton = $ionicHistory.backView().stateId.indexOf('home') < 0
                              && $ionicHistory.backView().stateId.indexOf('profile-detail') < 0
-                             && $ionicHistory.backView().stateId.indexOf('item-detail') < 0;
+                             && $ionicHistory.backView().stateId.indexOf('item-detail') < 0
+                             && $ionicHistory.backView().stateId.indexOf('search') < 0;
 
     $scope.backToParentView = function () {
         $state.go('tab.home', {}, { location: 'repalce', inherit: 'false' });

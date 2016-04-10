@@ -123,6 +123,12 @@
                 </ion-header-bar>
                 <ion-content class="padding">
 
+                    <div class="centering">
+                        <div ng-show="spinning">
+                            <ion-spinner></ion-spinner>
+                        </div>
+                    </div>
+
                     <error-message reload="doRate(text)" status="status" ng-hide="status === 0"></error-message>
 
                     <ionic-ratings ratingsobj='ratingsObject'></ionic-ratings>

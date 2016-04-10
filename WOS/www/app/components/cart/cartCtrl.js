@@ -109,7 +109,7 @@ angular.module('wos.controllers.cart', [])
             .success(function () {
                 $scope.status = 1;
                 $scope.spinning = false;
-                //cart.clearCart();
+                cart.clearCart();
             }).error(function () {
                 $scope.status = 2;
                 $scope.spinning = false;

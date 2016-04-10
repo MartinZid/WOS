@@ -36,7 +36,7 @@ angular.module('wos.controllers.account', [])
         /// </summary>
         console.log('refreshing...');
         $scope.getUserData();
-        getUserRents();
+        $scope.getUserRents();
     }
 
     $scope.getUserData = function() {
@@ -204,6 +204,7 @@ angular.module('wos.controllers.account', [])
         /// <param name="text" type="String"></param>
         console.log($scope.rating + '\n' + text.value);
         console.log($scope.ratedLease);
+        $scope.spinning = true;
         rating.rateLease($scope.ratedLease.id_vypujcka, $scope.rating, text.value,
                          $scope.user.id, $scope.ratedLease.instance.id_instance_original)
             .success(function (data) {
@@ -212,9 +213,11 @@ angular.module('wos.controllers.account', [])
                 text.value = undefined;
                 $scope.closeModal();
                 $scope.ratedLease.rated = true;
+                $scope.spinning = false;
             }).error(function () {
                 console.log('rating failed');
                 $scope.status = 2;
+                $scope.spinning = false;
             });
     };
 

@@ -22,9 +22,6 @@ angular.module('wos.controllers.order', [])
     $scope.finalPrice = 0;
     $scope.user;
 
-    getItemDetail($scope.itemId);
-    getUserLocality();
-
     function getItemDetail(id) {
         /// <summary>
         /// Downloads data for item detail
@@ -160,6 +157,8 @@ angular.module('wos.controllers.order', [])
             return;
         }
         $scope.user = profile.getLoggedInUserData();
+        getItemDetail($scope.itemId);
+        getUserLocality();
     })
 
     $scope.goToLogin = function () {

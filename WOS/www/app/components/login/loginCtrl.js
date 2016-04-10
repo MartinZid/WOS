@@ -17,17 +17,19 @@ angular.module('wos.controllers.login', [])
         /// Called after user clicks 'login'. It passes form data into model.
         /// </summary>
         /// <param name="user" type="Object"></param>
-
+        $scope.spinning = true;
         profile.getUSerIdentity(user.email, user.password)
             .success(function (data) {
+                $scope.spinning = false;
                 if (data[0][0] == 'Error') { // login failed due to invalid credentials
                     $scope.status = 0;
                 } else { // login succeeded, save user to localStorage and redirect user to his profile.
-                    $scope.status = 0;
+                    $scope.status = 4;
                     profile.login(data[0]);
                     $state.go('tab.account');
                 }
             }).error(function () { // login failed due to server error
+                $scope.spinning = false;
                 $scope.user = {
                     email: user.email,
                     password: user.password
@@ -42,13 +44,17 @@ angular.module('wos.controllers.login', [])
         /// Called after user submits forgotten password form. It passes data to model.
         /// </summary>
         /// <param name="email" type="type"></param>
+
+        $scope.spinning = true;
         console.log('reseting password');
         console.log(email);
         profile.forgottenPassword(email)
             .success(function () {
+                $scope.spinning = false;
                 console.log('reset successful');
                 $scope.status = 1;
             }).error(function () {
+                $scope.spinning = false;
                 console.log('reset failed');
                 $scope.status = 2;
                 $scope.email = email;

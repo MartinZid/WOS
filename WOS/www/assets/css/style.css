@@ -20,6 +20,7 @@
 }
 .platform-ios .nav-search {
     margin-top: -28px;
+    padding-left: 20px;
 }
 .item-prices{
     background-color: rgba(60, 60, 60, 0.75);
