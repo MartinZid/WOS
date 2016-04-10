@@ -26,8 +26,8 @@ angular.module('wos.controllers.account', [])
             $state.go('tab.login');
         }
         $scope.user = profile.getLoggedInUserData();
-        getUserData();
-        getUserRents();
+        $scope.getUserData();
+        $scope.getUserRents();
     })
 
     $scope.doRefresh = function () {
@@ -35,11 +35,11 @@ angular.module('wos.controllers.account', [])
         /// Called when account page is "pulled down" for refresh
         /// </summary>
         console.log('refreshing...');
-        getUserData();
+        $scope.getUserData();
         getUserRents();
     }
 
-    function getUserData() {
+    $scope.getUserData = function() {
         /// <summary>
         /// Downloads data for account
         /// </summary>
@@ -56,7 +56,7 @@ angular.module('wos.controllers.account', [])
             });
     };
 
-    function getUserRents() {
+    $scope.getUserRents = function() {
         /// <summary>
         /// Downloads rents and borrows for user profile.
         /// </summary>
@@ -205,7 +205,7 @@ angular.module('wos.controllers.account', [])
         console.log($scope.rating + '\n' + text.value);
         console.log($scope.ratedLease);
         rating.rateLease($scope.ratedLease.id_vypujcka, $scope.rating, text.value,
-                         $scope.userId, $scope.ratedLease.instance.id_instance_original)
+                         $scope.user.id, $scope.ratedLease.instance.id_instance_original)
             .success(function (data) {
                 console.log('rating successful');
                 $scope.status = 0;

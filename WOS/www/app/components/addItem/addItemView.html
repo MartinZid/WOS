@@ -160,6 +160,7 @@
                 </button>
             </div>
 
+            {{upload}}
             <div class="centering has-order-btn">
                 <div ng-show="spinning">
                     <ion-spinner></ion-spinner>
@@ -291,7 +292,7 @@
         <div class="title button button-assertive order-btn" ng-disabled="forms.addItemForm.name.$invalid || 
              (prices.length == 0 && (forms.addItemForm.price.$invalid || !price.period)) ||
              (selectedLocalities == 0 && selectedLocality.value == undefined)"
-             ng-click="createItem()">
+             ng-click="uploadImage()">
             {{ 'addItem.finish' | translate }}
         </div>
     </div>

@@ -240,13 +240,15 @@ angular.module('wos.controllers.addItem', [])
             chunkedMode: false,
             fileName: $scope.imageName
         };
+        $scope.spinning = true;
         $cordovaFileTransfer.upload(server, $scope.imgURI, options, true)
             .then(function(result) {
                 $scope.upload = 'Upload succeeded';
-                $state.go('tab.account');
-                $scope.spinning = false;
+                //$state.go('tab.account');
+                //$scope.spinning = false;
+                $scope.createItem();
             }, function(err) {
-                $scope.upload = 'Upload failed ' + server + ' ' + angular.toJson(err.code);
+                $scope.upload = 'Upload failed ';
                 $scope.uploadError = 1;
             }, function (progress) {
                 $scope.upload = progress;
@@ -259,7 +261,7 @@ angular.module('wos.controllers.addItem', [])
         /// </summary>
         $scope.addLocality();
         $scope.addPrice();
-        $scope.spinning = true;
+        $scope.upload = 'In create item method...';
         var createdItem = {
             name: $scope.item.name,
             prices: $scope.prices,
@@ -267,20 +269,23 @@ angular.module('wos.controllers.addItem', [])
             photo: $scope.imageName,
             category: $scope.selectedCategory,
             user_id: 18,
-            currency: 1
-            //TODO: add mobile
+            currency: 1,
+            code: '$2y$10$8/o1QO0tVkaBUSOcHHoWZu9ugbNijvntKkK.luq3MgTaGt95ISS5e'
         };
         console.log(createdItem);
         console.log(angular.toJson(createdItem));
         item.addItem(createdItem)
             .success(function (data) {
                 console.log('add item successful');
+                $scope.upload = 'add item successful' + data;
                 $scope.spinning = false;
-                $scope.uploadImage();
+                //$scope.uploadImage();
                 $scope.uploadError = 0;
             }).error(function (data) {
                 console.log('add item failed');
+                $scope.upload =  'add item failed ' + data;
                 $scope.uploadError = 1;
+                $scope.spinning = false;
             });
         // TODO: redirect user to his new item
     };

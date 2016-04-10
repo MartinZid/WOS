@@ -6,6 +6,8 @@
         response;
 
     beforeEach(module('wos.controllers.homepage'));
+    beforeEach(module('wos.services.profile'));
+    beforeEach(module('wos.api'));
 
     beforeEach(module(function ($provide) {
         $provide.factory('item', function ($http) {

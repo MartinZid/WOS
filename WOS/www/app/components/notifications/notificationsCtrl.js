@@ -12,7 +12,7 @@ angular.module('wos.controllers.notifications', [])
 
     $scope.doRefresh = function () {
         console.log('refreshing...');
-        getAllNotifications();
+        $scope.getAllNotifications();
     }
 
     $scope.$on('$ionicView.beforeEnter', function () {
@@ -23,10 +23,10 @@ angular.module('wos.controllers.notifications', [])
             return;
         }
         $scope.user = profile.getLoggedInUserData();
-        getAllNotifications();
+        $scope.getAllNotifications();
     })
 
-    function getAllNotifications() {
+    $scope.getAllNotifications = function () {
         /// <summary>
         /// Downloads notifications data
         /// </summary>

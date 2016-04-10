@@ -28,8 +28,8 @@ describe('rating factory test', function () {
 
     it('should GET mobile/rent?userID when getAll() is called', function () {
         var response;
-        httpBackend.whenGET('http://sp2.binarity-testing.cz/mobile/rent?userID=25').respond(200, '');
-        rent.getAll(25).then(function (data) {
+        httpBackend.whenGET('http://sp2.binarity-testing.cz/mobile/rent?userID=25&code=asdf').respond(200, '');
+        rent.getAll(25, 'asdf').then(function (data) {
             response = data;
         })
         httpBackend.flush();

@@ -46,7 +46,7 @@ angular.module('wos.controllers.order', [])
         /// <summary>
         /// Downloads user locality.
         /// </summary>
-        locality.getUserLocalities($scope.userId)
+        locality.getUserLocalities($scope.user.id)
             .success(function (data) {
                 $scope.userLocality = data;
                 $scope.status = 0;
