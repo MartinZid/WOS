@@ -96,7 +96,7 @@ angular.module('wos.controllers.cart', [])
 
     $scope.finishOrders = function () {
         /// <summary>
-        /// Saves data to object and sends it to server.
+        /// Saves data to object and sends it to server. If succedded it deletes cart.
         /// </summary>
         $scope.spinning = true;
         $scope.user = profile.getLoggedInUserData();
@@ -110,6 +110,7 @@ angular.module('wos.controllers.cart', [])
                 $scope.status = 1;
                 $scope.spinning = false;
                 cart.clearCart();
+                $scope.getDataFromCart();
             }).error(function () {
                 $scope.status = 2;
                 $scope.spinning = false;

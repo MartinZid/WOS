@@ -20,7 +20,7 @@ angular.module('wos.controllers.addItem', [])
     $scope.status = 3;
     $scope.platform = ionic.Platform.platform();
     $scope.localities;
-    $scope.imageName = Math.random().toString(36).slice(2);
+    $scope.imageName = Math.random().toString(36).slice(2) + '.jpg';
     $scope.selectedLocality = {};
     $scope.selectedLocalities = [];
     $scope.upload = 'not uploading';
@@ -81,13 +81,13 @@ angular.module('wos.controllers.addItem', [])
         $cordovaCamera.getPicture(options).then(function (imageData) {
             //$scope.imgURI = "data:image/jpeg;base64," + imageData;
             $scope.imgURI = imageData;
-            $scope.uploadImage(imageData);
+            //$scope.uploadImage(imageData);
         }, function (err) {
             // An error occured. Show a message to the user
         });
     };
 
-    $scope.forceBackButton = $ionicHistory.backView().stateId.indexOf('home') < 0; //we navigated from another tab
+    $scope.forceBackButton = $ionicHistory.backView().stateId.indexOf('account') < 0; //we navigated from another tab
 
     $scope.backToParentView = function () {
         $state.go('tab.home', {}, { location: 'repalce', inherit: 'false' });
@@ -243,7 +243,7 @@ angular.module('wos.controllers.addItem', [])
         $scope.spinning = true;
         $cordovaFileTransfer.upload(server, $scope.imgURI, options, true)
             .then(function(result) {
-                $scope.upload = 'Upload succeeded';
+                $scope.upload = 'Upload succeeded' + $scope.imageName + ' \n' + angular.toJson(result);
                 //$state.go('tab.account');
                 //$scope.spinning = false;
                 $scope.createItem();

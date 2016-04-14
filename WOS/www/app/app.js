@@ -246,8 +246,11 @@ angular.module('wos', ['ionic',
     /// <param name="$urlRouterProvider" type="type"></param>
     /// <param name="$ionicConfigProvider" type="type"></param>
 
-  //remove text from back button
+    //remove text from back button
     $ionicConfigProvider.backButton.previousTitleText(false).text('');
+    // needs to be disabled due to no cache view bug
+    $ionicConfigProvider.views.swipeBackEnabled(false);
+
     //$ionicConfigProvider.tabs.position('bottom');
     //$ionicConfigProvider.navBar.alignTitle('center');
 
@@ -276,17 +279,6 @@ angular.module('wos', ['ionic',
            'homepage': {
                templateUrl: 'app/components/search/searchView.html',
                controller: 'SearchCtrl'
-           }
-       }
-   })
-
-
-   .state('tab.addItem', {
-       url: '/home/addItem',
-       views: {
-           'homepage': {
-               templateUrl: 'app/components/addItem/addItemView.html',
-               controller: 'AddItemCtrl'
            }
        }
    })
@@ -349,6 +341,17 @@ angular.module('wos', ['ionic',
            'account': {
                templateUrl: 'app/components/account/accountView.html',
                controller: 'AccountCtrl'
+           }
+       }
+   })
+
+
+   .state('tab.addItem', {
+       url: '/account/addItem',
+       views: {
+           'account': {
+               templateUrl: 'app/components/addItem/addItemView.html',
+               controller: 'AddItemCtrl'
            }
        }
    })
