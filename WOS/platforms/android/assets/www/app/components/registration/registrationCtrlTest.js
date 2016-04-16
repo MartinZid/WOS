@@ -42,11 +42,13 @@
 
     it('registration should be defined', function () {
         var $scope = {};
+        $scope.$on = function () { };
         var controller = ctrl('RegistrationCtrl', { $scope: $scope, $state: stateMock});
         expect(typeof $scope.registration).toBe('function');
     });
     it('should set status variable to 0, when registration was successful', function () {
         var $scope = {};
+        $scope.$on = function () { };
         response.respond('true');
         var controller = ctrl('RegistrationCtrl', { $scope: $scope, $state: stateMock });
         $scope.registration(user);
@@ -55,6 +57,7 @@
     });
     it('should set status variable to 1, when registration failed', function () {
         var $scope = {};
+        $scope.$on = function () { };
         response.respond('false');
         var controller = ctrl('RegistrationCtrl', { $scope: $scope, $state: stateMock });
         $scope.registration(user);
@@ -63,6 +66,7 @@
     });
     it('should set status variable to 2, when there was server error', function () {
         var $scope = {};
+        $scope.$on = function () { };
         response.respond(500, '');
         var controller = ctrl('RegistrationCtrl', { $scope: $scope, $state: stateMock });
         $scope.registration(user);
@@ -71,6 +75,7 @@
     });
     it('should set $scope.user, if server error occurred', function () {
         var $scope = {};
+        $scope.$on = function () { };
         response.respond(500, '');
         var controller = ctrl('RegistrationCtrl', { $scope: $scope, $state: stateMock });
         $scope.registration(user);

@@ -10,9 +10,11 @@
         cordovaCameraMock,
         ionicHistoryMock,
         stateMock,
-        ionicModalMock;
+        ionicModalMock,
+        cordovaTransferMock;
 
     beforeEach(module('wos.controllers.addItem'));
+    beforeEach(module('wos.api'));
 
     beforeEach(module(function ($provide) {
         $provide.factory('locality', function ($http) {
@@ -77,6 +79,7 @@
                              .and.returnValue($q.defer().promise),
             close: jasmine.createSpy('modal spy'),
         };
+        cordovaTransferMock = jasmine.createSpy('$cordovaFileTransfer spy');
     }));
 
     afterEach(function () {
@@ -88,7 +91,8 @@
         var $scope = {};
         var controller = ctrl('AddItemCtrl', {
             $scope: $scope, $cordovaCamera: cordovaCameraMock, $ionicHistory: ionicHistoryMock,
-            $state: stateMock, category, locality, $ionicModal: ionicModalMock, item
+            $state: stateMock, category, locality, $ionicModal: ionicModalMock, item, 
+            $cordovaFileTransfer: cordovaTransferMock
         });
         httpBackend.flush();
         expect($scope.status).toBe(0);
@@ -98,7 +102,8 @@
         categoryResponse.respond(500, '');
         var controller = ctrl('AddItemCtrl', {
             $scope: $scope, $cordovaCamera: cordovaCameraMock, $ionicHistory: ionicHistoryMock,
-            $state: stateMock, category, locality, $ionicModal: ionicModalMock, item
+            $state: stateMock, category, locality, $ionicModal: ionicModalMock, item, 
+            $cordovaFileTransfer: cordovaTransferMock
         });
         httpBackend.flush();
         expect($scope.status).toBe(2);
@@ -108,7 +113,8 @@
         localityResponse.respond(500, '');
         var controller = ctrl('AddItemCtrl', {
             $scope: $scope, $cordovaCamera: cordovaCameraMock, $ionicHistory: ionicHistoryMock,
-            $state: stateMock, category, locality, $ionicModal: ionicModalMock, item
+            $state: stateMock, category, locality, $ionicModal: ionicModalMock, item, 
+            $cordovaFileTransfer: cordovaTransferMock
         });
         httpBackend.flush();
         expect($scope.status).toBe(2);
@@ -118,7 +124,8 @@
         categoryResponse.respond(500, '');
         var controller = ctrl('AddItemCtrl', {
             $scope: $scope, $cordovaCamera: cordovaCameraMock, $ionicHistory: ionicHistoryMock,
-            $state: stateMock, category, locality, $ionicModal: ionicModalMock, item
+            $state: stateMock, category, locality, $ionicModal: ionicModalMock, item, 
+            $cordovaFileTransfer: cordovaTransferMock
         });
         httpBackend.flush();
         expect($scope.status).toBe(2);
@@ -127,7 +134,8 @@
         var $scope = {};
         var controller = ctrl('AddItemCtrl', {
             $scope: $scope, $cordovaCamera: cordovaCameraMock, $ionicHistory: ionicHistoryMock,
-            $state: stateMock, category, locality, $ionicModal: ionicModalMock, item
+            $state: stateMock, category, locality, $ionicModal: ionicModalMock, item, 
+            $cordovaFileTransfer: cordovaTransferMock
         });
         httpBackend.flush();
         $scope.price.period = 1;
@@ -146,7 +154,8 @@
         var $scope = {};
         var controller = ctrl('AddItemCtrl', {
             $scope: $scope, $cordovaCamera: cordovaCameraMock, $ionicHistory: ionicHistoryMock,
-            $state: stateMock, category, locality, $ionicModal: ionicModalMock, item
+            $state: stateMock, category, locality, $ionicModal: ionicModalMock, item, 
+            $cordovaFileTransfer: cordovaTransferMock
         });
         httpBackend.flush();
         $scope.price.period = NaN;
@@ -165,7 +174,8 @@
         var $scope = {};
         var controller = ctrl('AddItemCtrl', {
             $scope: $scope, $cordovaCamera: cordovaCameraMock, $ionicHistory: ionicHistoryMock,
-            $state: stateMock, category, locality, $ionicModal: ionicModalMock, item
+            $state: stateMock, category, locality, $ionicModal: ionicModalMock, item, 
+            $cordovaFileTransfer: cordovaTransferMock
         });
         httpBackend.flush();
         expect(typeof $scope.doRefresh).toBe('function');
@@ -174,7 +184,8 @@
         var $scope = {};
         var controller = ctrl('AddItemCtrl', {
             $scope: $scope, $cordovaCamera: cordovaCameraMock, $ionicHistory: ionicHistoryMock,
-            $state: stateMock, category, locality, $ionicModal: ionicModalMock, item
+            $state: stateMock, category, locality, $ionicModal: ionicModalMock, item, 
+            $cordovaFileTransfer: cordovaTransferMock
         });
         httpBackend.flush();
         $scope.selectedLocality.value = 0;
@@ -186,7 +197,8 @@
         var $scope = {};
         var controller = ctrl('AddItemCtrl', {
             $scope: $scope, $cordovaCamera: cordovaCameraMock, $ionicHistory: ionicHistoryMock,
-            $state: stateMock, category, locality, $ionicModal: ionicModalMock, item
+            $state: stateMock, category, locality, $ionicModal: ionicModalMock, item, 
+            $cordovaFileTransfer: cordovaTransferMock
         });
         httpBackend.flush();
         $scope.selectedLocality.value = undefined;
@@ -198,7 +210,8 @@
         var $scope = {};
         var controller = ctrl('AddItemCtrl', {
             $scope: $scope, $cordovaCamera: cordovaCameraMock, $ionicHistory: ionicHistoryMock,
-            $state: stateMock, category, locality, $ionicModal: ionicModalMock, item
+            $state: stateMock, category, locality, $ionicModal: ionicModalMock, item, 
+            $cordovaFileTransfer: cordovaTransferMock
         });
         httpBackend.flush();
         $scope.selectedLocalities = [1, 2, 3];
@@ -209,7 +222,8 @@
         var $scope = {};
         var controller = ctrl('AddItemCtrl', {
             $scope: $scope, $cordovaCamera: cordovaCameraMock, $ionicHistory: ionicHistoryMock,
-            $state: stateMock, category, locality, $ionicModal: ionicModalMock, item
+            $state: stateMock, category, locality, $ionicModal: ionicModalMock, item, 
+            $cordovaFileTransfer: cordovaTransferMock
         });
         httpBackend.flush();
         $scope.forms.newLocality = {
@@ -250,7 +264,8 @@
         var $scope = {};
         var controller = ctrl('AddItemCtrl', {
             $scope: $scope, $cordovaCamera: cordovaCameraMock, $ionicHistory: ionicHistoryMock,
-            $state: stateMock, category, locality, $ionicModal: ionicModalMock, item
+            $state: stateMock, category, locality, $ionicModal: ionicModalMock, item, 
+            $cordovaFileTransfer: cordovaTransferMock
         });
         httpBackend.flush();
         $scope.forms.newLocality = {
@@ -262,8 +277,8 @@
             },
         };
         $scope.locality = {
-            from: 1,
-            to: 2,
+            from: new Date("October 13, 2014 11:13:00"),
+            to: new Date("October 13, 2014 11:13:00"),
             day: 3,
             days: []
         };
@@ -274,7 +289,8 @@
         var $scope = {};
         var controller = ctrl('AddItemCtrl', {
             $scope: $scope, $cordovaCamera: cordovaCameraMock, $ionicHistory: ionicHistoryMock,
-            $state: stateMock, category, locality, $ionicModal: ionicModalMock, item
+            $state: stateMock, category, locality, $ionicModal: ionicModalMock, item, 
+            $cordovaFileTransfer: cordovaTransferMock
         });
         httpBackend.flush();
         $scope.locality = {
@@ -287,7 +303,8 @@
         var $scope = {};
         var controller = ctrl('AddItemCtrl', {
             $scope: $scope, $cordovaCamera: cordovaCameraMock, $ionicHistory: ionicHistoryMock,
-            $state: stateMock, category, locality, $ionicModal: ionicModalMock, item
+            $state: stateMock, category, locality, $ionicModal: ionicModalMock, item,
+            $cordovaFileTransfer: cordovaTransferMock
         });
         httpBackend.flush();
         expect(ionicModalMock.fromTemplateUrl).toHaveBeenCalled();

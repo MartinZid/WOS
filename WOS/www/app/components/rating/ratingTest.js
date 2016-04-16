@@ -4,7 +4,7 @@ describe('rating factory test', function () {
     var rating,
         httpBackend;
 
-    beforeEach(module('wos.rating'));
+    beforeEach(module('wos.services.rating'));
     beforeEach(module('wos.api'));
 
     beforeEach(module(function ($provide) {

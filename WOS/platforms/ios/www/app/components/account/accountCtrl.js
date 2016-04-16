@@ -1,7 +1,8 @@
 ﻿'use strict';
 angular.module('wos.controllers.account', [])
 
-.controller('AccountCtrl', function ($scope, $state, profile, rent, $ionicModal, rating) {
+.controller('AccountCtrl', function ($scope, $state, profile, rent, $ionicModal,
+                                     rating, $ionicViewSwitcher) {
     /// <summary>
     /// Controller for homepage tab
     /// </summary>
@@ -14,27 +15,35 @@ angular.module('wos.controllers.account', [])
     $scope.rents;
     $scope.borrows;
     $scope.rating = 4;
+    $scope.user;
 
-    //TODO update after login
-    $scope.userId = 25;
-
-    getUserData();
-    getUserRents();
+    $scope.$on('$ionicView.beforeEnter', function () {
+        /// <summary>
+        /// If user is logged in get his identity and download his data, if not redirect user to login.
+        /// </summary>
+        if (profile.getLoggedInUserData() === null) {
+            //$ionicViewSwitcher.nextDirection('none');
+            $state.go('tab.login');
+        }
+        $scope.user = profile.getLoggedInUserData();
+        $scope.getUserData();
+        $scope.getUserRents();
+    })
 
     $scope.doRefresh = function () {
         /// <summary>
         /// Called when account page is "pulled down" for refresh
         /// </summary>
         console.log('refreshing...');
-        getUserData();
-        getUserRents();
+        $scope.getUserData();
+        $scope.getUserRents();
     }
 
-    function getUserData() {
+    $scope.getUserData = function() {
         /// <summary>
         /// Downloads data for account
         /// </summary>
-        profile.getProfileData($scope.userId)
+        profile.getProfileData($scope.user.id)
             .success(function (data) { ///if success save loaded data to $scope.profile
                 $scope.profile = data;
                 console.log(data);
@@ -47,11 +56,11 @@ angular.module('wos.controllers.account', [])
             });
     };
 
-    function getUserRents() {
+    $scope.getUserRents = function() {
         /// <summary>
         /// Downloads rents and borrows for user profile.
         /// </summary>
-        rent.getAll($scope.userId)
+        rent.getAll($scope.user.id, $scope.user.APIkey)
             .success(function (data) {///if success save loaded data to $scope.rents and $scope.borrows
                 $scope.rents = data[1];
                 $scope.borrows = data[0];
@@ -79,7 +88,7 @@ angular.module('wos.controllers.account', [])
     $scope.covertBorrowsDate = function () {
         /// <summary>
         /// Covert date format for all leases.
-        /// "2016-02-29 17:11:00" -> "29.02.2016"
+        /// "2016-02-29 17:11:00" -> "29.02.2016 17:11:00"
         /// </summary>
         /// <param name="data" type="type"></param>
 
@@ -90,12 +99,14 @@ angular.module('wos.controllers.account', [])
                 var from = lease.od.date.split(' ')[0].split('-');
                 lease.from = from[2] + '.';
                 lease.from += from[1] + '.';
-                lease.from += from[0];
+                lease.from += from[0] + ' ';
+                lease.from += lease.od.date.split(' ')[1];
 
                 var to = lease.do.date.split(' ')[0].split('-');
                 lease.to = to[2] + '.';
                 lease.to += to[1] + '.';
-                lease.to += to[0];
+                lease.to += to[0] + ' ';
+                lease.to += lease.do.date.split(' ')[1];
                 lease.actionError = 0;
             });
         });
@@ -124,7 +135,7 @@ angular.module('wos.controllers.account', [])
         /// It handles logout and redirects user to login page.
         /// </summary>
 
-        // TODO: handle logout
+        profile.logout();
         $state.go('tab.login');
     };
 
@@ -154,9 +165,10 @@ angular.module('wos.controllers.account', [])
     }).then(function (modal) {
         $scope.modal = modal;
     });
-    $scope.openModal = function (id) {
+    $scope.openModal = function (lease) {
         $scope.modal.show();
-        $scope.leaseId = id;
+        $scope.ratedLease = lease;
+        console.log($scope.ratedLease);
         $scope.status = 0;  
     };
     $scope.closeModal = function () {
@@ -191,15 +203,21 @@ angular.module('wos.controllers.account', [])
         /// </summary>
         /// <param name="text" type="String"></param>
         console.log($scope.rating + '\n' + text.value);
-        rating.rateLease($scope.leaseId, $scope.rating, text.value)
+        console.log($scope.ratedLease);
+        $scope.spinning = true;
+        rating.rateLease($scope.ratedLease.id_vypujcka, $scope.rating, text.value,
+                         $scope.user.id, $scope.ratedLease.instance.id_instance_original)
             .success(function (data) {
                 console.log('rating successful');
                 $scope.status = 0;
                 text.value = undefined;
                 $scope.closeModal();
+                $scope.ratedLease.rated = true;
+                $scope.spinning = false;
             }).error(function () {
                 console.log('rating failed');
                 $scope.status = 2;
+                $scope.spinning = false;
             });
     };
 

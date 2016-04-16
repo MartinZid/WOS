@@ -20,6 +20,7 @@
 }
 .platform-ios .nav-search {
     margin-top: -28px;
+    padding-left: 20px;
 }
 .item-prices{
     background-color: rgba(60, 60, 60, 0.75);
@@ -100,6 +101,9 @@ a.button.button-icon.icon.ion-ios-search-strong:before {
 .order-btn-footer {
     width: 100%;
     bottom: 50px;
+}
+.platform-android .order-btn-footer {
+    bottom: 0px;
 }
 .order-btn {
     width: 100%;
@@ -187,6 +191,9 @@ a.button.button-icon.icon.ion-ios-search-strong:before {
 .registration-btn {
     margin-top: 12%;
 }
+.to-login {
+    margin-top: 5%;
+}
 .has-error {
     padding-bottom: 0px;
     border-style: none;
@@ -212,6 +219,9 @@ a.button.button-icon.icon.ion-ios-search-strong:before {
     z-index: 9999;
     background-color: #db4437;
     box-shadow: 0 6px 10px 0 rgba(0,0,0,0.3)
+}
+.platform-android .floating-btn {
+    bottom: 25px;
 }
 .add-btn {
   position: absolute;
@@ -308,10 +318,10 @@ a.button.button-icon.icon.ion-ios-search-strong:before {
     border: none;
 }
 .force-back-ios {
-    font-size: 180%;
+    font-size: 185%;
 }
 .force-back-android {
-    font-size: 145%;
+    font-size: 133%;
 }
 .rent-card-th {
     text-align: left;
@@ -350,4 +360,16 @@ a.button.button-icon.icon.ion-ios-search-strong:before {
 }
 .new-address-fix {
     padding-bottom: 100px;
+}
+.deleted-item {
+    opacity: 0.7;
+    border: none;
+}
+.map-lock {
+    font-size: 180%;
+    position: relative;
+    left: 90%;
+    top: 1.8em;
+    z-index: 20;
+    color: #444;
 }

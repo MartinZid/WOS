@@ -3,7 +3,7 @@ angular.module('wos.controllers.itemDetail', [])
 
 .controller('ItemDetailCtrl', function ($scope, item, $stateParams, $ionicSlideBoxDelegate, api,
                                         $ionicPopover, $cordovaGeolocation, $ionicHistory, $state,
-                                        $ionicModal) {
+                                        $ionicModal, profile) {
     /// <summary>
     /// Controller for item detail view.
     /// </summary>
@@ -21,6 +21,8 @@ angular.module('wos.controllers.itemDetail', [])
     $scope.imgUrl = api.url;
     $scope.platform = ionic.Platform.platform();
     $scope.events = [];
+    $scope.user
+    $scope.draggable = false;
 
     getItemDetail($scope.id);
 
@@ -80,6 +82,11 @@ angular.module('wos.controllers.itemDetail', [])
         loadMap();
     });
 
+    $scope.toggleDraggable = function () {
+        $scope.draggable = !$scope.draggable;
+        $scope.map.setOptions({ draggable: $scope.draggable });
+    }
+
     var options = { timeout: 10000, enableHighAccuracy: true };
 
     function loadMap() {
@@ -93,7 +100,8 @@ angular.module('wos.controllers.itemDetail', [])
             var mapOptions = {
                 center: new google.maps.LatLng(49.80, 15.38),
                 zoom: 6,
-                mapTypeId: google.maps.MapTypeId.ROADMAP
+                mapTypeId: google.maps.MapTypeId.ROADMAP,
+                draggable: $scope.draggable
             };
 
             $scope.map = new google.maps.Map(document.getElementById("map"), mapOptions);
@@ -142,7 +150,8 @@ angular.module('wos.controllers.itemDetail', [])
     //we navigated from another tab
     $scope.forceBackButton = $ionicHistory.backView().stateId.indexOf('home') < 0
                              && $ionicHistory.backView().stateId.indexOf('profile-detail') < 0
-                             && $ionicHistory.backView().stateId.indexOf('item-detail') < 0;
+                             && $ionicHistory.backView().stateId.indexOf('item-detail') < 0
+                             && $ionicHistory.backView().stateId.indexOf('search') < 0;
 
     $scope.backToParentView = function () {
         $state.go('tab.home', {}, { location: 'repalce', inherit: 'false' });
@@ -233,6 +242,19 @@ angular.module('wos.controllers.itemDetail', [])
     };
 
     $scope.order = function () {
+        /// <summary>
+        /// Redirects user to order current item.
+        /// </summary>
         $state.go('tab.order', { itemId: $scope.item.id_instance })
     }
+
+    $scope.$on('$ionicView.beforeEnter', function () {
+        /// <summary>
+        /// Is user logged in?
+        /// </summary>
+        if (profile.getLoggedInUserData() === null) {
+            return;
+        }
+        $scope.user = profile.getLoggedInUserData();
+    })
 })

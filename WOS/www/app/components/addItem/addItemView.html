@@ -81,12 +81,13 @@
                 <div class="row nopadding">
                     <div class="addItem-input col col-70">
                         <label class="item item-input item-stacked-label no-error"
-                               ng-class="{ 'has-error' : forms.addItemForm.price.$invalid && forms.addItemForm.price.$touched,
-                               'no-error' : forms.addItemForm.price.$valid || forms.addItemForm.price.$untouched }">
+                               ng-class="{ 'has-error' : forms.addItemForm.price.$invalid && forms.addItemForm.price.$touched && prices.length == 0,
+                               'no-error' : forms.addItemForm.price.$valid || forms.addItemForm.price.$untouched || prices.length > 0}">
                             <span class="input-label">{{ 'addItem.price' | translate }}</span>
                             <input type="number" name="price" ng-model="item.price" placeholder="{{ 'addItem.price' | translate }}" min="0" required>
                         </label>
-                        <div class="error-msg" ng-show="forms.addItemForm.price.$invalid && forms.addItemForm.price.$touched && !forms.addItemForm.price.$error.min">
+                        <div class="error-msg" ng-show="forms.addItemForm.price.$invalid && forms.addItemForm.price.$touched 
+                                                        && !forms.addItemForm.price.$error.min && prices.length == 0">
                             {{ 'addItem.price' | translate }} {{ 'form.is_reguired4' | translate }}!
                         </div>
                         <div class="error-msg" ng-show="forms.addItemForm.price.$error.min">
@@ -97,7 +98,7 @@
                         <div class="list">
                             <label class="item item-input item-select addItem-select nopadding">
                                 <select class="period-select" ng-model="price.period">
-                                    <option value="1" selected ng-selected="selected">{{ 'hour' | translate }}</option>
+                                    <option value="1" ng-selected="true">{{ 'hour' | translate }}</option>
                                     <option value="2">{{ 'day' | translate }}</option>
                                     <option value="3">{{ 'week' | translate }}</option>
                                     <option value="4">{{ 'month' | translate }}</option>
@@ -129,19 +130,20 @@
                 </table>
             </div>
 
-            <div class="list category-list">
+            <div class="list category-list" ng-show="localities.length > 0">
                 <label class="item item-input item-select category-select">
                     <div class="input-label">
                         {{ 'addItem.locality' | translate }}
                     </div>
                     <select ng-model="selectedLocality.value">
-                        <option ng-repeat="locality in localities" value="{{$index}}">
+                        <option ng-repeat="locality in localities" value="{{$index}}" 
+                                ng-selected="$index == 0">
                             {{locality.ulice_cp}}, {{locality.mesto}}
                         </option>
                     </select>
                 </label>
             </div>
-            <div class="centering">
+            <div class="centering" ng-show="localities.length > 0">
                 <button class="button button-outline button-calm margin-top-btn" type="button"
                         ng-disabled="selectedLocality.value === undefined" ng-click="addLocality()">
                     {{ 'addItem.add_locality' | translate }}
@@ -160,7 +162,6 @@
                 </button>
             </div>
 
-            {{upload}}
             <div class="centering has-order-btn">
                 <div ng-show="spinning">
                     <ion-spinner></ion-spinner>
@@ -209,7 +210,7 @@
                                 <label class="item item-input item-stacked-label no-error"
                                        ng-class="{ 'has-error' : forms.newLocality.postal_code.$invalid && forms.newLocality.postal_code.$touched,
                                                    'no-error' : forms.newLocality.postal_code.$valid || forms.newLocality.postal_code.$untouched }">
-                                    <span class="input-label">{{ 'addItem.street' | translate }}</span>
+                                    <span class="input-label">{{ 'addItem.postal_code' | translate }}</span>
                                     <input type="number" name="postal_code" ng-model="locality.postal_code" placeholder="{{ 'addItem.postal_code' | translate }}" 
                                            min="0" required>
                                 </label>
@@ -264,13 +265,13 @@
                                     <div class="list">
                                         <label class="item item-input item-select addItem-select nopadding">
                                             <select class="period-select" ng-model="locality.day">
-                                                <option>{{ 'days_full.monday' | translate }}</option>
-                                                <option>{{ 'days_full.tuesday' | translate }}</option>
-                                                <option>{{ 'days_full.wednesday' | translate }}</option>
-                                                <option>{{ 'days_full.thursday' | translate }}</option>
-                                                <option>{{ 'days_full.friday' | translate }}</option>
-                                                <option>{{ 'days_full.saturday' | translate }}</option>
-                                                <option>{{ 'days_full.sunday' | translate }}</option>
+                                                <option value="Pondělí" ng-selected="true">{{ 'days_full.monday' | translate }}</option>
+                                                <option value="Úterý" >{{ 'days_full.tuesday' | translate }}</option>
+                                                <option value="Středa" >{{ 'days_full.wednesday' | translate }}</option>
+                                                <option value="Čtvrtek" >{{ 'days_full.thursday' | translate }}</option>
+                                                <option value="Pátek" >{{ 'days_full.friday' | translate }}</option>
+                                                <option value="Sobota" >{{ 'days_full.saturday' | translate }}</option>
+                                                <option value="Neděle" >{{ 'days_full.sunday' | translate }}</option>
                                             </select>
                                         </label>
                                     </div>
@@ -291,7 +292,7 @@
     <div class="bar bar-footer bar-assertive order-btn-footer" ng-show="status === 0" >
         <div class="title button button-assertive order-btn" ng-disabled="forms.addItemForm.name.$invalid || 
              (prices.length == 0 && (forms.addItemForm.price.$invalid || !price.period)) ||
-             (selectedLocalities == 0 && selectedLocality.value == undefined)"
+             (selectedLocalities == 0 && selectedLocality.value == undefined) || imgURI == undefined"
              ng-click="uploadImage()">
             {{ 'addItem.finish' | translate }}
         </div>

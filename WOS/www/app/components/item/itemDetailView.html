@@ -114,10 +114,12 @@
             </div>
         </div>
 
-        <div class="padding legend" ng-show="status === 0">
+        <div class="padding legend" ng-show="status === 0" style="margin-bottom: -1.8em">
             {{ 'item.localities' | translate }}
         </div>
-        <div id="map" data-tap-disabled="true" ng-show="status === 0 && !mapDisabled"></div>
+        <i class="map-lock" ng-click="toggleDraggable()"
+           ng-class="{'ion-locked': !draggable, 'ion-unlocked': draggable}"></i>
+        <div id="map" data-tap-disabled="true" draggable="false" ng-show="status === 0 && !mapDisabled"></div>
 
         <div class="padding legend" ng-show="status === 0">
             {{ 'item.availibility' | translate }}

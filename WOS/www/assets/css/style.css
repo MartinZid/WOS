@@ -365,3 +365,16 @@ a.button.button-icon.icon.ion-ios-search-strong:before {
     opacity: 0.7;
     border: none;
 }
+.map-lock {
+    font-size: 180%;
+    position: relative;
+    left: 90%;
+    top: 1.8em;
+    z-index: 20;
+    color: #444;
+}
+.platform-android .bar-custom {
+   top: 93px;
+   border-bottom-width: 1px;
+   border-bottom-style: solid;
+ }

@@ -2,22 +2,12 @@
 
     var ctrl,
         ionicModalMock,
-        stateMock;
+        stateMock,
+        switcherProvideMock;
 
     beforeEach(module('wos.controllers.login'));
-
-    beforeEach(module(function ($provide) {
-        $provide.factory('profile', function ($http) {
-            return {
-                forgottenPassword: function (email) {
-                    return $http({
-                        method: 'PUT',
-                        url: 'http://sp2.binarity-testing.cz/mobile/user/forgotten-password/defaul?email=' + email
-                    })
-                }
-            };
-        })
-    }));
+    beforeEach(module('wos.services.profile'));
+    beforeEach(module('wos.api'));
 
     beforeEach(inject(function (_$controller_, $q, $httpBackend) {
         ctrl = _$controller_;
@@ -30,6 +20,7 @@
             close: jasmine.createSpy('modal spy')
         };
         stateMock = jasmine.createSpyObj('$state spy', ['go']);
+        switcherProvideMock = jasmine.createSpy('$ionicViewSwitcher spy');
     }));
 
     afterEach(function () {
@@ -39,23 +30,39 @@
 
     it('login should be defined', function () {
         var $scope = {};
-        var controller = ctrl('LoginCtrl', { $scope: $scope, $ionicModal: ionicModalMock, $state: stateMock });
+        $scope.$on = function () { };
+        var controller = ctrl('LoginCtrl', {
+            $scope: $scope, $ionicModal: ionicModalMock,
+            $state: stateMock, $ionicViewSwitcher: switcherProvideMock
+        });
         expect(typeof $scope.login).toBe('function');
     });
 
     it('forgottenPassword should be defined', function () {
         var $scope = {};
-        var controller = ctrl('LoginCtrl', { $scope: $scope, $ionicModal: ionicModalMock, $state: stateMock });
+        $scope.$on = function () { };
+        var controller = ctrl('LoginCtrl', {
+            $scope: $scope, $ionicModal: ionicModalMock,
+            $state: stateMock, $ionicViewSwitcher: switcherProvideMock
+        });
         expect(typeof $scope.forgottenPassword).toBe('function');
     });
     it('ionic modal should be created', function () {
         var $scope = {};
-        var controller = ctrl('LoginCtrl', { $scope: $scope, $ionicModal: ionicModalMock, $state: stateMock });
+        $scope.$on = function () { };
+        var controller = ctrl('LoginCtrl', {
+            $scope: $scope, $ionicModal: ionicModalMock,
+            $state: stateMock, $ionicViewSwitcher: switcherProvideMock
+        });
         expect(ionicModalMock.fromTemplateUrl).toHaveBeenCalled();
     });
     it('forgottenPassword should close modal', function () {
         var $scope = {};
-        var controller = ctrl('LoginCtrl', { $scope: $scope, $ionicModal: ionicModalMock, $state: stateMock });
+        $scope.$on = function () { };
+        var controller = ctrl('LoginCtrl', {
+            $scope: $scope, $ionicModal: ionicModalMock,
+            $state: stateMock, $ionicViewSwitcher: switcherProvideMock
+        });
         $scope.modal = {
             hide: jasmine.createSpy('modal spy', ['hide'])
         };
@@ -65,24 +72,66 @@
     });
     it('should call $state go() to tab.home, when login is successful', function () {
         var $scope = {};
-        var controller = ctrl('LoginCtrl', { $scope: $scope, $ionicModal: ionicModalMock, $state: stateMock });
-        $scope.login();
+        $scope.$on = function () { };
+        httpBackend.whenGET('http://sp2.binarity-testing.cz/mobile/user/login?email=martin.zid@gmail.com&password=1234')
+            .respond([{
+                id_uzivatel: 18,
+                mobilelogin: 'sadsg432wffwfqw;'
+            }]);
+        var controller = ctrl('LoginCtrl', {
+            $scope: $scope, $ionicModal: ionicModalMock,
+            $state: stateMock, $ionicViewSwitcher: switcherProvideMock
+        });
+        var user = {
+            email: 'martin.zid@gmail.com',
+            password: '1234'
+        }
+        $scope.login(user);
+        httpBackend.flush();
         expect(stateMock.go).toHaveBeenCalledWith('tab.account');
+        expect($scope.status).toBe(4);
+    });
+    it('should set user, errorOrigin and status when login failed', function () {
+        var $scope = {};
+        $scope.$on = function () { };
+        httpBackend.whenGET('http://sp2.binarity-testing.cz/mobile/user/login?email=martin.zid@gmail.com&password=1234')
+            .respond(500, '');
+        var controller = ctrl('LoginCtrl', {
+            $scope: $scope, $ionicModal: ionicModalMock,
+            $state: stateMock, $ionicViewSwitcher: switcherProvideMock
+        });
+        var user = {
+            email: 'martin.zid@gmail.com',
+            password: '1234'
+        }
+        $scope.login(user);
+        httpBackend.flush();
+        expect($scope.status).toBe(2);
+        expect($scope.errorOrigin).toBe(1);
+        expect($scope.user.email).toBe('martin.zid@gmail.com');
     });
     it('successful forgottenPassword set status to 0', function () {
         var $scope = {};
-        var controller = ctrl('LoginCtrl', { $scope: $scope, $ionicModal: ionicModalMock, $state: stateMock });
+        $scope.$on = function () { };
+        var controller = ctrl('LoginCtrl', {
+            $scope: $scope, $ionicModal: ionicModalMock,
+            $state: stateMock, $ionicViewSwitcher: switcherProvideMock
+        });
         $scope.modal = {
             hide: jasmine.createSpy('modal spy', ['hide'])
         };
         $scope.forgottenPassword('zidmarti@fit.cvut.cz');
         httpBackend.flush();
-        expect($scope.status).toBe(0);
+        expect($scope.status).toBe(1);
     });
     it('failed forgottenPassword set status to 2', function () {
         var $scope = {};
         response.respond(500, '');
-        var controller = ctrl('LoginCtrl', { $scope: $scope, $ionicModal: ionicModalMock, $state: stateMock });
+        $scope.$on = function () { };
+        var controller = ctrl('LoginCtrl', {
+            $scope: $scope, $ionicModal: ionicModalMock,
+            $state: stateMock, $ionicViewSwitcher: switcherProvideMock
+        });
         $scope.modal = {
             hide: jasmine.createSpy('modal spy', ['hide'])
         };
@@ -93,7 +142,11 @@
     it('failed forgottenPassword set email to given email', function () {
         var $scope = {};
         response.respond(500, '');
-        var controller = ctrl('LoginCtrl', { $scope: $scope, $ionicModal: ionicModalMock, $state: stateMock });
+        $scope.$on = function () { };
+        var controller = ctrl('LoginCtrl', {
+            $scope: $scope, $ionicModal: ionicModalMock,
+            $state: stateMock, $ionicViewSwitcher: switcherProvideMock
+        });
         $scope.modal = {
             hide: jasmine.createSpy('modal spy', ['hide'])
         };

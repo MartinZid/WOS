@@ -1,4 +1,4 @@
-﻿<ion-view view-title="{{ 'profile.my_profile' | translate }}" ng-cloak cache-view="false">
+﻿<ion-view view-title="{{ 'profile.my_profile' | translate }}" ng-cloak cache-view="false" hide-back-button="true">
     <ion-nav-buttons side="secondary">
         <!--<a class="button button-icon icon icon ion-log-out"></a>-->
         <a class="button button-icon" ng-click="logout()">
@@ -11,7 +11,7 @@
                 <ion-spinner></ion-spinner>
             </div>
         </div>
-        <ion-refresher pulling-text="Pull to refresh..."
+        <ion-refresher pulling-text="{{ 'pull_to_refresh' | translate }}"
                        on-refresh="doRefresh()">
         </ion-refresher>
         <error-message reload="doRefresh()" status="status" ng-hide="status === 0"></error-message>
@@ -45,8 +45,13 @@
                 {{ 'profile.rents' | translate }}
             </a>
         </div>
-        <div ng-repeat="item in profile.instances" ng-show="selectedSection == 1">
-            <wos-item name="item"></wos-item>
+        <div ng-show="selectedSection == 1" class="padding">
+            <div class="error-message" ng-show="profile.instances.length == 0">
+                <p>{{ 'profile.no_items' | translate }}</p>
+            </div>
+            <div ng-repeat="item in profile.instances">
+                <wos-item name="item"></wos-item>
+            </div>
         </div>
 
         <div class="padding" ng-show="selectedSection == 2">
@@ -84,8 +89,8 @@
                             </tbody>
                         </table>
                         <div class="centering">
-                            <button class="button button-clear button-calm" ng-click="openModal(lease.id_vypujcka)"
-                                    ng-show="lease.stav_vypujcky === 'ukončeno'">
+                            <button class="button button-clear button-calm" ng-click="openModal(lease)"
+                                    ng-show="lease.stav_vypujcky === 'ukončeno' && !lease.rated">
                                 {{ 'profile.leases.do_rate' | translate }}
                             </button> 
                         </div>
@@ -117,6 +122,12 @@
                     <div class="button button-clear button-positive" ng-click="modal.hide()">{{ 'close' | translate }}</div>
                 </ion-header-bar>
                 <ion-content class="padding">
+
+                    <div class="centering">
+                        <div ng-show="spinning">
+                            <ion-spinner></ion-spinner>
+                        </div>
+                    </div>
 
                     <error-message reload="doRate(text)" status="status" ng-hide="status === 0"></error-message>
 
@@ -173,8 +184,8 @@
                             </tbody>
                         </table>
                         <div class="centering">
-                            <button class="button button-clear button-calm" ng-click="openModal(rent.id_vypujcka)"
-                                    ng-show="rent.stav_vypujcky === 'ukončeno'">
+                            <button class="button button-clear button-calm" ng-click="openModal(rent)"
+                                    ng-show="rent.stav_vypujcky === 'ukončeno' && !rent.rated">
                                 {{ 'profile.leases.do_rate' | translate }}
                             </button>
                         </div>
@@ -208,7 +219,7 @@
         </div>
 
     </ion-content>
-    <a ng-href="#/tab/home/addItem" ng-show="selectedSection == 1">
+    <a ng-href="#/tab/account/addItem" ng-show="selectedSection == 1">
         <div class="floating-btn">
             <i class="ion-android-add add-btn"></i>
         </div>

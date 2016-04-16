@@ -1,4 +1,4 @@
-﻿<ion-view view-title="">
+﻿<ion-view view-title="" cache-view="false">
     <ion-nav-title>
         {{profile.jmeno}} {{profile.prijmeni}}
     </ion-nav-title>
@@ -29,7 +29,7 @@
             </ion-modal-view>
         </script>
 
-        <ion-refresher pulling-text="Pull to refresh..."
+        <ion-refresher pulling-text="{{ 'pull_to_refresh' | translate }}"
                        on-refresh="doRefresh()">
         </ion-refresher>
 

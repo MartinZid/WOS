@@ -21,7 +21,7 @@ angular.module('wos', ['ionic',
                        'wos.services.locality',
                        'wos.services.rent',
                        'wos.services.cart',
-                       'wos.rating',
+                       'wos.services.rating',
                        'wos.directives.item',
                        'wos.directives.errorMessage',
                        'wos.directives.rating',
@@ -69,7 +69,7 @@ angular.module('wos', ['ionic',
             'server_error': 'V komunikaci se serverem došlo k chybě. :-(',
         },
         'search': {
-            'search': 'Hledat',
+            'search': 'Co hledáte?',
             'no_data': 'Vašemu dotazu nedopovídají žádné položky.'
         },
         'days': {
@@ -377,8 +377,8 @@ angular.module('wos', ['ionic',
    });
 
     // if none of the above states are matched
-    $urlRouterProvider.otherwise('/tab/account/login');
-    //$urlRouterProvider.otherwise('/tab/home/order/29');
-   //$urlRouterProvider.otherwise('tab/home/profile/25');
+    $urlRouterProvider.otherwise('/tab/account');
+    //$urlRouterProvider.otherwise('/tab/account/addItem');
+    //$urlRouterProvider.otherwise('tab/home/order/32');
    //$urlRouterProvider.otherwise('tab/account/login');
 });

@@ -2,7 +2,7 @@
 angular.module('wos.controllers.account', [])
 
 .controller('AccountCtrl', function ($scope, $state, profile, rent, $ionicModal,
-                                     rating, $ionicViewSwitcher) {
+                                     rating, $ionicViewSwitcher, $ionicScrollDelegate) {
     /// <summary>
     /// Controller for homepage tab
     /// </summary>
@@ -16,7 +16,13 @@ angular.module('wos.controllers.account', [])
     $scope.borrows;
     $scope.rating = 4;
     $scope.user;
+    $scope.showSubHeader = false;
 
+    $scope.onScroll = function () {
+        $scope.$apply(function () {
+            $scope.showSubHeader = $ionicScrollDelegate.getScrollPosition().top > 230;
+        })
+    }
     $scope.$on('$ionicView.beforeEnter', function () {
         /// <summary>
         /// If user is logged in get his identity and download his data, if not redirect user to login.
@@ -213,6 +219,7 @@ angular.module('wos.controllers.account', [])
                 text.value = undefined;
                 $scope.closeModal();
                 $scope.ratedLease.rated = true;
+                console.log($scope.ratedLease);
                 $scope.spinning = false;
             }).error(function () {
                 console.log('rating failed');

@@ -1,7 +1,7 @@
 ﻿'use strict';
 angular.module('wos.controllers.notifications', [])
 
-.controller('NotificationsCtrl', function ($scope, notifications) {
+.controller('NotificationsCtrl', function ($scope, notifications, profile, $state) {
     /// <summary>
     /// Controller for notifications view.
     /// </summary>
@@ -9,18 +9,28 @@ angular.module('wos.controllers.notifications', [])
     $scope.status = 3;
     $scope.item;
 
-    getAllNotifications();
 
     $scope.doRefresh = function () {
         console.log('refreshing...');
-        getAllNotifications();
+        $scope.getAllNotifications();
     }
 
-    function getAllNotifications() {
+    $scope.$on('$ionicView.beforeEnter', function () {
+        /// <summary>
+        /// If user is logged in get his identity and download his data, if not redirect user to login.
+        /// </summary>
+        if (profile.getLoggedInUserData() === null) {
+            return;
+        }
+        $scope.user = profile.getLoggedInUserData();
+        $scope.getAllNotifications();
+    })
+
+    $scope.getAllNotifications = function () {
         /// <summary>
         /// Downloads notifications data
         /// </summary>
-        notifications.getAll(18)
+        notifications.getAll($scope.user.id, $scope.user.APIkey)
             .success(function (data) {
                 $scope.makeDataReadable(data);
                 $scope.items = data;
@@ -66,5 +76,12 @@ angular.module('wos.controllers.notifications', [])
         console.log('Deleting: ' + item.text)
         //$scope.items.splice($scope.items.indexOf(item), 1);
     };
+
+    $scope.goToLogin = function () {
+        /// <summary>
+        /// Redirects user to login.
+        /// </summary>
+        $state.go('tab.login');
+    }
 
 })

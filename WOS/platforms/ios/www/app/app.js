@@ -21,7 +21,7 @@ angular.module('wos', ['ionic',
                        'wos.services.locality',
                        'wos.services.rent',
                        'wos.services.cart',
-                       'wos.rating',
+                       'wos.services.rating',
                        'wos.directives.item',
                        'wos.directives.errorMessage',
                        'wos.directives.rating',
@@ -61,7 +61,9 @@ angular.module('wos', ['ionic',
             'cart': 'Košík',
             'me': 'Já',
         },
+        'not_logged_in': 'Nejste přihlášeni.',
         'try_again': 'Zkusit znovu',
+        'pull_to_refresh': 'Stáhněte pro obnovení...',
         'errors': {
             'no_data': 'Zde budou všechny položky.',
             'server_error': 'V komunikaci se serverem došlo k chybě. :-(',
@@ -106,7 +108,10 @@ angular.module('wos', ['ionic',
             'no_data': 'Váš košík je prázdný.',
             'edit': 'Upravit',
             'from': 'Od',
-            'to': 'Do'
+            'to': 'Do',
+            'return_to_cart': 'Vrátit zpět',
+            'recently_deleted': 'Možná chcete vrátit zpět?',
+            'orderds_successfully_posted': 'Vaše objednávka byla úspěšně odeslána!'
         },
         'profile': {
             'user_items': 'Nabízené položky',
@@ -117,6 +122,7 @@ angular.module('wos', ['ionic',
             'show_reviews': 'Zobrazit hodnocení',
             'reviews': 'Hodnocení',
             'message_for_user': 'Zpráva uživateli',
+            'no_items': 'Zde budou Vaše položky.',
             'leases': {
                 'item': 'Položka',
                 'from': 'Od',
@@ -134,7 +140,7 @@ angular.module('wos', ['ionic',
                 'decline': 'Zamítnout',
                 'approve': 'Schválit',
                 'action_failed': 'Akce se nezdařila.',
-                'do_return': 'Vrátit'
+                'do_return': 'Vrátit',
             },
             'rating_title': 'Hodnocení'
         },
@@ -167,7 +173,8 @@ angular.module('wos', ['ionic',
             'doLogin': 'Přihlásit se',
             'forgotten_password': 'Zapomenuté heslo?',
             'to_registration': 'Zaregistrujte se nyní',
-            'reset_successful': 'Na e-mail Vám byl zaslán odkaz na resetování hesla.'
+            'reset_successful': 'Na e-mail Vám byl zaslán odkaz na resetování hesla.',
+            'login_failed': 'Přihlašovací údaje nejsou správné. Zkuste to znovu.'
         },
         'forgotten_password': 'Zapomenuté heslo',
         'send_link': 'Odeslat odkaz k obnovení',
@@ -186,6 +193,7 @@ angular.module('wos', ['ionic',
             'add_locality': 'Přidat lokalitu',
             'create_new_locality': 'Vytvořit novou lokalitu',
             'new_locality': 'Nová lokalita',
+            'add_new_day': 'Nový den',
             'address': 'Adresa',
             'street': 'Ulice',
             'city': 'Město',
@@ -238,10 +246,13 @@ angular.module('wos', ['ionic',
     /// <param name="$urlRouterProvider" type="type"></param>
     /// <param name="$ionicConfigProvider" type="type"></param>
 
-  //remove text from back button
+    //remove text from back button
     $ionicConfigProvider.backButton.previousTitleText(false).text('');
-    $ionicConfigProvider.tabs.position('bottom');
-    $ionicConfigProvider.navBar.alignTitle('center');
+    // needs to be disabled due to no cache view bug
+    $ionicConfigProvider.views.swipeBackEnabled(false);
+
+    //$ionicConfigProvider.tabs.position('bottom');
+    //$ionicConfigProvider.navBar.alignTitle('center');
 
     $stateProvider
 
@@ -268,17 +279,6 @@ angular.module('wos', ['ionic',
            'homepage': {
                templateUrl: 'app/components/search/searchView.html',
                controller: 'SearchCtrl'
-           }
-       }
-   })
-
-
-   .state('tab.addItem', {
-       url: '/home/addItem',
-       views: {
-           'homepage': {
-               templateUrl: 'app/components/addItem/addItemView.html',
-               controller: 'AddItemCtrl'
            }
        }
    })
@@ -314,16 +314,6 @@ angular.module('wos', ['ionic',
        }
    })
 
-   .state('tab.order', {
-       url: '/home/order/:itemId',
-       views: {
-           'homepage': {
-               templateUrl: 'app/components/order/orderView.html',
-               controller: 'OrderCtrl'
-           }
-       }
-   })
-
    .state('tab.cart', {
        url: '/cart',
        views: {
@@ -334,12 +324,34 @@ angular.module('wos', ['ionic',
        }
    })
 
+   .state('tab.order', {
+       url: '/home/order/:itemId',
+       views: {
+           'cart': {
+               templateUrl: 'app/components/order/orderView.html',
+               controller: 'OrderCtrl'
+           }
+       }
+   })
+
+
    .state('tab.account', {
        url: '/account',
        views: {
            'account': {
                templateUrl: 'app/components/account/accountView.html',
                controller: 'AccountCtrl'
+           }
+       }
+   })
+
+
+   .state('tab.addItem', {
+       url: '/account/addItem',
+       views: {
+           'account': {
+               templateUrl: 'app/components/addItem/addItemView.html',
+               controller: 'AddItemCtrl'
            }
        }
    })
@@ -365,7 +377,7 @@ angular.module('wos', ['ionic',
    });
 
     // if none of the above states are matched
-    $urlRouterProvider.otherwise('/tab/home/addItem');
+    $urlRouterProvider.otherwise('/tab/account/login');
     //$urlRouterProvider.otherwise('/tab/home/order/29');
    //$urlRouterProvider.otherwise('tab/home/profile/25');
    //$urlRouterProvider.otherwise('tab/account/login');

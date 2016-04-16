@@ -8,9 +8,11 @@
     beforeEach(module('wos.api'));
     beforeEach(module('wos.services.profile'));
 
-    beforeEach(inject(function (_$controller_) {
+    beforeEach(inject(function (_$controller_, _cart_) {
         ctrl = _$controller_;
         stateMock = jasmine.createSpy('$state spy', ['go']);
+        cart = _cart_;
+        cart.clearCart();
     }));
 
     it('should set status variable to 0', function () {

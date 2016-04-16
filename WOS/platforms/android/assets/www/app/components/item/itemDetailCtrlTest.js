@@ -1,4 +1,6 @@
-﻿describe('ItemDetailCtrl', function () {
+﻿'use strict';
+
+describe('ItemDetailCtrl', function () {
 
     var ctrl,
         $item,
@@ -9,9 +11,11 @@
         response,
         ionicHistoryMock,
         stateMock,
-        ionicModalMock;
+        ionicModalMock,
+        cordovaGeolocationMock;
 
     beforeEach(module('wos.controllers.itemDetail'));
+    beforeEach(module('wos.services.profile'));
 
     beforeEach(module(function ($provide) {
         $provide.factory('api', function ($http) {

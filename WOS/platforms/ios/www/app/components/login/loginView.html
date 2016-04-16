@@ -1,9 +1,17 @@
 ﻿<ion-view view-title="{{ 'login.login' | translate }}" ng-cloak hide-back-button="true" cache-view="false">
     <ion-content ng-cloak>
-        <div class="error-message" ng-show="status === 0">
+        <div class="error-message" ng-show="status === 1">
             <p>{{ 'login.reset_successful' | translate }}</p>
         </div>
+        <div class="error-message" ng-show="status === 0">
+            <p>{{ 'login.login_failed' | translate }}</p>
+        </div>
         <error-message reload="doRefresh()" status="status" ng-hide="status === 0"></error-message>
+        <div class="centering">
+            <div ng-show="spinning">
+                <ion-spinner></ion-spinner>
+            </div>
+        </div>
         <div class="registration">
             <div class="centering">
                 <img class="registration-logo" src="assets/img/main_logo.png" />
@@ -47,6 +55,11 @@
                             <div class="button button-clear button-positive" ng-click="modal.hide()">{{ 'close' | translate }}</div>
                         </ion-header-bar>
                         <ion-content class="padding">
+                            <div class="centering">
+                                <div ng-show="spinning">
+                                    <ion-spinner></ion-spinner>
+                                </div>
+                            </div>
                             <p>
                                 Zadejte e-mailovou adresu spojednou s vaším účtem a my na ní zašleme odkaz na resetovaní hesla.
                             </p>

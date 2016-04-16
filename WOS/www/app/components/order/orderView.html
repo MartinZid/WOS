@@ -36,9 +36,9 @@
                     <div class="input-label">
                         {{ 'order.take_over_type' | translate }}
                     </div>
-                    <select ng-model="takeOverOption.value">
+                    <select ng-model="takeOverOption.value" ng-init="takeOverOption.value = 1">
                         <option value="0">{{ 'order.to_my_address' | translate }}</option>
-                        <option selected value="1">{{ 'order.owners_address' | translate }}</option>
+                        <option value="1" ng-selected="true">{{ 'order.owners_address' | translate }}</option>
                         <option value="2">{{ 'order.new_address' | translate }}</option>
                     </select>
                 </label>
@@ -50,7 +50,7 @@
                     </div>
                     <select ng-model="selectedLocality.value">
                         <option ng-repeat="locality in userLocality"
-                                value="{{$index}}">
+                                value="{{$index}}" ng-selected="$index == 0">
                             {{locality.ulice_cp}}, {{locality.mesto}}
                         </option>
                     </select>
@@ -63,7 +63,7 @@
                     </div>
                     <select ng-model="selectedLocality.value">
                         <option ng-repeat="locality in item.locality"
-                                value="{{$index}}">
+                                value="{{$index}}" ng-selected="$index == 0">
                             {{locality.ulice_cp}}, {{locality.mesto}}
                         </option>
                     </select>

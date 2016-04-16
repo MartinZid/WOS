@@ -4,7 +4,7 @@ describe('rating factory test', function () {
     var rating,
         httpBackend;
 
-    beforeEach(module('wos.rating'));
+    beforeEach(module('wos.services.rating'));
     beforeEach(module('wos.api'));
 
     beforeEach(module(function ($provide) {
@@ -59,8 +59,8 @@ describe('rating factory test', function () {
 
     it('rateLease should post data to server', function () {
         var response;
-        httpBackend.whenPOST('http://sp2.binarity-testing.cz/mobile/rent/rating?leaseID=24&rating=4&text=text').respond(200, '');
-        rating.rateLease(24, 4, 'text').then(function (data) {
+        httpBackend.whenPOST('http://sp2.binarity-testing.cz/mobile/rent/rating?rentID=24&rating=4&text=text&instanceID=18&userID=32').respond(200, '');
+        rating.rateLease(24, 4, 'text', 32, 18).then(function (data) {
             response = data;
         })
         httpBackend.flush();

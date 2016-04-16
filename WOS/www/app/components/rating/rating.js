@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module('wos.rating', [])
+angular.module('wos.services.rating', [])
 
 .factory('rating', function ($http, api) {
     function countFullStars(num) {

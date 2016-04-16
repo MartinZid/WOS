@@ -12,7 +12,7 @@
     beforeEach(module('wos.controllers.account'));
     beforeEach(module('wos.services.profile'));
     beforeEach(module('wos.services.rent'));
-    beforeEach(module('wos.rating'));
+    beforeEach(module('wos.services.rating'));
     beforeEach(module('wos.api'));
 
     beforeEach(inject(function (_$controller_, $httpBackend, $q, _profile_) {

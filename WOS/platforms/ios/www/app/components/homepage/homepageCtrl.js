@@ -1,7 +1,7 @@
 ﻿'use strict';
 angular.module('wos.controllers.homepage', [])
 
-.controller('HomepageCtrl', function ($scope, item, $ionicNavBarDelegate) {
+.controller('HomepageCtrl', function ($scope, item, $ionicNavBarDelegate, profile) {
     /// <summary>
     /// Controller for homepage tab
     /// </summary>
@@ -10,9 +10,10 @@ angular.module('wos.controllers.homepage', [])
 
     $scope.items; /// all items
     $scope.status = 3; /// status variable for errors (0 = no error, 1 = there are no items; 2 = server error, 3 = loading) 
-    $scope.search = {
+    $scope.search = { // show only approved items
         itemState: 2
     };
+    $scope.user;
 
     getAllItems();
 
@@ -51,7 +52,14 @@ angular.module('wos.controllers.homepage', [])
     $ionicNavBarDelegate.showBackButton(false);
 
     $scope.$on('$ionicView.beforeEnter', function () {
+        /// <summary>
+        /// Is user logged in?
+        /// </summary>
         $ionicNavBarDelegate.showBackButton(false);
+        if (profile.getLoggedInUserData() === null) {
+            return;
+        }
+        $scope.user = profile.getLoggedInUserData();
     });
 
     $scope.$on('$ionicView.leave', function () {

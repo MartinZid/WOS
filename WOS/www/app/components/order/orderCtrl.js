@@ -17,12 +17,13 @@ angular.module('wos.controllers.order', [])
     $scope.selectedLocality = {};
     $scope.locality = {};
     $scope.from = {};
+    //$scope.from.time = new Date(1970, 1, 1, 10, 0);
     $scope.to = {};
     $scope.forms = {};
     $scope.finalPrice = 0;
     $scope.user;
 
-    function getItemDetail(id) {
+    $scope.getItemDetail = function(id) {
         /// <summary>
         /// Downloads data for item detail
         /// </summary>
@@ -39,7 +40,7 @@ angular.module('wos.controllers.order', [])
             });
     };
 
-    function getUserLocality() {
+    $scope.getUserLocality = function() {
         /// <summary>
         /// Downloads user locality.
         /// </summary>
@@ -157,8 +158,8 @@ angular.module('wos.controllers.order', [])
             return;
         }
         $scope.user = profile.getLoggedInUserData();
-        getItemDetail($scope.itemId);
-        getUserLocality();
+        $scope.getItemDetail($scope.itemId);
+        $scope.getUserLocality();
     })
 
     $scope.goToLogin = function () {

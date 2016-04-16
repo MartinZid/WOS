@@ -5,7 +5,12 @@
             <i class="ion-log-out icon-larger"></i>
         </a>
     </ion-nav-buttons>
-    <ion-content ng-cloak>
+    <div class="bar bar-subheader bar-custom" ng-show="showSubHeader">
+        <h2 class="title" ng-show="selectedSection == 1">{{ 'profile.my_items' | translate }}</h2>
+        <h2 class="title" ng-show="selectedSection == 2">{{ 'profile.borrows' | translate }}</h2>
+        <h2 class="title" ng-show="selectedSection == 3">{{ 'profile.rents' | translate }}</h2>
+    </div>
+    <ion-content ng-cloak on-scroll="onScroll()">
         <div class="centering">
             <div ng-show="status === 3">
                 <ion-spinner></ion-spinner>
@@ -93,6 +98,10 @@
                                     ng-show="lease.stav_vypujcky === 'ukončeno' && !lease.rated">
                                 {{ 'profile.leases.do_rate' | translate }}
                             </button> 
+                            <div ng-show="lease.stav_vypujcky === 'ukončeno' && lease.rated"
+                                 style="margin-top: 0.8em">
+                                Již hodnoceno.
+                            </div>
                         </div>
                         <div class="centering" ng-show="lease.stav_vypujcky === 'schváleno' && lease.actionError == 0">
                             <button class="button button-clear button-positive" ng-click="doReturn(lease)">
@@ -188,6 +197,10 @@
                                     ng-show="rent.stav_vypujcky === 'ukončeno' && !rent.rated">
                                 {{ 'profile.leases.do_rate' | translate }}
                             </button>
+                            <div ng-show="rent.stav_vypujcky === 'ukončeno' && rent.rated"
+                                 style="margin-top: 0.8em">
+                                Již hodnoceno.
+                            </div>
                         </div>
                         <div class="centering" ng-show="rent.stav_vypujcky === 'schváleno' && rent.actionError == 0">
                             <button class="button button-clear button-positive" ng-click="doReturn(rent)">

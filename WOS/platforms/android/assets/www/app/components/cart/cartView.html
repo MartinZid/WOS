@@ -1,12 +1,12 @@
-﻿<ion-view view-title="{{ 'cart.cart' | translate }}">
+﻿<ion-view view-title="{{ 'cart.cart' | translate }}" hide-back-button="true">
     <ion-content>
-        <ion-refresher pulling-text="Pull to refresh..."
-                       on-refresh="doRefresh()">
-        </ion-refresher>
-
         <div class="error-message" ng-show="orders.length == 0">
             <p>{{ 'cart.no_data' | translate }}</p>
         </div>
+        <div class="error-message" ng-show="status === 1">
+            <p>{{ 'cart.orderds_successfully_posted' | translate }}</p>
+        </div>
+        <error-message reload="finishOrders()" status="status" ng-hide="status === 0"></error-message>
 
         <ion-list show-delete="data.showDelete">
             <ion-item ng-repeat="order in orders track by $index" item="item" class="item-remove-animate item-text-wrap item-thumbnail-left">
@@ -27,10 +27,33 @@
             </ion-item>
         </ion-list>
 
+        <p class="padding" ng-show="deletedItem">{{ 'cart.recently_deleted' | translate }}</p>
+        <ion-list show-delete="data.showDelete" ng-show="deletedItem">
+            <ion-item item="item" class="item-remove-animate item-text-wrap item-thumbnail-left deleted-item">
+
+                <img ng-src="{{imgUrl}}images/photos/{{deletedItem.item.mainPhoto}}">
+                <h2>{{deletedItem.item.name}}</h2>
+                <p>{{ 'cart.from' | translate }}: {{deletedItem.stringFrom}}</p>
+                <p>{{ 'cart.to' | translate }}: {{deletedItem.stringTo}}</p>
+                <p>{{deletedItem.price}} Kč</p>
+                <div class="cart-edit-btn">
+                    <button class="button button-clear button-positive" ng-click="returnToCart()">
+                        {{ 'cart.return_to_cart' | translate }}
+                    </button>
+                </div>
+            </ion-item>
+        </ion-list>
+
+        <div class="centering">
+            <div ng-show="spinning">
+                <ion-spinner></ion-spinner>
+            </div>
+        </div>
+
     </ion-content>
 
-    <div class="bar bar-footer bar-assertive order-btn-footer" ng-show="status === 0 && orders.length > 0">
-        <div class="title button button-assertive order-btn">Zaplatit {{countPrice()}} Kč</div>
+    <div class="bar bar-footer bar-assertive order-btn-footer" ng-show="orders.length > 0">
+        <div class="title button button-assertive order-btn" ng-click="finishOrders()">Zaplatit {{countPrice()}} Kč</div>
     </div>
 
 </ion-view>

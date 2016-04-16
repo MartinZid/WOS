@@ -22,6 +22,7 @@ angular.module('wos.controllers.itemDetail', [])
     $scope.platform = ionic.Platform.platform();
     $scope.events = [];
     $scope.user
+    $scope.draggable = false;
 
     getItemDetail($scope.id);
 
@@ -81,6 +82,11 @@ angular.module('wos.controllers.itemDetail', [])
         loadMap();
     });
 
+    $scope.toggleDraggable = function () {
+        $scope.draggable = !$scope.draggable;
+        $scope.map.setOptions({ draggable: $scope.draggable });
+    }
+
     var options = { timeout: 10000, enableHighAccuracy: true };
 
     function loadMap() {
@@ -94,7 +100,8 @@ angular.module('wos.controllers.itemDetail', [])
             var mapOptions = {
                 center: new google.maps.LatLng(49.80, 15.38),
                 zoom: 6,
-                mapTypeId: google.maps.MapTypeId.ROADMAP
+                mapTypeId: google.maps.MapTypeId.ROADMAP,
+                draggable: $scope.draggable
             };
 
             $scope.map = new google.maps.Map(document.getElementById("map"), mapOptions);

@@ -25,16 +25,8 @@
         ctrl = _$controller_;
         $item = item;
         httpBackend = $httpBackend;
-        //httpBackend.whenGET('http://sp2.binarity-testing.cz/mobile/item?search=sekacka').respond({
-        //    data: {
-        //        'sekacka': {
-        //            'id': 28,
-        //            'jmeno': 'sekacka'
-        //        }
-        //    }
-        //});
         response = httpBackend.whenGET('http://sp2.binarity-testing.cz/mobile/item?search=sekacka');
-        response.respond({});
+        response.respond([]);
     }));
 
     afterEach(function () {
@@ -59,6 +51,10 @@
     });
     it('should set status variable to 0, after recieving data from server', function () {
         var $scope = {};
+        response.respond([{
+            name: 'Sekacka',
+            itemState: 2
+        }]);
         var controller = ctrl('SearchCtrl', { $scope: $scope, item: $item });
         $scope.searchText.value = 'sekacka';
         $scope.search();

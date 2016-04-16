@@ -2,7 +2,7 @@
 angular.module('wos.controllers.addItem', [])
 
 .controller('AddItemCtrl', function ($scope, $cordovaCamera, $ionicHistory, $cordovaFileTransfer,
-                                     $state, category, locality, $ionicModal, item, api) {
+                                     $state, category, locality, $ionicModal, item, api, profile) {
     /// <summary>
     /// Controller for add item view.
     /// </summary>
@@ -10,7 +10,7 @@ angular.module('wos.controllers.addItem', [])
 
     //$scope.imgURI = 'http://sp2.binarity-testing.cz/images/photos/56ab947e496de.png';
 
-    $scope.price = { period: 0 };
+    $scope.price = { period: 1 };
     $scope.item = { price: null };
     $scope.prices = [];
     $scope.forms = {}; //has to be defined (as parent form) for easy access form from view in controller
@@ -21,7 +21,9 @@ angular.module('wos.controllers.addItem', [])
     $scope.platform = ionic.Platform.platform();
     $scope.localities;
     $scope.imageName = Math.random().toString(36).slice(2) + '.jpg';
-    $scope.selectedLocality = {};
+    $scope.selectedLocality = {
+        value: 0
+    };
     $scope.selectedLocalities = [];
     $scope.upload = 'not uploading';
     $scope.uploadError = 0; // 0 - no error, 1 - upload error
@@ -34,8 +36,7 @@ angular.module('wos.controllers.addItem', [])
         to: null,
         day: undefined
     };
-
-    console.log(parseInt(undefined));
+    $scope.user = profile.getLoggedInUserData();
 
     $scope.addPrice = function () {
         /// <summary>
@@ -87,6 +88,7 @@ angular.module('wos.controllers.addItem', [])
         });
     };
 
+    if(false)
     $scope.forceBackButton = $ionicHistory.backView().stateId.indexOf('account') < 0; //we navigated from another tab
 
     $scope.backToParentView = function () {
@@ -125,7 +127,7 @@ angular.module('wos.controllers.addItem', [])
         /// <summary>
         /// Get user's localities.
         /// </summary>
-        locality.getUserLocalities(18)
+        locality.getUserLocalities($scope.user.id)
             .success(function (data) {
                 $scope.localities = data;
             }).error(function () {
@@ -268,7 +270,7 @@ angular.module('wos.controllers.addItem', [])
             localities: $scope.selectedLocalities,
             photo: $scope.imageName,
             category: $scope.selectedCategory,
-            user_id: 18,
+            user_id: $scope.user.id,
             currency: 1,
             code: '$2y$10$8/o1QO0tVkaBUSOcHHoWZu9ugbNijvntKkK.luq3MgTaGt95ISS5e'
         };
@@ -279,7 +281,7 @@ angular.module('wos.controllers.addItem', [])
                 console.log('add item successful');
                 $scope.upload = 'add item successful' + data;
                 $scope.spinning = false;
-                //$scope.uploadImage();
+                $state.go('tab.account');
                 $scope.uploadError = 0;
             }).error(function (data) {
                 console.log('add item failed');
@@ -287,6 +289,5 @@ angular.module('wos.controllers.addItem', [])
                 $scope.uploadError = 1;
                 $scope.spinning = false;
             });
-        // TODO: redirect user to his new item
     };
 })

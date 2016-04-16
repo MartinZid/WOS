@@ -89,7 +89,7 @@
         $scope.login(user);
         httpBackend.flush();
         expect(stateMock.go).toHaveBeenCalledWith('tab.account');
-        expect($scope.status).toBe(0);
+        expect($scope.status).toBe(4);
     });
     it('should set user, errorOrigin and status when login failed', function () {
         var $scope = {};

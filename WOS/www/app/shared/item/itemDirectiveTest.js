@@ -2,7 +2,8 @@
     var $compile,
         $rootScope,
         item,
-        element;
+        element,
+        $state;
 
     item = {
         jmeno_fotky: '5689920de2b02.jpg',
@@ -15,24 +16,9 @@
     // Load the myApp module, which contains the directive
     beforeEach(module('wos.directives.item'));
     beforeEach(module('my.templates'));
-
-    beforeEach(module(function ($provide) {
-        $provide.factory('api', function () {
-            return {
-                url: 'http://sp2.binarity-testing.cz/'
-            }
-        });
-    }));
-
-    beforeEach(module(function ($provide) {
-        $provide.factory('rating', function () {
-            return {
-                getFullStars: function (num) { },
-                hasHalfStar: function (num) { },
-                getEmptyStars: function (num) { }
-            }
-        })
-    }));
+    beforeEach(module('wos.api'));
+    beforeEach(module('wos.services.rating'));
+    beforeEach(module('ui.router'));
 
     beforeEach(inject(function (_$compile_, _$rootScope_) {
         $compile = _$compile_;

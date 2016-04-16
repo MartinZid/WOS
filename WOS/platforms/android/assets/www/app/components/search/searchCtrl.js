@@ -1,7 +1,7 @@
 ﻿'use strict';
 angular.module('wos.controllers.search', [])
 
-.controller('SearchCtrl', function ($scope, item) {
+.controller('SearchCtrl', function ($scope, item, $filter) {
     /// <summary>
     /// Controller for item search view.
     /// </summary>
@@ -22,6 +22,7 @@ angular.module('wos.controllers.search', [])
             .success(function (data) { ///if success save loaded data to $scope.items
                 $scope.items = data;
                 console.log(data);
+                $scope.items = $filter('filter')($scope.items, { itemState: 2 });
                 $scope.status = 0;
                 if ($scope.items.length == 0) {
                     console.log('item.search: No data loaded.');

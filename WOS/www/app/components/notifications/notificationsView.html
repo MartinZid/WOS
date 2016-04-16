@@ -23,7 +23,7 @@
             <p>{{ 'notifications.no_data' | translate }}</p>
         </div>
 
-        <ion-list show-delete="data.showDelete">
+        <ion-list>
             <ion-item ng-repeat="item in items" item="item" class="item-remove-animate item-text-wrap">               
                 <span ng-show="item.type === 'new_rating'">
                     <a ng-href="#/tab/home/profile/{{item.id_uzivatel}}">{{ 'notifications.new_rating' | translate }}!</a>
@@ -43,9 +43,6 @@
                 <p class="notifications-date">
                     {{item.myDate}}
                 </p>
-                <ion-option-button class="button-assertive" ng-click="deleteItem(item)">
-                    {{ 'delete' | translate }}
-                </ion-option-button>
             </ion-item>
         </ion-list>
 

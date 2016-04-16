@@ -4,7 +4,7 @@
     </ion-nav-buttons>
 
     <ion-content class="padding">
-        <ion-refresher pulling-text="Pull to refresh..."
+        <ion-refresher pulling-text="{{ 'pull_to_refresh' | translate }}"
                        on-refresh="doRefresh()">
         </ion-refresher>
         <div class="centering">
@@ -21,8 +21,8 @@
             <wos-item name="item"></wos-item>
         </div>
     </ion-content>
-    <a ng-href="#/tab/home/addItem">
-        <div class="floating-btn">
+    <a ng-href="#/tab/account/addItem">
+        <div class="floating-btn" ng-show="user">
             <i class="ion-android-add add-btn"></i>
         </div>
     </a>

@@ -1,14 +1,21 @@
-﻿<ion-view view-title="{{ 'notifications.notifications' | translate }}" ng-cloak>
+﻿<ion-view view-title="{{ 'notifications.notifications' | translate }}" ng-cloak cache-view="false">
     <ion-content ng-cloak>
 
-        <ion-refresher pulling-text="Pull to refresh..."
+        <ion-refresher pulling-text="{{ 'pull_to_refresh' | translate }}"
                        on-refresh="doRefresh()">
         </ion-refresher>
 
         <div class="centering">
-            <div ng-show="status === 3">
+            <div ng-show="status === 3 && user">
                 <ion-spinner></ion-spinner>
             </div>
+        </div>
+
+        <div class="error-message" ng-show="!user">
+            <p>{{ 'not_logged_in' | translate }}</p>
+            <button class="button button-clear button-positive" ng-click="goToLogin()">
+                {{ 'login.doLogin' | translate }}
+            </button>
         </div>
 
         <error-message reload="doRefresh()" status="status" ng-hide="status === 0"></error-message>
