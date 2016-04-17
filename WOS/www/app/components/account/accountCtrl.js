@@ -1,8 +1,8 @@
 ﻿'use strict';
 angular.module('wos.controllers.account', [])
 
-.controller('AccountCtrl', function ($scope, $state, profile, rent, $ionicModal,
-                                     rating, $ionicViewSwitcher, $ionicScrollDelegate) {
+.controller('AccountCtrl', function ($scope, $state, profile, rent, $ionicModal, $ionicPopup,
+                                     rating, $ionicViewSwitcher, $ionicScrollDelegate, $filter) {
     /// <summary>
     /// Controller for homepage tab
     /// </summary>
@@ -18,11 +18,6 @@ angular.module('wos.controllers.account', [])
     $scope.user;
     $scope.showSubHeader = false;
 
-    $scope.onScroll = function () {
-        $scope.$apply(function () {
-            $scope.showSubHeader = $ionicScrollDelegate.getScrollPosition().top > 230;
-        })
-    }
     $scope.$on('$ionicView.beforeEnter', function () {
         /// <summary>
         /// If user is logged in get his identity and download his data, if not redirect user to login.
@@ -293,5 +288,72 @@ angular.module('wos.controllers.account', [])
                 lease.spinning = false;
                 lease.actionError = 3;
             })
+    };
+
+
+    $scope.onScroll = function () {
+        /// <summary>
+        /// Handles on scroll action.
+        /// </summary>
+        $scope.$apply(function () {
+            /// <summary>
+            /// showSubHeader user scroll is 230pt from top.
+            /// </summary>
+            $scope.showSubHeader = $ionicScrollDelegate.getScrollPosition().top > 230;
+        })
     }
+
+    $scope.showApproveConfirm = function (lease) {
+        /// <summary>
+        /// Shows ionic popup to confirm lease approval.
+        /// </summary>
+        /// <param name="lease" type="type"></param>
+        var confirmPopup = $ionicPopup.confirm({
+            title: $filter('translate')('profile.leases.approve_lease'),
+            template: $filter('translate')('profile.leases.make_sure_approve_lease'),
+            okText: $filter('translate')('profile.leases.approve'),
+            cancelText: $filter('translate')('cancel'),
+        });
+        confirmPopup.then(function (res) {
+            if (res) {
+                $scope.approve(lease);
+            } else { }
+        });
+    };
+
+    $scope.showDeclineConfirm = function (lease) {
+        /// <summary>
+        /// Shows ionic popup to confirm lease decline.
+        /// </summary>
+        /// <param name="lease" type="type"></param>
+        var confirmPopup = $ionicPopup.confirm({
+            title: $filter('translate')('profile.leases.decline_lease'),
+            template: $filter('translate')('profile.leases.make_sure_decline_lease'),
+            okText: $filter('translate')('profile.leases.decline'),
+            cancelText: $filter('translate')('cancel'),
+        });
+        confirmPopup.then(function (res) {
+            if (res) {
+                $scope.decline(lease);
+            } else { }
+        });
+    };
+
+    $scope.showReturnConfirm = function (lease) {
+        /// <summary>
+        /// Shows ionic popup to confirm lease return.
+        /// </summary>
+        /// <param name="lease" type="type"></param>
+        var confirmPopup = $ionicPopup.confirm({
+            title: $filter('translate')('profile.leases.return_lease'),
+            template: $filter('translate')('profile.leases.make_sure_return_lease'),
+            okText: $filter('translate')('profile.leases.do_return'),
+            cancelText: $filter('translate')('cancel'),
+        });
+        confirmPopup.then(function (res) {
+            if (res) {
+                $scope.doReturn(lease);
+            } else { }
+        });
+    };
 })

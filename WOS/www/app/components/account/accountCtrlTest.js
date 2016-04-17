@@ -14,6 +14,7 @@
     beforeEach(module('wos.services.rent'));
     beforeEach(module('wos.services.rating'));
     beforeEach(module('wos.api'));
+    beforeEach(module('ionic'));
 
     beforeEach(inject(function (_$controller_, $httpBackend, $q, _profile_) {
         ctrl = _$controller_;

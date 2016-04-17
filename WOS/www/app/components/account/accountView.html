@@ -104,7 +104,7 @@
                             </div>
                         </div>
                         <div class="centering" ng-show="lease.stav_vypujcky === 'schváleno' && lease.actionError == 0">
-                            <button class="button button-clear button-positive" ng-click="doReturn(lease)">
+                            <button class="button button-clear button-positive" ng-click="showReturnConfirm(lease)">
                                 {{ 'profile.leases.do_return' | translate }}
                             </button>
                         </div>
@@ -203,7 +203,7 @@
                             </div>
                         </div>
                         <div class="centering" ng-show="rent.stav_vypujcky === 'schváleno' && rent.actionError == 0">
-                            <button class="button button-clear button-positive" ng-click="doReturn(rent)">
+                            <button class="button button-clear button-positive" ng-click="showReturnConfirm(rent)">
                                 {{ 'profile.leases.do_return' | translate }}
                             </button>
                         </div>
@@ -213,10 +213,10 @@
                             </div>
                         </div>
                         <div class="centering" ng-show="rent.stav_vypujcky === 'vytvořeno' && rent.actionError == 0">
-                            <button class="button button-clear button-assertive" ng-click="decline(rent)">
+                            <button class="button button-clear button-assertive" ng-click="showDeclineConfirm(rent)">
                                 {{ 'profile.leases.decline' | translate }}
                             </button>
-                            <button class="button button-clear button-balanced" ng-click="approve(rent)">
+                            <button class="button button-clear button-balanced" ng-click="showApproveConfirm(rent)">
                                 {{ 'profile.leases.approve' | translate }}
                             </button>
                         </div>
