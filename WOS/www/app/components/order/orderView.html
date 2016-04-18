@@ -1,4 +1,4 @@
-﻿<ion-view view-title="{{ 'order.order' | translate }}" cache-view="false">
+﻿<ion-view view-title="{{ 'order.order' | translate }}" cache-view="false" hide-back-button="true">
     <ion-content class="padding" ng-show="!user">
         <div class="error-message">
             <p>{{ 'not_logged_in' | translate }}</p>
@@ -37,9 +37,9 @@
                         {{ 'order.take_over_type' | translate }}
                     </div>
                     <select ng-model="takeOverOption.value" ng-init="takeOverOption.value = 1">
-                        <option value="0">{{ 'order.to_my_address' | translate }}</option>
-                        <option value="1" ng-selected="true">{{ 'order.owners_address' | translate }}</option>
-                        <option value="2">{{ 'order.new_address' | translate }}</option>
+                        <option value="0" ng-selected="takeOverOption.value == 0">{{ 'order.to_my_address' | translate }}</option>
+                        <option value="1" ng-selected="takeOverOption.value == 1">{{ 'order.owners_address' | translate }}</option>
+                        <option value="2" ng-selected="takeOverOption.value == 2">{{ 'order.new_address' | translate }}</option>
                     </select>
                 </label>
             </div>
@@ -50,20 +50,20 @@
                     </div>
                     <select ng-model="selectedLocality.value">
                         <option ng-repeat="locality in userLocality"
-                                value="{{$index}}" ng-selected="$index == 0">
+                                value="{{$index}}" ng-selected="$index == selectedLocality.value">
                             {{locality.ulice_cp}}, {{locality.mesto}}
                         </option>
                     </select>
                 </label>
             </div>
-            <div class="list" ng-show="takeOverOption.value == 1" ng-init="selectedLocality.value = 0">
+            <div class="list" ng-show="takeOverOption.value == 1">
                 <label class="item item-input item-select category-select">
                     <div class="input-label">
                         {{ 'addItem.locality' | translate }}
                     </div>
                     <select ng-model="selectedLocality.value">
                         <option ng-repeat="locality in item.locality"
-                                value="{{$index}}" ng-selected="$index == 0">
+                                value="{{$index}}" ng-selected="$index == selectedLocality.value">
                             {{locality.ulice_cp}}, {{locality.mesto}}
                         </option>
                     </select>
@@ -109,15 +109,6 @@
                 </div>
             </form>
         </div>
-
-        <!--<label class="item item-input item-stacked-label no-error"
-               ng-class="{ 'has-error' : forms.dateForm.dateFrom.$invalid && forms.dateForm.dateFrom.$touched,
-                                                   'no-error' : forms.dateForm.dateFrom.$valid || forms.dateForm.dateFrom.$untouched }">
-            <span class="input-label">&nbsp;</span>
-            <input name="dateFrom" ng-model="from.date" placeholder="{{ 'addItem.from' | translate }}" ng-click="openDatePicker()" required>
-        </label>
-
-        <button class="button button-outline button-positive" ng-click="openDatePicker()"></button>-->
         <h4>{{ 'order.date' | translate }}</h4>
         <div>
             <form name="forms.dateForm">
@@ -155,6 +146,9 @@
                              (from.date.getTime() == to.date.getTime() && (from.date != undefined || to.date != undefined) &&
                               from.time >= to.time)">
                             {{ 'order.date_too_low' | translate }}!
+                        </div>
+                        <div class="error-msg centering" ng-show="!valid">
+                            {{ 'order.dates_overlap' | translate }}!
                         </div>
                     </div>
                 </div>

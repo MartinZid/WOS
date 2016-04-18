@@ -90,7 +90,8 @@ angular.module('wos.controllers.cart', [])
         /// </summary>
         /// <param name="order" type="type"></param>
         /// <param name="index" type="type"></param>
-        $scope.deleteItem(index);
+        //$scope.deleteItem(index);
+        cart.setUpdatedLease(index);
         $state.go('tab.order', { itemId: order.item.id });
     };
 

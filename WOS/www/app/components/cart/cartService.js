@@ -7,6 +7,8 @@ angular.module('wos.services.cart', [])
     /// </summary>
     /// <returns type="object">cart</returns>
 
+    var updatedLease = null;
+
     return {
         addToCart: function (order) {
             /// <summary>
@@ -53,6 +55,28 @@ angular.module('wos.services.cart', [])
                 headers: {'Content-Type': 'application/x-www-form-urlencoded'},
                 url: api.url + 'mobile/rent/order?data=' + JSON.stringify(orders)
             })
+        },
+        setUpdatedLease: function (index) {
+            /// <summary>
+            /// Deletes cart item from index and saves it to tmp variable.
+            /// </summary>
+
+            var cart = JSON.parse(localStorage.getItem("cart"));
+            updatedLease = cart.splice(index, 1);
+            localStorage.setItem("cart", JSON.stringify(cart));
+        },
+        getUpdatedLease: function () {
+            /// <summary>
+            /// Returns updated lease.
+            /// </summary>
+            /// <returns type=""></returns>
+            return updatedLease;
+        },
+        deleteUpdatedLease: function () {
+            /// <summary>
+            /// Deletes updated lease.
+            /// </summary>
+            updatedLease = null;
         }
     }
 })

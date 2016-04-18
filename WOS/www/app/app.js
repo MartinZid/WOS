@@ -260,7 +260,8 @@ angular.module('wos', ['ionic',
             'select_to': 'Zvolte si termín, do kdy si chcete položku vypůjčit.',
             'add_to_cart': 'Vložit do košíku',
             'date_too_low': 'Datum do musí být pozdější termín než datum od',
-            'pick_date': 'Zvolte datum'
+            'pick_date': 'Zvolte datum',
+            'dates_overlap': 'Tento termín se překrývá s již rezervovaným termínem'
         }
         
     });
@@ -409,6 +410,21 @@ angular.module('wos', ['ionic',
     // if none of the above states are matched
     //$urlRouterProvider.otherwise('/tab/account');
     //$urlRouterProvider.otherwise('/tab/account/addItem');
-    $urlRouterProvider.otherwise('tab/home/order/32');
-   //$urlRouterProvider.otherwise('tab/account/login');
+    //$urlRouterProvider.otherwise('tab/home/order/32');
+   $urlRouterProvider.otherwise('tab/cart');
+})
+
+.config(function (ionicDatePickerProvider) {
+    var datePickerObj = {
+        inputDate: new Date(),
+        setLabel: 'Nastavit',
+        todayLabel: 'Dnes',
+        closeLabel: 'Zrušit',
+        mondayFirst: true,
+        templateType: 'popup',
+        showTodayButton: false,
+        dateFormat: 'dd MMMM yyyy',
+        closeOnSelect: false,
+    };
+    ionicDatePickerProvider.configDatePicker(datePickerObj);
 })

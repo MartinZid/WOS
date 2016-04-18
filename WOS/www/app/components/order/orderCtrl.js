@@ -14,14 +14,16 @@ angular.module('wos.controllers.order', [])
     $scope.takeOverOption = {};
     $scope.userId = 18;
     $scope.userLocality;
-    $scope.selectedLocality = {};
+    $scope.selectedLocality = {
+        value: 0
+    };
     $scope.locality = {};
     $scope.from = {};
-    //$scope.from.time = new Date(1970, 1, 1, 10, 0);
     $scope.to = {};
     $scope.forms = {};
     $scope.finalPrice = 0;
     $scope.user;
+    $scope.valid = true;
 
     $scope.getItemDetail = function(id) {
         /// <summary>
@@ -35,6 +37,7 @@ angular.module('wos.controllers.order', [])
                 $scope.status = 0;
                 $scope.defineDatePickerObjTo();
                 $scope.defineDatePickerObjFrom();
+                $scope.getUserLocality();
 
             }).error(function (data) { ///if can not load data from server set $scope.status, for error handling
                 console.log('order.getItemDetail: Can not load data from server.');
@@ -51,10 +54,64 @@ angular.module('wos.controllers.order', [])
                 $scope.userLocality = data;
                 $scope.status = 0;
                 console.log(data);
+                $scope.getUpdatedLease();
             }).error(function () {
                 console.log('order.getUserLocalities: Can not load data from server.');
                 $scope.status = 2;
             });
+    };
+
+    $scope.getUpdatedLease = function () {
+        /// <summary>
+        /// Sets order form to default according to updated lease.
+        /// </summary>
+        var lease = cart.getUpdatedLease();
+        console.log(lease);
+
+        if (lease == null)
+            return;
+
+        cart.deleteUpdatedLease();
+
+        lease = lease[0];
+        lease.takeOver = parseInt(lease.takeOver);
+        $scope.takeOverOption.value = lease.takeOver;
+        if (lease.takeOver == 0) {
+            $scope.selectedLocality.value = $scope.findLocalityInArray(lease.locality, $scope.userLocality);
+        }
+        if (lease.takeOver == 1) {
+            $scope.selectedLocality.value = $scope.findLocalityInArray(lease.locality, $scope.item.locality);
+        }
+        if (lease.takeOver == 2) {
+            $scope.locality.street = lease.locality.ulice_cp;
+            $scope.locality.city = lease.locality.mesto;
+            $scope.locality.postal_code = lease.locality.psc;
+        }
+
+        console.log($scope.selectedLocality.value);
+        console.log($scope.item.locality)
+
+        $scope.from.time = new Date(lease.from.time);
+        $scope.from.date = new Date(lease.from.date);
+        $scope.to.time = new Date(lease.to.time);
+        $scope.to.date = new Date(lease.to.date);
+
+        $scope.countOrderPrice();
+    };
+
+    $scope.findLocalityInArray = function (value, array) {
+        /// <summary>
+        /// Return position of value in array. Used on locality (compare attr is id).
+        /// If not found returns -1.
+        /// </summary>
+        /// <param name="value" type="type"></param>
+        /// <param name="array" type="type"></param>
+        /// <returns type=""></returns>
+        for (var i = 0; i < array.length; i++) {
+            if (value.id_lokalita == array[i].id_lokalita)
+                return i;
+        }
+        return -1;
     };
 
     $scope.countOrderPrice = function () {
@@ -161,7 +218,6 @@ angular.module('wos.controllers.order', [])
         }
         $scope.user = profile.getLoggedInUserData();
         $scope.getItemDetail($scope.itemId);
-        $scope.getUserLocality();
     })
 
     $scope.goToLogin = function () {
@@ -179,18 +235,14 @@ angular.module('wos.controllers.order', [])
         $scope.createDisabledWeekdays();
         $scope.ipObj1 = {
             callback: function (val) {
-                console.log($filter('date')(val, 'dd.MM.yyyy'));
                 $scope.from.date = new Date(val);
-                //$scope.from.date = $filter('date')(val, 'dd.MM.yyyy');
                 $scope.countOrderPrice();
+                $scope.isValid();
             },
             disabledDates: $scope.disabledDates,
-            from: new Date(),
-            inputDate: new Date(),   
-            mondayFirst: true,       
+            from: new Date(),      
             disableWeekdays: $scope.disableWeekdays,
-            closeOnSelect: false, 
-            templateType: 'popup',
+            // has to be defined here, because in config translations does not work
             weeksList: [$filter('translate')('days.sun'), $filter('translate')('days.mon'), $filter('translate')('days.tue'),
                 $filter('translate')('days.wed'), $filter('translate')('days.thu'), $filter('translate')('days.fri'), $filter('translate')('days.sat')],
             monthsList: [$filter('translate')('months.jan'), $filter('translate')('months.feb'), $filter('translate')('months.mar'),
@@ -217,6 +269,7 @@ angular.module('wos.controllers.order', [])
             var tmpDate = key.split('-');
             $scope.disabledDates.push(new Date(tmpDate[0], tmpDate[1] - 1, tmpDate[2]));
         }
+        console.log($scope.disabledDates)
     };
     $scope.createDisabledWeekdays = function () {
         /// <summary>
@@ -253,18 +306,14 @@ angular.module('wos.controllers.order', [])
         $scope.createDisabledWeekdays();
         $scope.ipObj2 = {
             callback: function (val) {
-                console.log($filter('date')(val, 'dd.MM.yyyy'));
                 $scope.to.date = new Date(val);
-                //$scope.to.date = $filter('date')(val, 'dd.MM.yyyy');
                 $scope.countOrderPrice();
+                $scope.isValid();
             },
             disabledDates: $scope.disabledDates,
-            from: new Date(),
-            inputDate: new Date(),
-            mondayFirst: true,
+            from: $scope.from.date || new Date(),
             disableWeekdays: $scope.disableWeekdays,
-            closeOnSelect: false,
-            templateType: 'popup',
+            // has to be defined here, because in config translations does not work
             weeksList: [$filter('translate')('days.sun'), $filter('translate')('days.mon'), $filter('translate')('days.tue'),
                 $filter('translate')('days.wed'), $filter('translate')('days.thu'), $filter('translate')('days.fri'), $filter('translate')('days.sat')],
             monthsList: [$filter('translate')('months.jan'), $filter('translate')('months.feb'), $filter('translate')('months.mar'),
@@ -279,5 +328,19 @@ angular.module('wos.controllers.order', [])
         /// Opens ionic date picker.
         /// </summary>
         ionicDatePicker.openDatePicker($scope.ipObj2);
+    };
+
+    $scope.isValid = function () {
+        /// <summary>
+        /// Sets valid variable to false, when date overlaps with already order lease date.
+        /// </summary>
+        if (!$scope.to.date || !$scope.from.date)
+            return;
+
+        $scope.valid = true;
+        $scope.disabledDates.forEach(function (date) {
+            if (date.getTime() >= $scope.from.date && date.getTime() <= $scope.to.date)
+                $scope.valid = false;
+        });
     };
 })
