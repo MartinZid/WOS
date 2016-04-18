@@ -378,3 +378,19 @@ a.button.button-icon.icon.ion-ios-search-strong:before {
    border-bottom-width: 1px;
    border-bottom-style: solid;
  }
+.item-state {
+    position: relative;
+    top: 55px;
+    z-index: 20;
+    left: 0.5em;
+    color: black;
+    width: 25%;
+    text-align: center;
+    border-radius: 5px;
+}
+.order-date-pick {
+    height: 35px !important;
+}
+.button-margin {
+    margin-top: 20px;
+}

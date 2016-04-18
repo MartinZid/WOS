@@ -1,8 +1,8 @@
 ﻿'use strict';
 angular.module('wos.controllers.order', [])
 
-.controller('OrderCtrl', function ($scope, $stateParams, item,
-                                   api, locality, cart, $state, profile) {
+.controller('OrderCtrl', function ($scope, $stateParams, item, ionicDatePicker,
+                                   api, locality, cart, $state, profile, $filter) {
     /// <summary>
     /// Controller for order view.
     /// </summary>
@@ -33,6 +33,8 @@ angular.module('wos.controllers.order', [])
                 $scope.item = data[0];
                 console.log(data);
                 $scope.status = 0;
+                $scope.defineDatePickerObjTo();
+                $scope.defineDatePickerObjFrom();
 
             }).error(function (data) { ///if can not load data from server set $scope.status, for error handling
                 console.log('order.getItemDetail: Can not load data from server.');
@@ -167,5 +169,115 @@ angular.module('wos.controllers.order', [])
         /// Redirects user to login.
         /// </summary>
         $state.go('tab.login');
+    };
+
+    $scope.defineDatePickerObjFrom = function () {
+        /// <summary>
+        /// Defines ionic date picker config object.
+        /// </summary>
+        $scope.createDisabledDates();
+        $scope.createDisabledWeekdays();
+        $scope.ipObj1 = {
+            callback: function (val) {
+                console.log($filter('date')(val, 'dd.MM.yyyy'));
+                $scope.from.date = new Date(val);
+                //$scope.from.date = $filter('date')(val, 'dd.MM.yyyy');
+                $scope.countOrderPrice();
+            },
+            disabledDates: $scope.disabledDates,
+            from: new Date(),
+            inputDate: new Date(),   
+            mondayFirst: true,       
+            disableWeekdays: $scope.disableWeekdays,
+            closeOnSelect: false, 
+            templateType: 'popup',
+            weeksList: [$filter('translate')('days.sun'), $filter('translate')('days.mon'), $filter('translate')('days.tue'),
+                $filter('translate')('days.wed'), $filter('translate')('days.thu'), $filter('translate')('days.fri'), $filter('translate')('days.sat')],
+            monthsList: [$filter('translate')('months.jan'), $filter('translate')('months.feb'), $filter('translate')('months.mar'),
+                $filter('translate')('months.apr'), $filter('translate')('months.may'), $filter('translate')('months.june'), $filter('translate')('months.july'),
+                $filter('translate')('months.aug'), $filter('translate')('months.sept'), $filter('translate')('months.oct'), $filter('translate')('months.nov'),
+                $filter('translate')('months.dec')],
+        };
     }
+
+    $scope.openDatePickerFrom = function () {
+        /// <summary>
+        /// Opens ionic date picker.
+        /// </summary>
+        ionicDatePicker.openDatePicker($scope.ipObj1);
+    };
+
+    $scope.createDisabledDates = function () {
+        /// <summary>
+        /// Creates array of disabled dates.
+        /// </summary>
+        $scope.disabledDates = [];
+        for (var key in $scope.item.leases) {
+            // Given date - 2016-04-17
+            var tmpDate = key.split('-');
+            $scope.disabledDates.push(new Date(tmpDate[0], tmpDate[1] - 1, tmpDate[2]));
+        }
+    };
+    $scope.createDisabledWeekdays = function () {
+        /// <summary>
+        /// Creates array of disabled weekdays.
+        /// </summary>
+        $scope.disableWeekdays = [];
+        $scope.availableWeekdays = [];
+
+        //Parse available days.
+        for (var key in $scope.item.availability) {
+            var entry = $scope.item.availability[key];
+            console.log(entry);
+            for (var key in entry) {
+                if(!isNaN(key))
+                    $scope.availableWeekdays.push(parseInt(key));
+            }
+        }
+        //Reverse available days to disabled days array.
+        for (var i = 0; i < 7; i++) {
+            if ($scope.availableWeekdays.indexOf(i) == -1) {
+                if (i != 6) // On date picker 0 is Saturday, in given data 0 is monday...
+                    $scope.disableWeekdays.push(i + 1);
+                else
+                    $scope.disableWeekdays.push(0);
+            }
+        }
+    };
+
+    $scope.defineDatePickerObjTo = function () {
+        /// <summary>
+        /// Defines ionic date picker config object.
+        /// </summary>
+        $scope.createDisabledDates();
+        $scope.createDisabledWeekdays();
+        $scope.ipObj2 = {
+            callback: function (val) {
+                console.log($filter('date')(val, 'dd.MM.yyyy'));
+                $scope.to.date = new Date(val);
+                //$scope.to.date = $filter('date')(val, 'dd.MM.yyyy');
+                $scope.countOrderPrice();
+            },
+            disabledDates: $scope.disabledDates,
+            from: new Date(),
+            inputDate: new Date(),
+            mondayFirst: true,
+            disableWeekdays: $scope.disableWeekdays,
+            closeOnSelect: false,
+            templateType: 'popup',
+            weeksList: [$filter('translate')('days.sun'), $filter('translate')('days.mon'), $filter('translate')('days.tue'),
+                $filter('translate')('days.wed'), $filter('translate')('days.thu'), $filter('translate')('days.fri'), $filter('translate')('days.sat')],
+            monthsList: [$filter('translate')('months.jan'), $filter('translate')('months.feb'), $filter('translate')('months.mar'),
+                $filter('translate')('months.apr'), $filter('translate')('months.may'), $filter('translate')('months.june'), $filter('translate')('months.july'),
+                $filter('translate')('months.aug'), $filter('translate')('months.sept'), $filter('translate')('months.oct'), $filter('translate')('months.nov'),
+                $filter('translate')('months.dec')],
+        };
+    }
+
+    $scope.openDatePickerTo = function () {
+        /// <summary>
+        /// Opens ionic date picker.
+        /// </summary>
+        ionicDatePicker.openDatePicker($scope.ipObj2);
+    };
 })

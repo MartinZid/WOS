@@ -30,7 +30,8 @@ angular.module('wos', ['ionic',
                        'ngCordova',
                        'pascalprecht.translate',
                        'ionic-ratings',
-                       'ui.calendar'])
+                       'ui.calendar',
+                       'ionic-datepicker'])
 
 .run(function ($ionicPlatform, $cordovaSQLite) {
   $ionicPlatform.ready(function() {
@@ -80,6 +81,20 @@ angular.module('wos', ['ionic',
             'fri': 'Pá',
             'sat': 'So',
             'sun': 'Ne'
+        },
+        'months': {
+            'jan': 'Leden',
+            'feb': 'Únor',
+            'mar': 'Březen',
+            'apr': 'Duben',
+            'may': 'Květen',
+            'june': 'Červen',
+            'july': 'Červenec',
+            'aug': 'Srpen',
+            'sept': 'Září',
+            'oct': 'Říjen',
+            'nov': 'Listopad',
+            'dec': 'Prosinec'
         },
         'availability': {
             'unavailable': 'Nedostupné',
@@ -148,7 +163,14 @@ angular.module('wos', ['ionic',
                 'make_sure_decline_lease': 'Opravdu chcete výpůjčku zamítnout?',
                 'make_sure_return_lease': 'Opravdu chcete výpůjčku nahlásit jako vrácenou?'
             },
-            'rating_title': 'Hodnocení'
+            'rating_title': 'Hodnocení',
+            'states': {
+                'created': 'Neschváleno',
+                'approved': 'Schváleno',
+                'hidden': 'Skryto',
+                'deleted': 'Smazano',
+                'show': 'Vystaveno'
+            }
         },
         'close': 'Zavřít',
         'delete': 'Smazat',
@@ -237,7 +259,8 @@ angular.module('wos', ['ionic',
             'select_from': 'Zvolte si termín, od kdy si chcete položku vypůjčit.',
             'select_to': 'Zvolte si termín, do kdy si chcete položku vypůjčit.',
             'add_to_cart': 'Vložit do košíku',
-            'date_too_low': 'Datum do musí být pozdější termín než datum od'
+            'date_too_low': 'Datum do musí být pozdější termín než datum od',
+            'pick_date': 'Zvolte datum'
         }
         
     });
@@ -384,8 +407,8 @@ angular.module('wos', ['ionic',
    });
 
     // if none of the above states are matched
-    $urlRouterProvider.otherwise('/tab/account');
+    //$urlRouterProvider.otherwise('/tab/account');
     //$urlRouterProvider.otherwise('/tab/account/addItem');
-    //$urlRouterProvider.otherwise('tab/home/order/32');
+    $urlRouterProvider.otherwise('tab/home/order/32');
    //$urlRouterProvider.otherwise('tab/account/login');
-});
+})

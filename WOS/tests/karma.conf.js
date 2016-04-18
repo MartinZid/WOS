@@ -10,6 +10,8 @@ module.exports = function(config){
         files : [
             'www/assets/lib/ionic/js/ionic.bundle.min.js',
             'www/assets/lib/angular-mocks/angular-mocks.js',
+            'www/assets/lib/bower_components/ionic-datepicker/dist/ionic-datepicker.bundle.min.js',
+            'www/assets/lib/bower-angular-translate/angular-translate.min.js',
             'www/app/shared/item/*.js',
             'www/app/components/API/*js',
             'www/app/shared/item/itemView.html',

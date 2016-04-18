@@ -56,7 +56,7 @@
                     </select>
                 </label>
             </div>
-            <div class="list" ng-show="takeOverOption.value == 1">
+            <div class="list" ng-show="takeOverOption.value == 1" ng-init="selectedLocality.value = 0">
                 <label class="item item-input item-select category-select">
                     <div class="input-label">
                         {{ 'addItem.locality' | translate }}
@@ -109,6 +109,15 @@
                 </div>
             </form>
         </div>
+
+        <!--<label class="item item-input item-stacked-label no-error"
+               ng-class="{ 'has-error' : forms.dateForm.dateFrom.$invalid && forms.dateForm.dateFrom.$touched,
+                                                   'no-error' : forms.dateForm.dateFrom.$valid || forms.dateForm.dateFrom.$untouched }">
+            <span class="input-label">&nbsp;</span>
+            <input name="dateFrom" ng-model="from.date" placeholder="{{ 'addItem.from' | translate }}" ng-click="openDatePicker()" required>
+        </label>
+
+        <button class="button button-outline button-positive" ng-click="openDatePicker()"></button>-->
         <h4>{{ 'order.date' | translate }}</h4>
         <div>
             <form name="forms.dateForm">
@@ -118,20 +127,14 @@
                                ng-class="{ 'has-error' : forms.dateForm.timeFrom.$invalid && forms.dateForm.timeFrom.$touched,
                                                    'no-error' : forms.dateForm.timeFrom.$valid || forms.dateForm.timeFrom.$untouched }">
                             <span class="input-label">{{ 'addItem.from' | translate }}</span>
-                            <input type="time" name="timeFrom" ng-model="from.time" placeholder="{{ 'addItem.from' | translate }}" ng-change="countOrderPrice(from.time)"  required>
+                            <input type="time" name="timeFrom" ng-model="from.time" placeholder="{{ 'addItem.from' | translate }}" ng-change="countOrderPrice()" class="order-date-pick">
                         </label>
                     </div>
-                    <div class="col col-50">
-                        <label class="item item-input item-stacked-label no-error"
-                               ng-class="{ 'has-error' : forms.dateForm.dateFrom.$invalid && forms.dateForm.dateFrom.$touched,
-                                                   'no-error' : forms.dateForm.dateFrom.$valid || forms.dateForm.dateFrom.$untouched }">
-                            <span class="input-label">&nbsp;</span>
-                            <input type="date" name="dateFrom" ng-model="from.date" placeholder="{{ 'addItem.from' | translate }}" ng-change="countOrderPrice(from.date)"  required>
-                        </label>
-                        <div class="error-msg" ng-show="forms.dateForm.dateFrom.$invalid && forms.dateForm.dateFrom.$touched ||
-                                                        forms.dateForm.timeFrom.$invalid && forms.dateForm.timeFrom.$touched">
-                            {{ 'order.select_from' | translate }}
-                        </div>
+                    <div class="col col-50 centering">
+                        <button class="button button-outline button-calm button-margin" ng-click="openDatePickerFrom()">
+                            <span ng-show="!from.date">{{ 'order.pick_date' | translate }}</span>
+                            <span ng-show="from.date">{{from.date | date: 'dd.MM.yyyy'}}</span>
+                        </button>
                     </div>
                 </div>
                 <div class="row new-address-fix">
@@ -140,20 +143,14 @@
                                ng-class="{ 'has-error' : forms.dateForm.timeTo.$invalid && forms.dateForm.timeTo.$touched,
                                                    'no-error' : forms.dateForm.timeTo.$valid || forms.dateForm.timeTo.$untouched }">
                             <span class="input-label">{{ 'addItem.from' | translate }}</span>
-                            <input type="time" name="timeTo" ng-model="to.time" placeholder="{{ 'addItem.to' | translate }}" ng-change="countOrderPrice(to.time)"  required>
+                            <input type="time" name="timeTo" ng-model="to.time" placeholder="{{ 'addItem.to' | translate }}" ng-change="countOrderPrice()"  class="order-date-pick">
                         </label>
                     </div>
-                    <div class="col col-50">
-                        <label class="item item-input item-stacked-label no-error"
-                               ng-class="{ 'has-error' : forms.dateForm.dateTo.$invalid && forms.dateForm.dateTo.$touched,
-                                           'no-error' : forms.dateForm.dateTo.$valid || forms.dateForm.dateTo.$untouched }">
-                            <span class="input-label">&nbsp;</span>
-                            <input type="date" name="dateTo" ng-model="to.date" placeholder="{{ 'addItem.to' | translate }}" ng-change="countOrderPrice(to.date)" required>
-                        </label>
-                        <div class="error-msg" ng-show="forms.dateForm.dateTo.$invalid && forms.dateForm.dateTo.$touched ||
-                                                        forms.dateForm.timeTo.$invalid && forms.dateForm.timeTo.$touched">
-                            {{ 'order.select_to' | translate }}
-                        </div>
+                    <div class="col col-50 centering">
+                        <button class="button button-outline button-calm button-margin" ng-click="openDatePickerTo()">
+                            <span ng-show="!to.date">{{ 'order.pick_date' | translate }}</span>
+                            <span ng-show="to.date">{{to.date | date: 'dd.MM.yyyy'}}</span>
+                        </button>
                         <div class="error-msg" ng-show="from.date > to.date || 
                              (from.date.getTime() == to.date.getTime() && (from.date != undefined || to.date != undefined) &&
                               from.time >= to.time)">
@@ -170,7 +167,7 @@
              takeOverOption.value == undefined ||
              ((takeOverOption.value == 0 || takeOverOption.value == 1) && selectedLocality.value == undefined) ||
              (takeOverOption.value == 2 && (forms.newLocality.city.$invalid || forms.newLocality.street.$invalid || forms.newLocality.postal_code.$invalid)) ||
-             (forms.dateForm.timeTo.$invalid || forms.dateForm.dateTo.$invalid || forms.dateForm.timeFrom.$invalid || forms.dateForm.dateTo.$invalid) ||
+             (forms.dateForm.timeTo.$invalid || !from.date || forms.dateForm.timeFrom.$invalid || !to.date || !to.time || !from.time) ||
              (from.date > to.date || (from.date.getTime() == to.date.getTime() && (from.date != undefined || to.date != undefined) && from.time >= to.time))
              "
              ng-click="addToCart()">

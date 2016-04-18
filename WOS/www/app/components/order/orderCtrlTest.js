@@ -19,6 +19,8 @@ describe('OrderCtrl', function () {
     beforeEach(module('wos.services.locality'));
     beforeEach(module('wos.services.cart'));
     beforeEach(module('wos.api'));
+    beforeEach(module('ionic-datepicker'));
+    beforeEach(module('pascalprecht.translate'));
 
     beforeEach(inject(function (_$controller_, $httpBackend, _profile_, _cart_) {
         httpBackend = $httpBackend;
@@ -52,7 +54,14 @@ describe('OrderCtrl', function () {
     });
 
     describe('testing status variable', function () {
+
         it('should set status to 0, when there is no server error', function () {
+            var data = [{
+                id: 1,
+                name: 'Sekacka',
+                leases: []
+            }];
+            itemResponse.respond(data);
             httpBackend.flush();
             expect($scope.status).toBe(0);
         })
@@ -67,6 +76,12 @@ describe('OrderCtrl', function () {
     describe('testing correct content of variables', function () {
 
         beforeEach(function () {
+            var data = [{
+                id: 1,
+                name: 'Sekacka',
+                leases: []
+            }];
+            itemResponse.respond(data);
             httpBackend.flush();
         });
         it('should set itemId according to stateParams', function () {
@@ -87,12 +102,17 @@ describe('OrderCtrl', function () {
     });
 
     describe('testing retriving data from server', function () {
-        it('should set item to server response data', function () {
+
+        beforeEach(function () {
             var data = [{
                 id: 1,
-                name: 'Sekacka'
+                name: 'Sekacka',
+                leases: []
             }];
             itemResponse.respond(data);
+        })
+
+        it('should set item to server response data', function () {
             httpBackend.flush();
             expect($scope.item.id).toEqual(1);
         })

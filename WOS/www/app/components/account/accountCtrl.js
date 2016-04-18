@@ -118,12 +118,14 @@ angular.module('wos.controllers.account', [])
             var from = entry.od.date.split(' ')[0].split('-');
             entry.from = from[2] + '.';
             entry.from += from[1] + '.';
-            entry.from += from[0];
+            entry.from += from[0] + ' ';
+            entry.from += entry.od.date.split(' ')[1];
 
             var to = entry.do.date.split(' ')[0].split('-');
             entry.to = to[2] + '.';
             entry.to += to[1] + '.';
-            entry.to += to[0];
+            entry.to += to[0] + ' ';
+            entry.to += entry.do.date.split(' ')[1];
             entry.loading = false;
             entry.actionError = 0;
         });
