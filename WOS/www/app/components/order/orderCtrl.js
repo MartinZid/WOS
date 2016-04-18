@@ -119,12 +119,6 @@ angular.module('wos.controllers.order', [])
         /// Counts a order price.
         /// </summary>
         /// <returns type="integer">Order price</returns>
-        //$scope.from.date = new Date(2016, 3, 5);
-        //$scope.from.time = new Date(1970, 1, 1, 10, 0);
-        //$scope.to.date = new Date(2016, 3, 17);
-        //$scope.to.time = new Date(1970, 1, 1, 8, 0);
-
-        console.log('in count final price');
 
         var finalPrice = 0;
         // milliseconds in the hour
@@ -165,6 +159,11 @@ angular.module('wos.controllers.order', [])
         $scope.finalPrice = finalPrice;
     };
     
+    Date.prototype.addHours = function (h) {
+        this.setHours(this.getHours() + h);
+        return this;
+    }
+
     $scope.addToCart = function () {
         /// <summary>
         /// Gets data from form, created new order object a adds this object to a cart.
@@ -191,11 +190,11 @@ angular.module('wos.controllers.order', [])
             'takeOver': takeOver,
             'locality': locality,
             'from': {
-                time: $scope.from.time,
+                time: $scope.from.time.addHours(1),
                 date: $scope.from.date
             },
             'to': {
-                time: $scope.to.time,
+                time: $scope.to.time.addHours(1),
                 date: $scope.to.date
             },
             'item': {

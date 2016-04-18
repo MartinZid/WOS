@@ -35,7 +35,7 @@ angular.module('wos.controllers.cart', [])
             order.stringFrom += tmpfromDate[1] + '.';
             order.stringFrom += tmpfromDate[0];
             order.from.datetime = order.from.date.split('T')[0] + 'T' + order.from.time.split('T')[1];
-            //TODO: fix - time is -1
+
             var tmpfromDate = order.to.date.split('T')[0].split('-');
             var tmpFromTime = order.to.time.split('T')[1].split('.')[0].split(':');
             order.stringTo = tmpFromTime[0] + ':' + tmpFromTime[1] + ' ';

@@ -36,6 +36,7 @@ angular.module('wos.controllers.addItem', [])
         to: null,
         day: undefined
     };
+    $scope.locality.day = 'Pondělí';
     $scope.user = profile.getLoggedInUserData();
 
     $scope.addPrice = function () {
@@ -130,6 +131,8 @@ angular.module('wos.controllers.addItem', [])
         locality.getUserLocalities($scope.user.id)
             .success(function (data) {
                 $scope.localities = data;
+                if ($scope.localities.length == 0)
+                    $scope.selectedLocality.value = undefined;
             }).error(function () {
                 $scope.status = 2;
             })

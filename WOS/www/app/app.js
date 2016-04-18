@@ -408,10 +408,10 @@ angular.module('wos', ['ionic',
    });
 
     // if none of the above states are matched
-    //$urlRouterProvider.otherwise('/tab/account');
+    $urlRouterProvider.otherwise('/tab/account');
     //$urlRouterProvider.otherwise('/tab/account/addItem');
     //$urlRouterProvider.otherwise('tab/home/order/32');
-   $urlRouterProvider.otherwise('tab/cart');
+    //$urlRouterProvider.otherwise('tab/cart');
 })
 
 .config(function (ionicDatePickerProvider) {

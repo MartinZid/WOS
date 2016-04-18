@@ -279,7 +279,7 @@
                             </div>
                             <div class="centering">
                                 <button class="button button-outline button-calm margin-top-btn" type="button"
-                                        ng-disabled="locality.day === undefined || forms.newLocality.to.$invalid || forms.newLocality.from.$invalid" ng-click="addDay()">
+                                        ng-disabled="!locality.day || forms.newLocality.to.$invalid || forms.newLocality.from.$invalid" ng-click="addDay()">
                                     {{ 'addItem.add_new_day' | translate }}
                                 </button>
                             </div>
