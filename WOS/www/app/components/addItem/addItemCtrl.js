@@ -21,9 +21,7 @@ angular.module('wos.controllers.addItem', [])
     $scope.platform = ionic.Platform.platform();
     $scope.localities;
     $scope.imageName = Math.random().toString(36).slice(2) + '.jpg';
-    $scope.selectedLocality = {
-        value: 0
-    };
+    $scope.selectedLocality = {};
     $scope.selectedLocalities = [];
     $scope.upload = 'not uploading';
     $scope.uploadError = 0; // 0 - no error, 1 - upload error
@@ -89,11 +87,11 @@ angular.module('wos.controllers.addItem', [])
         });
     };
 
-    if(false)
-    $scope.forceBackButton = $ionicHistory.backView().stateId.indexOf('account') < 0; //we navigated from another tab
+    // we navigated from another tab
+    $scope.forceBackButton = $ionicHistory.backView().stateId.indexOf('account') < 0; 
 
     $scope.backToParentView = function () {
-        $state.go('tab.home', {}, { location: 'repalce', inherit: 'false' });
+        $state.go('tab.account', {}, { location: 'repalce', inherit: 'false' });
     };
 
     $scope.getChildCategories = function (index) {
@@ -275,7 +273,7 @@ angular.module('wos.controllers.addItem', [])
             category: $scope.selectedCategory,
             user_id: $scope.user.id,
             currency: 1,
-            code: '$2y$10$8/o1QO0tVkaBUSOcHHoWZu9ugbNijvntKkK.luq3MgTaGt95ISS5e'
+            code: $scope.user.APIkey
         };
         console.log(createdItem);
         console.log(angular.toJson(createdItem));

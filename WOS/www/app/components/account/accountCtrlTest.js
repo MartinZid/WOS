@@ -259,18 +259,18 @@
         httpBackend.flush();
         expect($scope.borrows[0].leases[0].from).toBe('29.02.2016 17:11:00');
     });
-    it('should call $state.go with correct params, when goToItem is called', function () {
-        var $scope = {};
-        $scope.$on = function () { };
-        var controller = ctrl('AccountCtrl', {
-            $scope: $scope, $state: stateMock, $ionicModal: ionicModalMock,
-            $ionicViewSwitcher: switcherProvideMock
-        });
-        beforeEnter($scope);
-        httpBackend.flush();
-        $scope.goToItem(2);
-        expect(stateMock.go).toHaveBeenCalledWith('tab.item-detail', { itemId: 2});
-    });
+    //it('should call $state.go with correct params, when goToItem is called', function () {
+    //    var $scope = {};
+    //    $scope.$on = function () { };
+    //    var controller = ctrl('AccountCtrl', {
+    //        $scope: $scope, $state: stateMock, $ionicModal: ionicModalMock,
+    //        $ionicViewSwitcher: switcherProvideMock
+    //    });
+    //    beforeEnter($scope);
+    //    httpBackend.flush();
+    //    $scope.goToItem(2);
+    //    expect(stateMock.go).toHaveBeenCalledWith('tab.item-detail', { itemId: 2});
+    //});
     it('when modal is opened with id, it should set leaseId to correct value', function () {
         var $scope = {};
         $scope.$on = function () { };

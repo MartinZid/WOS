@@ -43,7 +43,7 @@ angular.module('wos.services.rent', [])
                 url: api.url + 'mobile/rent/decline?rentID=' + id
             });
         },
-        return: function (id) {
+        doReturn: function (id) {
             /// <summary>
             /// Returns a promise for rent return.
             /// </summary>

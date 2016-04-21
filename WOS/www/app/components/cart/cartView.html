@@ -53,7 +53,7 @@
     </ion-content>
 
     <div class="bar bar-footer bar-assertive order-btn-footer" ng-show="orders.length > 0">
-        <div class="title button button-assertive order-btn" ng-click="finishOrders()">Zaplatit {{countPrice()}} Kč</div>
+        <div class="title button button-assertive order-btn" ng-click="finishOrders()">{{ 'cart.doOrder' | translate }} {{countPrice()}} Kč</div>
     </div>
 
 </ion-view>

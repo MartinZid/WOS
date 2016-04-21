@@ -31,7 +31,7 @@ angular.module('wos.controllers.cart', [])
             var tmpfromDate = order.from.date.split('T')[0].split('-');
             var tmpFromTime = order.from.time.split('T')[1].split('.')[0].split(':');
             order.stringFrom = tmpFromTime[0] + ':' + tmpFromTime[1] + ' ';
-            order.stringFrom += tmpfromDate[2] + '.';
+            order.stringFrom += parseInt(tmpfromDate[2])+1 + '.';
             order.stringFrom += tmpfromDate[1] + '.';
             order.stringFrom += tmpfromDate[0];
             order.from.datetime = order.from.date.split('T')[0] + 'T' + order.from.time.split('T')[1];
@@ -39,7 +39,7 @@ angular.module('wos.controllers.cart', [])
             var tmpfromDate = order.to.date.split('T')[0].split('-');
             var tmpFromTime = order.to.time.split('T')[1].split('.')[0].split(':');
             order.stringTo = tmpFromTime[0] + ':' + tmpFromTime[1] + ' ';
-            order.stringTo += tmpfromDate[2] + '.';
+            order.stringTo += parseInt(tmpfromDate[2])+1 + '.';
             order.stringTo += tmpfromDate[1] + '.';
             order.stringTo += tmpfromDate[0];
             order.to.datetime = order.to.date.split('T')[0] + 'T' + order.to.time.split('T')[1];

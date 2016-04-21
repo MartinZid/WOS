@@ -12,7 +12,6 @@ angular.module('wos.controllers.order', [])
     $scope.status = 3;
     $scope.imgURL = api.url;
     $scope.takeOverOption = {};
-    $scope.userId = 18;
     $scope.userLocality;
     $scope.selectedLocality = {
         value: 0
@@ -91,9 +90,9 @@ angular.module('wos.controllers.order', [])
         console.log($scope.selectedLocality.value);
         console.log($scope.item.locality)
 
-        $scope.from.time = new Date(lease.from.time);
+        $scope.from.time = new Date(lease.from.time).addHours(-1);
         $scope.from.date = new Date(lease.from.date);
-        $scope.to.time = new Date(lease.to.time);
+        $scope.to.time = new Date(lease.to.time).addHours(-1);
         $scope.to.date = new Date(lease.to.date);
 
         $scope.countOrderPrice();
@@ -106,7 +105,7 @@ angular.module('wos.controllers.order', [])
         /// </summary>
         /// <param name="value" type="type"></param>
         /// <param name="array" type="type"></param>
-        /// <returns type=""></returns>
+        /// <returns type="integer">Index or -1</returns>
         for (var i = 0; i < array.length; i++) {
             if (value.id_lokalita == array[i].id_lokalita)
                 return i;
@@ -114,11 +113,38 @@ angular.module('wos.controllers.order', [])
         return -1;
     };
 
+    $scope.orderPrices = function (array) {
+        /// <summary>
+        /// Orders prices hours first, months last. It is used for correct price count.
+        /// </summary>
+        /// <param name="array" type="array"></param>
+        /// <returns type="array">Ordered array</returns>
+        var tmp = [];
+        var unit;
+        for (var i = 0; i < 4; i++) {
+            if (i == 3)
+                unit = 'měsíc';
+            if (i == 2)
+                unit = 'týden';
+            if (i == 1)
+                unit = 'den'
+            if (i == 0)
+                unit = 'hodina';
+            for (var j = 0; j < array.length; j++) {
+                if (array[j].jednotka == unit)
+                    tmp.push(array[j]);
+            }
+        }
+        return tmp;
+    }
+
     $scope.countOrderPrice = function () {
         /// <summary>
         /// Counts a order price.
         /// </summary>
         /// <returns type="integer">Order price</returns>
+
+        $scope.item.prices = $scope.orderPrices($scope.item.prices);
 
         var finalPrice = 0;
         // milliseconds in the hour
@@ -265,10 +291,10 @@ angular.module('wos.controllers.order', [])
         $scope.disabledDates = [];
         for (var key in $scope.item.leases) {
             // Given date - 2016-04-17
+            console.log('key ' + key);
             var tmpDate = key.split('-');
             $scope.disabledDates.push(new Date(tmpDate[0], tmpDate[1] - 1, tmpDate[2]));
         }
-        console.log($scope.disabledDates)
     };
     $scope.createDisabledWeekdays = function () {
         /// <summary>

@@ -53,10 +53,10 @@ describe('rating factory test', function () {
         httpBackend.flush();
         expect(response.status).toBe(200);
     });
-    it('should PUT /rent/return?rentID when return() is called', function () {
+    it('should PUT /rent/return?rentID when doReturn() is called', function () {
         var response;
         httpBackend.whenPUT('http://sp2.binarity-testing.cz/mobile/rent/return?rentID=19').respond(200, '');
-        rent.return(19).then(function (data) {
+        rent.doReturn(19).then(function (data) {
             response = data;
         })
         httpBackend.flush();

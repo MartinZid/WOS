@@ -2,7 +2,7 @@
 angular.module('wos.controllers.account', [])
 
 .controller('AccountCtrl', function ($scope, $state, profile, rent, $ionicModal, $ionicPopup,
-                                     rating, $ionicViewSwitcher, $ionicScrollDelegate, $filter) {
+                                     rating, $ionicViewSwitcher, $ionicScrollDelegate, $filter, $timeout) {
     /// <summary>
     /// Controller for homepage tab
     /// </summary>
@@ -159,7 +159,7 @@ angular.module('wos.controllers.account', [])
         /// Redirect user item with given id.
         /// </summary>
         /// <param name="id" type="integer"></param>
-        $state.go('tab.item-detail', { itemId: id });
+        //$state.go('tab.item-detail', { itemId: id });
     }
 
     $ionicModal.fromTemplateUrl('new_rating.html', {
@@ -281,7 +281,7 @@ angular.module('wos.controllers.account', [])
         /// <param name="lease" type="type"></param>
         console.log('returning...');
         lease.spinning = true;
-        rent.return(lease.id_vypujcka)
+        rent.doReturn(lease.id_vypujcka)
             .success(function () {
                 lease.spinning = false;
                 lease.actionError = 0;
@@ -297,12 +297,13 @@ angular.module('wos.controllers.account', [])
         /// <summary>
         /// Handles on scroll action.
         /// </summary>
-        $scope.$apply(function () {
-            /// <summary>
-            /// showSubHeader user scroll is 230pt from top.
-            /// </summary>
-            $scope.showSubHeader = $ionicScrollDelegate.getScrollPosition().top > 230;
-        })
+
+            $scope.$apply(function () {
+                /// <summary>
+                /// showSubHeader user scroll is 230pt from top.
+                /// </summary>
+                $scope.showSubHeader = $ionicScrollDelegate.getScrollPosition().top > 230;
+            })
     }
 
     $scope.showApproveConfirm = function (lease) {

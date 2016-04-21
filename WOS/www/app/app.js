@@ -126,7 +126,8 @@ angular.module('wos', ['ionic',
             'to': 'Do',
             'return_to_cart': 'Vrátit zpět',
             'recently_deleted': 'Možná chcete vrátit zpět?',
-            'orderds_successfully_posted': 'Vaše objednávka byla úspěšně odeslána!'
+            'orderds_successfully_posted': 'Vaše objednávka byla úspěšně odeslána!',
+            'doOrder': 'Objednat'
         },
         'profile': {
             'user_items': 'Nabízené položky',
@@ -410,7 +411,7 @@ angular.module('wos', ['ionic',
     // if none of the above states are matched
     $urlRouterProvider.otherwise('/tab/account');
     //$urlRouterProvider.otherwise('/tab/account/addItem');
-    //$urlRouterProvider.otherwise('tab/home/order/32');
+    //$urlRouterProvider.otherwise('tab/home/order/24');
     //$urlRouterProvider.otherwise('tab/cart');
 })
 

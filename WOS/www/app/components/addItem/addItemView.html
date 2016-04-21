@@ -136,8 +136,7 @@
                         {{ 'addItem.locality' | translate }}
                     </div>
                     <select ng-model="selectedLocality.value">
-                        <option ng-repeat="locality in localities" value="{{$index}}" 
-                                ng-selected="$index == 0">
+                        <option ng-repeat="locality in localities" value="{{$index}}">
                             {{locality.ulice_cp}}, {{locality.mesto}}
                         </option>
                     </select>

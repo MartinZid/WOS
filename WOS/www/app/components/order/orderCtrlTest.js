@@ -134,6 +134,8 @@ describe('OrderCtrl', function () {
             itemResponse.respond([{
                 jmeno: 'Bagr'
             }]);
+            $scope.from.time = new Date();
+            $scope.to.time = new Date();
             httpBackend.flush();
         })
 
@@ -155,5 +157,101 @@ describe('OrderCtrl', function () {
             expect(cartService.getAll()[0].takeOver).toBe(0);
         })
     })
+
+    describe('testing order functions', function () {
+
+        beforeEach(function () {
+            var data = [{
+                id: 1,
+                name: 'Sekacka',
+                leases: 
+                    {
+                        '2016-04-17': {}
+                    }
+                
+            }];
+            itemResponse.respond(data);
+            httpBackend.flush();
+        })
+
+        it('should define defineDatePickerObj functions', function () {
+            expect(typeof $scope.defineDatePickerObjFrom).toBe('function');
+            expect(typeof $scope.defineDatePickerObjTo).toBe('function');
+        })
+
+        it('createDisabledDates function should set correct dates as disabled', function () {
+            $scope.createDisabledDates();
+            expect($scope.disabledDates[0].getTime()).toEqual(new Date(2016, 3, 17).getTime());
+        })
+
+        it('createDisabledWeekdays function should set correct days as disabled', function () {
+            $scope.item.availability = {
+                1: {
+                    '0': '',
+                    '4': '',
+                    '6': '',
+                    'Praha': ''
+                }
+            };
+            $scope.createDisabledWeekdays();
+            expect($scope.disableWeekdays).toEqual([2, 3, 4, 6]);
+        })
+        it('isValid should set valid variable to false, when selected date overlaps with any lease', function () {
+            $scope.from.date = new Date(2016, 3, 15);
+            $scope.to.date = new Date(2016, 3, 25);
+            $scope.isValid();
+            expect($scope.valid).toBe(false);
+        })
+        it('isValid should set valid variable to true, when selected date does not overlap with any lease', function () {
+            $scope.from.date = new Date(2016, 3, 15);
+            $scope.to.date = new Date(2016, 3, 16);
+            $scope.isValid();
+            expect($scope.valid).toBe(true);
+        })
+        it('orderPrices should correctly ordered price by units', function () {
+            var array = [
+                {
+                    'jednotka': 'měsíc'
+                },
+                {
+                    'jednotka': 'hodina'
+                },
+                {
+                    'jednotka': 'den'
+                }
+            ];
+            array = $scope.orderPrices(array);
+            expect(array).toEqual([
+                {
+                    'jednotka': 'hodina'
+                },
+                {
+                    'jednotka': 'den'
+                },
+                {
+                    'jednotka': 'měsíc'
+                }
+            ]);
+        });
+        it('countOrderPrice function should set finalPrice', function () {
+            $scope.to.date = new Date(2016, 3, 25);
+            $scope.from.date = new Date(2016, 3, 24);
+            $scope.from.time = new Date(1970, 1, 1, 10);
+            $scope.to.time = new Date(1970, 1, 1, 11);
+            $scope.item.prices = [ 
+                {
+                    'jednotka': 'den',
+                    'cena': '680'
+                },
+                {
+                    'jednotka': 'hodina',
+                    'cena': '130'
+                }
+            ]
+            $scope.countOrderPrice();
+            expect($scope.finalPrice).toBe(810);
+        })
+    })
+
     
 })

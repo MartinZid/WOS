@@ -5,12 +5,12 @@
             <i class="ion-log-out icon-larger"></i>
         </a>
     </ion-nav-buttons>
-    <div class="bar bar-subheader bar-custom" ng-show="showSubHeader">
+    <div class="bar bar-subheader bar-custom" ng-show="showSubHeader" scroll-event-interval="5">
         <h2 class="title" ng-show="selectedSection == 1">{{ 'profile.my_items' | translate }}</h2>
         <h2 class="title" ng-show="selectedSection == 2">{{ 'profile.borrows' | translate }}</h2>
         <h2 class="title" ng-show="selectedSection == 3">{{ 'profile.rents' | translate }}</h2>
     </div>
-    <ion-content ng-cloak on-scroll="onScroll()">
+    <ion-content >
         <div class="centering">
             <div ng-show="status === 3">
                 <ion-spinner></ion-spinner>
@@ -57,9 +57,9 @@
             <div ng-repeat="item in profile.instances" style="margin-top: -40px">
                 <div class="item-state" ng-show="item.itemState == 1" style="background-color: #5bc0de">{{ 'profile.states.created' | translate }}</div>
                 <div class="item-state" ng-show="item.itemState == 2" style="background-color: #5cb85c">{{ 'profile.states.approved' | translate }}</div>
-                <div class="item-state" ng-show="item.itemState == 3" style="background-color: #f0ad4e">{{ 'profile.states.hidden' | translate }}</div>
-                <div class="item-state" ng-show="item.itemState == 4" style="background-color: #d9534f">{{ 'profile.states.deleted' | translate }}</div>
-                <div class="item-state" ng-show="item.itemState == 5" style="background-color: #5cb85c">{{ 'profile.states.show' | translate }}</div>
+                <div class="item-state" ng-show="item.itemState == 5" style="background-color: #f0ad4e">{{ 'profile.states.hidden' | translate }}</div>
+                <div class="item-state" ng-show="item.itemState == 3" style="background-color: #d9534f">{{ 'profile.states.deleted' | translate }}</div>
+                <div class="item-state" ng-show="item.itemState == 4" style="background-color: #5cb85c">{{ 'profile.states.show' | translate }}</div>
                 <wos-item name="item"></wos-item>
             </div>
         </div>
