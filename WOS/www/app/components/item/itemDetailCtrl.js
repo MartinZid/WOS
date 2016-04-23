@@ -35,9 +35,10 @@ angular.module('wos.controllers.itemDetail', [])
                 //any code in here will automatically have an apply run afterwards
                 $scope.item = data[0];
                 console.log(data);
-                $scope.item.photos.unshift({
-                    jmeno: $scope.item.mainPhoto
-                });
+                if($scope.item.photos.length == 0)
+                    $scope.item.photos.unshift({
+                        jmeno: $scope.item.mainPhoto
+                    });
                 $scope.status = 0;
                 $ionicSlideBoxDelegate.update();
                 loadMap();

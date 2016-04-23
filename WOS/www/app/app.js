@@ -357,7 +357,7 @@ angular.module('wos', ['ionic',
    })
 
    .state('tab.order', {
-       url: '/home/order/:itemId',
+       url: '/cart/order/:itemId',
        views: {
            'cart': {
                templateUrl: 'app/components/order/orderView.html',

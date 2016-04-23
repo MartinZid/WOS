@@ -150,7 +150,7 @@
                     <form name="ratingForm" ng-submit="doRate(text)">
                         <label class="item item-input item-stacked-label no-error">
                             <span class="input-label">{{ 'profile.rating_title' | translate }}</span>
-                            <input type="text" name="text" ng-model="text.value" placeholder="{{ 'profile.rating_title' | translate }}">
+                            <input type="text" name="text" ng-init="text.value = ''" ng-model="text.value" placeholder="{{ 'profile.rating_title' | translate }}">
                         </label>
                         <div class="centering">
                             <button class="button button-outline button-calm registration-btn" type="submit">

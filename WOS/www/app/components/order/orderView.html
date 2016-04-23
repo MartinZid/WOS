@@ -1,4 +1,13 @@
 ﻿<ion-view view-title="{{ 'order.order' | translate }}" cache-view="false" hide-back-button="true">
+    <ion-nav-buttons side="left">
+        <button class="button back-button buttons button-clear header-item"
+                ng-show="forceBackButton"
+                ng-click="backToParentView()">
+            <i ng-class="{
+                'ion-ios-arrow-back force-back-ios': platform !== 'android',
+                'ion-android-arrow-back force-back-android ': platform === 'android' }"></i>
+        </button>
+    </ion-nav-buttons>
     <ion-content class="padding" ng-show="!user">
         <div class="error-message">
             <p>{{ 'not_logged_in' | translate }}</p>
@@ -8,7 +17,7 @@
         </div>
     </ion-content>
     <ion-content class="padding" ng-show="user">
-
+        {{forceBackButton}} {{updating}}
         <h4 class="order-name">{{item.jmeno}}</h4>
         <div class="row">
             <div class="col col-50">
@@ -96,7 +105,7 @@
                     <label class="item item-input item-stacked-label no-error"
                            ng-class="{ 'has-error' : forms.newLocality.postal_code.$invalid && forms.newLocality.postal_code.$touched,
                                                    'no-error' : forms.newLocality.postal_code.$valid || forms.newLocality.postal_code.$untouched }">
-                        <span class="input-label">{{ 'addItem.street' | translate }}</span>
+                        <span class="input-label">{{ 'addItem.postal_code' | translate }}</span>
                         <input type="number" name="postal_code" ng-model="locality.postal_code" placeholder="{{ 'addItem.postal_code' | translate }}"
                                min="0" required>
                     </label>

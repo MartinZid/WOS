@@ -2,7 +2,7 @@
 angular.module('wos.controllers.order', [])
 
 .controller('OrderCtrl', function ($scope, $stateParams, item, ionicDatePicker,
-                                   api, locality, cart, $state, profile, $filter) {
+                                   api, locality, cart, $state, profile, $filter, $ionicHistory) {
     /// <summary>
     /// Controller for order view.
     /// </summary>
@@ -16,6 +16,7 @@ angular.module('wos.controllers.order', [])
     $scope.selectedLocality = {
         value: 0
     };
+    $scope.updating = false;
     $scope.locality = {};
     $scope.from = {};
     $scope.to = {};
@@ -23,6 +24,7 @@ angular.module('wos.controllers.order', [])
     $scope.finalPrice = 0;
     $scope.user;
     $scope.valid = true;
+    $scope.forceBackButton = false;
 
     $scope.getItemDetail = function(id) {
         /// <summary>
@@ -66,6 +68,9 @@ angular.module('wos.controllers.order', [])
         /// </summary>
         var lease = cart.getUpdatedLease();
         console.log(lease);
+
+        $scope.updating = lease != null;
+        $scope.forceBackButton = $ionicHistory.backView().stateId.indexOf('cart') < 0 && !$scope.updating;
 
         if (lease == null)
             return;
@@ -367,5 +372,12 @@ angular.module('wos.controllers.order', [])
             if (date.getTime() >= $scope.from.date && date.getTime() <= $scope.to.date)
                 $scope.valid = false;
         });
+    };
+
+    //we navigated from another tab
+    console.log($ionicHistory.backView().stateId.indexOf('cart'));
+
+    $scope.backToParentView = function () {
+        $state.go('tab.cart', {}, { location: 'repalce', inherit: 'false' });
     };
 })
