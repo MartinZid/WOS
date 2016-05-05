@@ -7,7 +7,7 @@ angular.module('wos.directives.errorMessage', [])
     /// error message directive. Handles error status codes.
     /// </summary>
     /// <param name="$parse" type="type"></param>
-    /// <returns type="object">Directive</returns>
+    /// <returns type="object">error message directive</returns>
     return {
         scope: { reload: '&', status: '='},
         templateUrl: 'app/shared/errorMessage/errorMessageView.html'

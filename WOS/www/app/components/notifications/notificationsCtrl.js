@@ -6,11 +6,18 @@ angular.module('wos.controllers.notifications', [])
     /// Controller for notifications view.
     /// </summary>
     /// <param name="$scope" type="type"></param>
+    /// <param name="notifications" type="type"></param>
+    /// <param name="profile" type="type"></param>
+    /// <param name="$state" type="type"></param>
+
     $scope.status = 3;
     $scope.item;
 
 
     $scope.doRefresh = function () {
+        /// <summary>
+        /// Refreshes page.
+        /// </summary>
         console.log('refreshing...');
         $scope.getAllNotifications();
     }
@@ -65,16 +72,6 @@ angular.module('wos.controllers.notifications', [])
             entry.type = entry.obsah.split('.')[2];
             entry.param = new Number(entry.link_parametr);
         });
-    };
-
-
-    $scope.data = { //default state for notifications list
-        showDelete: false
-    };
-
-    $scope.deleteItem = function (item) {
-        console.log('Deleting: ' + item.text)
-        //$scope.items.splice($scope.items.indexOf(item), 1);
     };
 
     $scope.goToLogin = function () {

@@ -227,7 +227,7 @@
                             <div class="centering">
                                 <table class="prices-table">
                                     <tr ng-repeat="day in locality.days track by $index">
-                                        <td style="text-align: left">{{day.day}}</td>
+                                        <td style="text-align: left">{{day.strDay}}</td>
                                         <td style="text-align: left">{{day.from | date: "HH:mm"}} - {{day.to | date: "HH:mm"}}</td>
                                         <td><i class="ion-close-round delete-item-icon" ng-click="deleteDay($index)"></i></td>
                                     </tr>

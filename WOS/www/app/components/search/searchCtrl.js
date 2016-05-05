@@ -7,11 +7,11 @@ angular.module('wos.controllers.search', [])
     /// </summary>
     /// <param name="$scope" type="type"></param>
     /// <param name="item" type="type"></param>
+    /// <param name="$filter" type="type"></param>
 
     $scope.status = 0;
     $scope.items;
     $scope.searchText = {};
-    //$scope.query;
 
     $scope.search = function() {
         /// <summary>
@@ -22,6 +22,7 @@ angular.module('wos.controllers.search', [])
             .success(function (data) { ///if success save loaded data to $scope.items
                 $scope.items = data;
                 console.log(data);
+                // select only approved items
                 $scope.items = $filter('filter')($scope.items, { itemState: 2 });
                 $scope.status = 0;
                 if ($scope.items.length == 0) {
@@ -36,6 +37,9 @@ angular.module('wos.controllers.search', [])
             });
     }
     $scope.doRefresh = function () {
+        /// <summary>
+        /// Refreshes page.
+        /// </summary>
         console.log('refreshing...');
         $scope.search($scope.searchText.value)
     }

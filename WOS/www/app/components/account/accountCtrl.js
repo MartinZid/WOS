@@ -7,6 +7,18 @@ angular.module('wos.controllers.account', [])
     /// Controller for homepage tab
     /// </summary>
     /// <param name="$scope" type="type"></param>
+    /// <param name="$state" type="type"></param>
+    /// <param name="profile" type="type"></param>
+    /// <param name="rent" type="type"></param>
+    /// <param name="$ionicModal" type="type"></param>
+    /// <param name="$ionicPopup" type="type"></param>
+    /// <param name="rating" type="type"></param>
+    /// <param name="$ionicViewSwitcher" type="type"></param>
+    /// <param name="$ionicScrollDelegate" type="type"></param>
+    /// <param name="$filter" type="type"></param>
+    /// <param name="$timeout" type="type"></param>
+
+    //which secondary tab is selected
     $scope.selectedSection = 1;
     $scope.status = 3;
     $scope.isRentsArray = true;
@@ -25,6 +37,7 @@ angular.module('wos.controllers.account', [])
         if (profile.getLoggedInUserData() === null) {
             //$ionicViewSwitcher.nextDirection('none');
             $state.go('tab.login');
+            return;
         }
         $scope.user = profile.getLoggedInUserData();
         $scope.getUserData();
@@ -131,8 +144,6 @@ angular.module('wos.controllers.account', [])
         });
     }
 
-    //$rootScope.notifications = '#/tab/notifications';
-
     $scope.logout = function () {
         /// <summary>
         /// It handles logout and redirects user to login page.
@@ -140,6 +151,23 @@ angular.module('wos.controllers.account', [])
 
         profile.logout();
         $state.go('tab.login');
+    };
+
+    $scope.showLogoutConfirm = function () {
+        /// <summary>
+        /// Shows ionic popup to confirm logout.
+        /// </summary>
+        var confirmPopup = $ionicPopup.confirm({
+            title: $filter('translate')('profile.logout'),
+            template: $filter('translate')('profile.make_sure_logout'),
+            okText: $filter('translate')('profile.do_logout'),
+            cancelText: $filter('translate')('cancel'),
+        });
+        confirmPopup.then(function (res) {
+            if (res) {
+                $scope.logout();
+            }
+        });
     };
 
     //$scope.$on('$ionicView.beforeEnter', function () {
@@ -180,6 +208,7 @@ angular.module('wos.controllers.account', [])
     };
 
     $scope.ratingsObject = {
+        // config object for ionic rating
         iconOn: 'ion-ios-star',   
         iconOff: 'ion-ios-star-outline',  
         iconOnColor: 'rgb(255, 200, 0)',
@@ -202,7 +231,7 @@ angular.module('wos.controllers.account', [])
 
     $scope.doRate = function (text) {
         /// <summary>
-        /// Rating form submit. Sends rating with text to server.
+        /// Rating form submited. Sends rating with text to server.
         /// </summary>
         /// <param name="text" type="String"></param>
         console.log($scope.rating + '\n' + text.value);
@@ -227,7 +256,7 @@ angular.module('wos.controllers.account', [])
 
     $scope.approve = function (lease) {
         /// <summary>
-        /// Lease is selected approved. It contacts server and when response is recieved
+        /// Lease is selected as approved. It contacts server and when response is recieved
         /// it stops spinner and sets actionError to propriate value.
         /// </summary>
         /// <param name="lease" type="type"></param>
@@ -245,7 +274,7 @@ angular.module('wos.controllers.account', [])
     };
     $scope.decline = function (lease) {
         /// <summary>
-        /// Lease is selected declined. It contacts server and when response is recieved
+        /// Lease is selected as declined. It contacts server and when response is recieved
         /// it stops spinner and sets actionError to propriate value.
         /// </summary>
         /// <param name="lease" type="type"></param>
@@ -275,7 +304,7 @@ angular.module('wos.controllers.account', [])
     }
     $scope.doReturn = function (lease) {
         /// <summary>
-        /// Lease is selected returned. It contacts server and when response is recieved
+        /// Lease is selected as returned. It contacts server and when response is recieved
         /// it stops spinner and sets actionError to propriate value.
         /// </summary>
         /// <param name="lease" type="type"></param>
@@ -292,19 +321,19 @@ angular.module('wos.controllers.account', [])
             })
     };
 
+    // commented due to performance problems
+    //$scope.onScroll = function () {
+    //    /// <summary>
+    //    /// Handles on scroll action.
+    //    /// </summary>
 
-    $scope.onScroll = function () {
-        /// <summary>
-        /// Handles on scroll action.
-        /// </summary>
-
-            $scope.$apply(function () {
-                /// <summary>
-                /// showSubHeader user scroll is 230pt from top.
-                /// </summary>
-                $scope.showSubHeader = $ionicScrollDelegate.getScrollPosition().top > 230;
-            })
-    }
+    //        $scope.$apply(function () {
+    //            /// <summary>
+    //            /// showSubHeader user scroll is 230pt from top.
+    //            /// </summary>
+    //            $scope.showSubHeader = $ionicScrollDelegate.getScrollPosition().top > 230;
+    //        })
+    //}
 
     $scope.showApproveConfirm = function (lease) {
         /// <summary>

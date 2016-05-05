@@ -7,6 +7,8 @@ angular.module('wos.controllers.homepage', [])
     /// </summary>
     /// <param name="$scope" type="type"></param>
     /// <param name="item" type="type"></param>
+    /// <param name="$ionicNavBarDelegate" type="type"></param>
+    /// <param name="profile" type="type"></param>
 
     $scope.items; /// all items
     $scope.status = 3; /// status variable for errors (0 = no error, 1 = there are no items; 2 = server error, 3 = loading) 

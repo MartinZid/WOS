@@ -7,6 +7,18 @@ angular.module('wos.controllers.order', [])
     /// Controller for order view.
     /// </summary>
     /// <param name="$scope" type="type"></param>
+    /// <param name="$stateParams" type="type"></param>
+    /// <param name="item" type="type"></param>
+    /// <param name="ionicDatePicker" type="type"></param>
+    /// <param name="api" type="type"></param>
+    /// <param name="locality" type="type"></param>
+    /// <param name="cart" type="type"></param>
+    /// <param name="$state" type="type"></param>
+    /// <param name="profile" type="type"></param>
+    /// <param name="$filter" type="type"></param>
+    /// <param name="$ionicHistory" type="type"></param>
+
+    // get itemId from "url"
     $scope.itemId = $stateParams.itemId;
     $scope.item;
     $scope.status = 3;
@@ -16,6 +28,7 @@ angular.module('wos.controllers.order', [])
     $scope.selectedLocality = {
         value: 0
     };
+    // is order new or is user updating?
     $scope.updating = false;
     $scope.locality = {};
     $scope.from = {};
@@ -23,6 +36,7 @@ angular.module('wos.controllers.order', [])
     $scope.forms = {};
     $scope.finalPrice = 0;
     $scope.user;
+    // not overlaps selected date with some other date?
     $scope.valid = true;
     $scope.forceBackButton = false;
 
@@ -59,6 +73,7 @@ angular.module('wos.controllers.order', [])
             }).error(function () {
                 console.log('order.getUserLocalities: Can not load data from server.');
                 $scope.status = 2;
+                $scope.getUserLocality();
             });
     };
 
@@ -105,7 +120,7 @@ angular.module('wos.controllers.order', [])
 
     $scope.findLocalityInArray = function (value, array) {
         /// <summary>
-        /// Return position of value in array. Used on locality (compare attr is id).
+        /// Return position of value in array. Used on locality (compared attr is id).
         /// If not found returns -1.
         /// </summary>
         /// <param name="value" type="type"></param>
@@ -197,7 +212,7 @@ angular.module('wos.controllers.order', [])
 
     $scope.addToCart = function () {
         /// <summary>
-        /// Gets data from form, created new order object a adds this object to a cart.
+        /// Gets data from form, created new order object and adds this object to a cart.
         /// Redirects user to the cart.
         /// </summary>
         var takeOver = $scope.takeOverOption.value;
@@ -373,9 +388,6 @@ angular.module('wos.controllers.order', [])
                 $scope.valid = false;
         });
     };
-
-    //we navigated from another tab
-    console.log($ionicHistory.backView().stateId.indexOf('cart'));
 
     $scope.backToParentView = function () {
         $state.go('tab.cart', {}, { location: 'repalce', inherit: 'false' });

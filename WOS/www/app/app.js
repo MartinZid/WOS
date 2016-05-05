@@ -127,7 +127,7 @@ angular.module('wos', ['ionic',
             'return_to_cart': 'Vrátit zpět',
             'recently_deleted': 'Možná chcete vrátit zpět?',
             'orderds_successfully_posted': 'Vaše objednávka byla úspěšně odeslána!',
-            'doOrder': 'Objednat'
+            'doOrder': 'Objednat',
         },
         'profile': {
             'user_items': 'Nabízené položky',
@@ -139,6 +139,9 @@ angular.module('wos', ['ionic',
             'reviews': 'Hodnocení',
             'message_for_user': 'Zpráva uživateli',
             'no_items': 'Zde budou Vaše položky.',
+            'logout': 'Odhlášení',
+            'do_logout': 'Odhlásit se',
+            'make_sure_logout': 'Opravdu se chcete odhásit?',
             'leases': {
                 'item': 'Položka',
                 'from': 'Od',
@@ -262,7 +265,8 @@ angular.module('wos', ['ionic',
             'add_to_cart': 'Vložit do košíku',
             'date_too_low': 'Datum do musí být pozdější termín než datum od',
             'pick_date': 'Zvolte datum',
-            'dates_overlap': 'Tento termín se překrývá s již rezervovaným termínem'
+            'dates_overlap': 'Tento termín se překrývá s již rezervovaným termínem',
+            'finish_editing': 'Dokončit úpravy'
         }
         
     });

@@ -7,6 +7,7 @@ angular.module('wos.controllers.registration', [])
     /// </summary>
     /// <param name="$scope" type="type"></param>
     /// <param name="$state" type="type"></param>
+    /// <param name="profile" type="type"></param>
 
     $scope.status = 3;
     $scope.user;
@@ -38,6 +39,9 @@ angular.module('wos.controllers.registration', [])
             });
     };
     $scope.doRefresh = function () {
+        /// <summary>
+        /// Refreshes page.
+        /// </summary>
         $scope.registration($scope.user);
     };
     $scope.$on('$ionicView.beforeEnter', function () {

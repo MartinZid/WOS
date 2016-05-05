@@ -7,7 +7,7 @@ angular.module('wos.services.locality', [])
     /// </summary>
     /// <param name="$http" type="type"></param>
     /// <param name="api" type="type"></param>
-    /// <returns type="object">item</returns>
+    /// <returns type="object">locality</returns>
 
     return {
         getUserLocalities: function (id) {

@@ -17,7 +17,6 @@
         </div>
     </ion-content>
     <ion-content class="padding" ng-show="user">
-        {{forceBackButton}} {{updating}}
         <h4 class="order-name">{{item.jmeno}}</h4>
         <div class="row">
             <div class="col col-50">
@@ -174,7 +173,8 @@
              (from.date > to.date || (from.date.getTime() == to.date.getTime() && (from.date != undefined || to.date != undefined) && from.time >= to.time))
              "
              ng-click="addToCart()">
-            {{ 'order.add_to_cart' | translate }} <span ng-show="finalPrice > 0">({{finalPrice}} Kč)</span>
+            <span ng-show="!updating">{{ 'order.add_to_cart' | translate }} <span ng-show="finalPrice > 0">({{finalPrice}} Kč)</span></span>
+            <span ng-show="updating">{{ 'order.finish_editing' | translate }} <span ng-show="finalPrice > 0">({{finalPrice}} Kč)</span></span>
         </div>
     </div>
 </ion-view>

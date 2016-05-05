@@ -3,6 +3,13 @@
 angular.module('wos.services.rating', [])
 
 .factory('rating', function ($http, api) {
+    /// <summary>
+    /// Factory for rating.
+    /// </summary>
+    /// <param name="$http" type="type"></param>
+    /// <param name="api" type="type"></param>
+    /// <returns type="object">rating</returns>
+
     function countFullStars(num) {
         /// <summary>
         /// Counts how many full star should be generated from given rating.

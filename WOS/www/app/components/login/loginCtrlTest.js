@@ -73,7 +73,7 @@
     it('should call $state go() to tab.home, when login is successful', function () {
         var $scope = {};
         $scope.$on = function () { };
-        httpBackend.whenGET('http://sp2.binarity-testing.cz/mobile/user/login?email=martin.zid@gmail.com&password=1234')
+        httpBackend.whenGET('http://sp2.binarity-testing.cz/mobile/user/login')
             .respond([{
                 id_uzivatel: 18,
                 mobilelogin: 'sadsg432wffwfqw;'
@@ -94,7 +94,7 @@
     it('should set user, errorOrigin and status when login failed', function () {
         var $scope = {};
         $scope.$on = function () { };
-        httpBackend.whenGET('http://sp2.binarity-testing.cz/mobile/user/login?email=martin.zid@gmail.com&password=1234')
+        httpBackend.whenGET('http://sp2.binarity-testing.cz/mobile/user/login')
             .respond(500, '');
         var controller = ctrl('LoginCtrl', {
             $scope: $scope, $ionicModal: ionicModalMock,

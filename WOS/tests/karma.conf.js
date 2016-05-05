@@ -43,6 +43,8 @@ module.exports = function(config){
 
         browsers : ['Chrome'],
 
+        //browserNoActivityTimeout: 100000,
+
         plugins : [
             'karma-chrome-launcher',
             'karma-jasmine',

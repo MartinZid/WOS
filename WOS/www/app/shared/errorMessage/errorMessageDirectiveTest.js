@@ -27,7 +27,6 @@
     }));
 
     it('Replaces the element with the appropriate content', function () {
-        // Compile a piece of HTML containing the directive
         $rootScope.status = 2;
         expect(element.html()).toContain('<div class="error-message">');
     });

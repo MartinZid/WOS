@@ -10,12 +10,17 @@ angular.module('wos.controllers.profile', [])
     /// <param name="$scope" type="type"></param>
     /// <param name="$stateParams" type="type"></param>
     /// <param name="profile" type="type"></param>
-    /// <param name="rating type="type"></param>
+    /// <param name="$ionicModal" type="type"></param>
+    /// <param name="$ionicHistory" type="type"></param>
+    /// <param name="$state" type="type"></param>
+    /// <param name="$filter" type="type"></param>
 
+    // get profile id from "url"
     $scope.id = $stateParams.profileId;
     $scope.profile;
     $scope.status = 3;
     $scope.userItemsSum = 0;
+    // get device's platform
     $scope.platform = ionic.Platform.platform();
 
     getProfileData($scope.id);
@@ -44,6 +49,9 @@ angular.module('wos.controllers.profile', [])
             });
     };
     $scope.doRefresh = function () {
+        /// <summary>
+        /// Refreshes page.
+        /// </summary>
         console.log('refreshing...');
         getProfileData($scope.id);
     }
@@ -58,20 +66,6 @@ angular.module('wos.controllers.profile', [])
 
     $scope.goBack = function () {
         $ionicHistory.goBack();
-    };
-
-    $ionicModal.fromTemplateUrl('message.html', {
-        scope: $scope,
-        animation: 'slide-in-up'
-    }).then(function (modal) {
-        $scope.messageModal = modal;
-    });
-    $scope.openMessageModal = function ($event, profile) {
-        $scope.messageModal.show();
-        $scope.reviews = profile;
-    };
-    $scope.closeMessageModal = function () {
-        $scope.messageModal.hide();
     };
 
     $ionicModal.fromTemplateUrl('reviews.html', {

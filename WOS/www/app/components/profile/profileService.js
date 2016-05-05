@@ -30,7 +30,7 @@ angular.module('wos.services.profile', [])
             /// <param name="password" type="type"></param>
             /// <returns type="promise"></returns>
             return $http({
-                method: 'GET',
+                method: 'POST',
                 url: api.url + 'mobile/registration/?name=' + name + '&surname=' + surname + '&email=' + email + '&pass=' + password
             })
         },
@@ -54,7 +54,10 @@ angular.module('wos.services.profile', [])
             /// <returns type="promise"></returns>
             return $http({
                 method: 'GET',
-                url: api.url + 'mobile/user/login?email=' + email + '&password=' + password
+                headers: {
+                    Authorization: 'Basic ' + btoa(email + ':' + password)
+                },
+                url: api.url + 'mobile/user/login'//?email=' + email + '&password=' + password
             })
         },
         login: function (userIdentity) {

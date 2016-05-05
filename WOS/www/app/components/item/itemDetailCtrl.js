@@ -11,17 +11,26 @@ angular.module('wos.controllers.itemDetail', [])
     /// <param name="item" type="type"></param>
     /// <param name="$stateParams" type="type"></param>
     /// <param name="$ionicSlideBoxDelegate" type="type"></param>
+    /// <param name="api" type="type"></param>
     /// <param name="$ionicPopover" type="type"></param>
     /// <param name="$cordovaGeolocation" type="type"></param>
+    /// <param name="$ionicHistory" type="type"></param>
+    /// <param name="$state" type="type"></param>
+    /// <param name="$ionicModal" type="type"></param>
+    /// <param name="profile" type="type"></param>
+
+    // get id of item form "url"
     $scope.id = $stateParams.itemId;
     $scope.item = {
         'prumerne_hodnoceni': 0 ///this has to be defined, because rating.getFullStars is called event before all data is loaded
     };
     $scope.status = 3;
     $scope.imgUrl = api.url;
+    // device platform
     $scope.platform = ionic.Platform.platform();
     $scope.events = [];
-    $scope.user
+    $scope.user;
+    // is map draggable
     $scope.draggable = false;
 
     getItemDetail($scope.id);
@@ -52,6 +61,9 @@ angular.module('wos.controllers.itemDetail', [])
             });
     }
     $scope.doRefresh = function () {
+        /// <summary>
+        /// Refreshes page
+        /// </summary>
         console.log('refreshing...');
         getItemDetail($scope.id)
     }
@@ -84,6 +96,9 @@ angular.module('wos.controllers.itemDetail', [])
     });
 
     $scope.toggleDraggable = function () {
+        /// <summary>
+        /// Toggle dragable a set changed value to map options.
+        /// </summary>
         $scope.draggable = !$scope.draggable;
         $scope.map.setOptions({ draggable: $scope.draggable });
     }
@@ -167,6 +182,7 @@ angular.module('wos.controllers.itemDetail', [])
     }
 
     $scope.uiConfig = {
+        // ui calendat config object
         calendar: {
             height: 450,
             firstDay:1,

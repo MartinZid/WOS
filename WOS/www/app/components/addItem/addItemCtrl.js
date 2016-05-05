@@ -7,8 +7,16 @@ angular.module('wos.controllers.addItem', [])
     /// Controller for add item view.
     /// </summary>
     /// <param name="$scope" type="type"></param>
-
-    //$scope.imgURI = 'http://sp2.binarity-testing.cz/images/photos/56ab947e496de.png';
+    /// <param name="$cordovaCamera" type="type"></param>
+    /// <param name="$ionicHistory" type="type"></param>
+    /// <param name="$cordovaFileTransfer" type="type"></param>
+    /// <param name="$state" type="type"></param>
+    /// <param name="category" type="type"></param>
+    /// <param name="locality" type="type"></param>
+    /// <param name="$ionicModal" type="type"></param>
+    /// <param name="item" type="type"></param>
+    /// <param name="api" type="type"></param>
+    /// <param name="profile" type="type"></param>
 
     $scope.price = { period: 1 };
     $scope.item = { price: null };
@@ -18,8 +26,10 @@ angular.module('wos.controllers.addItem', [])
     $scope.allCategories = [];
     $scope.select = [];
     $scope.status = 3;
+    // device platform
     $scope.platform = ionic.Platform.platform();
     $scope.localities;
+    // generate random image name
     $scope.imageName = Math.random().toString(36).slice(2) + '.jpg';
     $scope.selectedLocality = {};
     $scope.selectedLocalities = [];
@@ -35,6 +45,8 @@ angular.module('wos.controllers.addItem', [])
         day: undefined
     };
     $scope.locality.day = 'Pondělí';
+
+    // get logged in user id and APIkey
     $scope.user = profile.getLoggedInUserData();
 
     $scope.addPrice = function () {
@@ -66,8 +78,8 @@ angular.module('wos.controllers.addItem', [])
         /// Access device's camera.
         /// </summary>
         var options = {
+            // options config object
             quality: 100,
-            //destinationType: Camera.DestinationType.DATA_URL,
             destinationType: Camera.DestinationType.FILE_URI,
             sourceType: Camera.PictureSourceType.CAMERA,
             allowEdit: true,
@@ -79,12 +91,8 @@ angular.module('wos.controllers.addItem', [])
         };
 
         $cordovaCamera.getPicture(options).then(function (imageData) {
-            //$scope.imgURI = "data:image/jpeg;base64," + imageData;
             $scope.imgURI = imageData;
-            //$scope.uploadImage(imageData);
-        }, function (err) {
-            // An error occured. Show a message to the user
-        });
+        }, function (err) { });
     };
 
     // we navigated from another tab
@@ -101,6 +109,7 @@ angular.module('wos.controllers.addItem', [])
         /// <param name="index" type="type"></param>
 
         if (index != 0) {
+            // get id of selected category
             $scope.selectedCategory = $scope.allCategories[index - 1][$scope.select[index - 1]].id_kategorie;
         }
 
@@ -114,9 +123,14 @@ angular.module('wos.controllers.addItem', [])
                 $scope.status = 2;
             });
     };
+
+    // get categorie of root category
     $scope.getChildCategories(0);
 
     $scope.doRefresh = function () {
+        /// <summary>
+        /// Refreshes page.
+        /// </summary>
         console.log('refreshing...');
         $scope.getChildCategories(0);
         $scope.getLocalities();
@@ -167,7 +181,9 @@ angular.module('wos.controllers.addItem', [])
             psc: locality.postal_code,
             days: locality.days
         });
+        console.log($scope.selectedLocalities)
 
+        // reset modal
         $scope.locality.street = '';
         $scope.locality.city = '';
         $scope.locality.postal_code = '';
@@ -191,24 +207,42 @@ angular.module('wos.controllers.addItem', [])
         return i;
     }
 
+    function getDayNumber(day) {
+        /// <summary>
+        /// Transforms day into number. Monday is 0
+        /// </summary>
+        /// <param name="day" type="type"></param>
+        if (day == 'Pondělí')
+            return 0;
+        if (day == 'Úterý')
+            return 1;
+        if (day == 'Středa')
+            return 2;
+        if (day == 'Čtvrtek')
+            return 3;
+        if (day == 'Pátak')
+            return 4;
+        if (day == 'Sobota')
+            return 5;
+        if (day == 'Neděle')
+            return 6;
+    }
+
     $scope.addDay = function () {
         /// <summary>
         /// Saves day availibility to days array. Resets form for new day avalibility.
         /// </summary>
         if ($scope.locality.from == null || $scope.locality.to == null || $scope.locality.day == undefined)
             return;
-
-        console.log($scope.locality.from.getHours());
-        //var parsedFrom = $scope.locality.from.split('T')[0].split('Z')[0];
-        //var parsedTo = $scope.locality.to.split('T')[0].split('Z')[0];
       
         $scope.locality.days.push({
             from: addZero($scope.locality.from.getHours()) + ':' + addZero($scope.locality.from.getMinutes()),
             to: addZero($scope.locality.to.getHours()) + ':' + addZero($scope.locality.to.getMinutes()),
-            day: $scope.locality.day
+            day: getDayNumber($scope.locality.day),
+            strDay: $scope.locality.day
         });
-        $scope.locality.from = null;
-        $scope.locality.to = null;
+        
+        // reset form
         $scope.locality.day = undefined;
         $scope.forms.newLocality.from.$setUntouched();
         $scope.forms.newLocality.to.$setUntouched();
@@ -235,6 +269,9 @@ angular.module('wos.controllers.addItem', [])
     };
 
     $scope.uploadImage = function () {
+        /// <summary>
+        /// Uploads image to server.
+        /// </summary>
         var server = api.url + 'Upload.php';
         $scope.upload = 'in upload function';
         var options = {
@@ -247,8 +284,6 @@ angular.module('wos.controllers.addItem', [])
         $cordovaFileTransfer.upload(server, $scope.imgURI, options, true)
             .then(function(result) {
                 $scope.upload = 'Upload succeeded' + $scope.imageName + ' \n' + angular.toJson(result);
-                //$state.go('tab.account');
-                //$scope.spinning = false;
                 $scope.createItem();
             }, function(err) {
                 $scope.upload = 'Upload failed ';
@@ -275,8 +310,7 @@ angular.module('wos.controllers.addItem', [])
             currency: 1,
             code: $scope.user.APIkey
         };
-        console.log(createdItem);
-        console.log(angular.toJson(createdItem));
+
         item.addItem(createdItem)
             .success(function (data) {
                 console.log('add item successful');

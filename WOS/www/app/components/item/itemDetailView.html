@@ -118,13 +118,13 @@
             {{ 'item.localities' | translate }}
         </div>
         <i class="map-lock" ng-click="toggleDraggable()"
-           ng-class="{'ion-locked': !draggable, 'ion-unlocked': draggable}"></i>
+           ng-class="{'ion-locked': !draggable, 'ion-unlocked': draggable}" ng-show="status === 0"></i>
         <div id="map" data-tap-disabled="true" draggable="false" ng-show="status === 0 && !mapDisabled"></div>
 
         <div class="padding legend" ng-show="status === 0">
             {{ 'item.availibility' | translate }}
         </div>
-        <div ui-calendar="uiConfig.calendar" ng-model="eventSources" class="padding"></div>
+        <div ui-calendar="uiConfig.calendar" ng-model="eventSources" class="padding" ng-show="status === 0"></div>
 
         <div class="padding legend" ng-show="status === 0 && item.similarItems.length > 0">
             {{ 'item.similar_items' | translate }}

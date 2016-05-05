@@ -7,6 +7,7 @@ angular.module('wos.services.notifications', [])
     /// </summary>
     /// <param name="$http" type="type"></param>
     /// <param name="api" type="type"></param>
+    /// <returns type="object">notifications</returns>
 
     return {
         getAll: function (userId, code) {

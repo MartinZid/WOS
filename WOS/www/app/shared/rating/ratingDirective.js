@@ -8,24 +8,21 @@ angular.module('wos.directives.rating', [])
     /// </summary>
     /// <param name="$parse" type="type"></param>
     /// <param name="rating" type="type"></param>
-    /// <returns type="object">Directive</returns>
+    /// <returns type="object">rating directive</returns>
 
     return {
         templateUrl: 'app/shared/rating/ratingView.html',
-        //scope: {
-        //    rating: '=',
-        //    getFullStars: rating.getFullStars,
-        //    hasHalfStar: rating.hasHalfStar,
-        //    getEmptyStars: rating.getEmptyStars
-        //}
         link: function (scope, elem, attrs) {
 
             attrs.$observe('rating', function (value) {
+                /// <summary>
+                /// Update value for every view.
+                /// </summary>
+                /// <param name="value" type="type"></param>
                 scope.rating = value;
             });
 
-            //scope.rating = $parse(attrs.rating)(scope);
-
+            // define rating service methods
             scope.getFullStars = rating.getFullStars;
             scope.hasHalfStar = rating.hasHalfStar;
             scope.getEmptyStars = rating.getEmptyStars;

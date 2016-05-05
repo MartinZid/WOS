@@ -51,7 +51,7 @@
         })
     }));
 
-    beforeEach(inject(function (_$controller_, _category_, _locality_, _item_, $httpBackend, $q) {
+    beforeEach(inject(function (_$controller_, _category_, _locality_, _item_, $httpBackend, $q, _profile_) {
         ctrl = _$controller_;
         category = _category_;
         locality = _locality_;
@@ -81,6 +81,11 @@
             close: jasmine.createSpy('modal spy'),
         };
         cordovaTransferMock = jasmine.createSpy('$cordovaFileTransfer spy');
+        profile = _profile_;
+        profile.login({
+            id_uzivatel: 18,
+            mobilelogin: 'asdfasdf'
+        });
     }));
 
     afterEach(function () {

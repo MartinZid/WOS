@@ -6,11 +6,14 @@ angular.module('wos.controllers.cart', [])
     /// Controller for cart view.
     /// </summary>
     /// <param name="$scope" type="type"></param>
+    /// <param name="cart" type="type"></param>
+    /// <param name="api" type="type"></param>
+    /// <param name="$state" type="type"></param>
+    /// <param name="profile" type="type"></param>
+
     $scope.status = 0;
     $scope.imgUrl = api.url;
     $scope.deletedItem;
-
-    console.log(cart.getAll());
 
     $scope.$on('$ionicView.beforeEnter', function () {
         /// <summary>
@@ -19,34 +22,6 @@ angular.module('wos.controllers.cart', [])
         $scope.status = 0;
         $scope.getDataFromCart();
     });
-
-    $scope.getDataFromCart = function () {
-        /// <summary>
-        /// Gets data from cart service, and parse date to readable format.
-        /// Date: "2016-04-07T22:00:00.000Z" + Time: "1970-01-01T09:00:00.000Z" => "09:00 07.04.2016" 
-        /// </summary>
-        $scope.orders = cart.getAll();
-        console.log($scope.orders);
-        $scope.orders.forEach(function (order) {
-            var tmpfromDate = order.from.date.split('T')[0].split('-');
-            var tmpFromTime = order.from.time.split('T')[1].split('.')[0].split(':');
-            order.stringFrom = tmpFromTime[0] + ':' + tmpFromTime[1] + ' ';
-            order.stringFrom += parseInt(tmpfromDate[2])+1 + '.';
-            order.stringFrom += tmpfromDate[1] + '.';
-            order.stringFrom += tmpfromDate[0];
-            order.from.datetime = order.from.date.split('T')[0] + 'T' + order.from.time.split('T')[1];
-
-            var tmpfromDate = order.to.date.split('T')[0].split('-');
-            var tmpFromTime = order.to.time.split('T')[1].split('.')[0].split(':');
-            order.stringTo = tmpFromTime[0] + ':' + tmpFromTime[1] + ' ';
-            order.stringTo += parseInt(tmpfromDate[2])+1 + '.';
-            order.stringTo += tmpfromDate[1] + '.';
-            order.stringTo += tmpfromDate[0];
-            order.to.datetime = order.to.date.split('T')[0] + 'T' + order.to.time.split('T')[1];
-        });
-    }
-
-    $scope.getDataFromCart();
 
     $scope.data = { //default state for cart list
         showDelete: false
@@ -90,7 +65,6 @@ angular.module('wos.controllers.cart', [])
         /// </summary>
         /// <param name="order" type="type"></param>
         /// <param name="index" type="type"></param>
-        //$scope.deleteItem(index);
         cart.setUpdatedLease(index);
         $state.go('tab.order', { itemId: order.item.id });
     };
@@ -120,4 +94,31 @@ angular.module('wos.controllers.cart', [])
         console.log(angular.toJson(wholeCart));
     };
 
+        $scope.getDataFromCart = function () {
+        /// <summary>
+        /// Gets data from cart service, and parse date to readable format.
+        /// Date: "2016-04-07T22:00:00.000Z" + Time: "1970-01-01T09:00:00.000Z" => "09:00 07.04.2016" 
+        /// </summary>
+        $scope.orders = cart.getAll();
+        console.log($scope.orders);
+        $scope.orders.forEach(function (order) {
+            var tmpfromDate = order.from.date.split('T')[0].split('-');
+            var tmpFromTime = order.from.time.split('T')[1].split('.')[0].split(':');
+            order.stringFrom = tmpFromTime[0] + ':' + tmpFromTime[1] + ' ';
+            order.stringFrom += parseInt(tmpfromDate[2])+1 + '.';
+            order.stringFrom += tmpfromDate[1] + '.';
+            order.stringFrom += tmpfromDate[0];
+            order.from.datetime = order.from.date.split('T')[0] + 'T' + order.from.time.split('T')[1];
+
+            var tmpfromDate = order.to.date.split('T')[0].split('-');
+            var tmpFromTime = order.to.time.split('T')[1].split('.')[0].split(':');
+            order.stringTo = tmpFromTime[0] + ':' + tmpFromTime[1] + ' ';
+            order.stringTo += parseInt(tmpfromDate[2])+1 + '.';
+            order.stringTo += tmpfromDate[1] + '.';
+            order.stringTo += tmpfromDate[0];
+            order.to.datetime = order.to.date.split('T')[0] + 'T' + order.to.time.split('T')[1];
+        });
+    }
+
+    $scope.getDataFromCart();
 })

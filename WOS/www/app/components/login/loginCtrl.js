@@ -1,4 +1,5 @@
 ﻿'use strict';
+
 angular.module('wos.controllers.login', [])
 
 .controller('LoginCtrl', function ($scope, $ionicModal, $state, profile, $ionicViewSwitcher) {
@@ -8,6 +9,8 @@ angular.module('wos.controllers.login', [])
     /// <param name="$scope" type="type"></param>
     /// <param name="$ionicModal" type="type"></param>
     /// <param name="$state" type="type"></param>
+    /// <param name="profile" type="type"></param>
+    /// <param name="$ionicViewSwitcher" type="type"></param>
     $scope.email;
     $scope.status = 3;
     $scope.errorOrigin = 0; // 0 = no error, 1 = login failed, 2 = forgotten password failed

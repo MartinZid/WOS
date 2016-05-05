@@ -12,7 +12,7 @@ angular.module('wos.services.item', [])
     return {
         getAll: function () {
             /// <summary>
-            /// Returns a promise for all items. Used in homepage controller.
+            /// Returns a promise for all items.
             /// </summary>
             /// <returns type="promise"></returns>
             return $http({
@@ -44,7 +44,7 @@ angular.module('wos.services.item', [])
         },
         addItem: function (item) {
             /// <summary>
-            /// Uploads item to server.
+            /// Uploads item to server. Add item controller.
             /// </summary>
             /// <param name="item" type="object"></param>
             /// <returns type="promise"></returns>

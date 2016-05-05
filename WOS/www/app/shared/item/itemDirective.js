@@ -8,14 +8,18 @@ angular.module('wos.directives.item', [])
     /// </summary>
     /// <param name="$parse" type="type"></param>
     /// <param name="api" type="type"></param>
-    /// <returns type="object">Directive</returns>
+    /// <returns type="object">item directive</returns>
 
     return {
         templateUrl: 'app/shared/item/itemView.html',
         link: function (scope, elem, attrs) {
+            // get item object from attr and save it to scope
             scope.item = $parse(attrs.name)(scope);
             scope.url = api.url;
             scope.goToDetail = function () {
+                /// <summary>
+                /// Redirects user to item detail.
+                /// </summary>
                 $state.go('tab.item-detail', { itemId: scope.item.id_instance })
             }
         }
