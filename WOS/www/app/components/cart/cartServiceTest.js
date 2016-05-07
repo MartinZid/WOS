@@ -128,6 +128,43 @@ describe('Cart service', function () {
         })
     });
 
+    describe('testing delete lease functions', function () {
+        var order,
+            order2;
+
+        beforeEach(function () {
+            order = {
+                id: 1,
+                data: 'some data'
+            }
+            order2 = {
+                id: 2,
+                data: 'some more data'
+            }
+            cartService.clearCart();
+            cartService.addToCart(order);
+            cartService.addToCart(order2);
+        })
+
+        it('setDeletedLease should delete deleted lease from cart', function () {
+            cartService.setDeletedLease(1);
+            expect(cartService.getAll()[0]).toEqual(order);
+        })
+
+        it('getDeletedLease should return deleted lease', function () {
+            cartService.setDeletedLease(order);
+            var deletedLease = cartService.getDeletedLease();
+            expect(deletedLease).toEqual(order);
+        })
+
+        it('deleteDeletdLease should delete deleted lease', function () {
+            cartService.setDeletedLease(1);
+            cartService.deleteDeletedLease();
+            var deletedLease = cartService.getUpdatedLease();
+            expect(deletedLease).toBe(null);
+        })
+    });
+
     describe('testing sendOrders function', function () {
         it('sendOrders should POST correct request and have success callback when responded with status 200', function () {
             var order = {

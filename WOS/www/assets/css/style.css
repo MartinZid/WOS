@@ -14,6 +14,10 @@
 .nav-search {
     margin-top: 0px;
 }
+.platform-android .bar .title-left {
+    left: 1.0em !important;
+}
+
 .platform-android .nav-search{
     width: 90%;
     margin-left: 20px;
@@ -321,7 +325,7 @@ a.button.button-icon.icon.ion-ios-search-strong:before {
     font-size: 185%;
 }
 .force-back-android {
-    font-size: 133%;
+    font-size: 148%;
 }
 .rent-card-th {
     text-align: left;

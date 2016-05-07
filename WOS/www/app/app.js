@@ -1,7 +1,5 @@
 ﻿'use strict';
 
-var db;
-
 angular.module('wos', ['ionic',
                        'wos.controllers.homepage',
                        'wos.controllers.search',
@@ -44,8 +42,6 @@ angular.module('wos', ['ionic',
       // org.apache.cordova.statusbar required
       StatusBar.styleLightContent();
     }
-    //db = $cordovaSQLite.openDB("my.db");
-    //$cordovaSQLite.execute(db, "CREATE TABLE IF NOT EXISTS people (id integer primary key, firstname text, lastname text)");
   });
 })
 
@@ -263,7 +259,7 @@ angular.module('wos', ['ionic',
             'select_from': 'Zvolte si termín, od kdy si chcete položku vypůjčit.',
             'select_to': 'Zvolte si termín, do kdy si chcete položku vypůjčit.',
             'add_to_cart': 'Vložit do košíku',
-            'date_too_low': 'Datum do musí být pozdější termín než datum od',
+            'date_too_low': 'Datum "do" musí být pozdější termín než datum "od"',
             'pick_date': 'Zvolte datum',
             'dates_overlap': 'Tento termín se překrývá s již rezervovaným termínem',
             'finish_editing': 'Dokončit úpravy'
@@ -286,9 +282,6 @@ angular.module('wos', ['ionic',
     $ionicConfigProvider.backButton.previousTitleText(false).text('');
     // needs to be disabled due to no cache view bug
     $ionicConfigProvider.views.swipeBackEnabled(false);
-
-    //$ionicConfigProvider.tabs.position('bottom');
-    //$ionicConfigProvider.navBar.alignTitle('center');
 
     $stateProvider
 
@@ -372,7 +365,7 @@ angular.module('wos', ['ionic',
 
 
    .state('tab.account', {
-       url: '/account',
+       url: '/account/',
        views: {
            'account': {
                templateUrl: 'app/components/account/accountView.html',
@@ -413,13 +406,13 @@ angular.module('wos', ['ionic',
    });
 
     // if none of the above states are matched
-    $urlRouterProvider.otherwise('/tab/account');
-    //$urlRouterProvider.otherwise('/tab/account/addItem');
-    //$urlRouterProvider.otherwise('tab/home/order/24');
-    //$urlRouterProvider.otherwise('tab/cart');
+    $urlRouterProvider.otherwise('/tab/account/');
 })
 
 .config(function (ionicDatePickerProvider) {
+    /// <summary>
+    /// Config function for ionic datepicker
+    /// </summary>
     var datePickerObj = {
         inputDate: new Date(),
         setLabel: 'Nastavit',
@@ -429,7 +422,7 @@ angular.module('wos', ['ionic',
         templateType: 'popup',
         showTodayButton: false,
         dateFormat: 'dd MMMM yyyy',
-        closeOnSelect: false,
+        closeOnSelect: true,
     };
     ionicDatePickerProvider.configDatePicker(datePickerObj);
 })

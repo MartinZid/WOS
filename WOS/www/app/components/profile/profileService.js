@@ -1,7 +1,7 @@
 ﻿'use strict';
 angular.module('wos.services.profile', [])
 
-.factory('profile', function ($http, api) {
+.factory('profile', function ($http, api, cart) {
     /// <summary>
     /// Factory for profile.
     /// </summary>
@@ -83,7 +83,8 @@ angular.module('wos.services.profile', [])
             /// Deletes user identity and cart from localStorage.
             /// </summary>
             localStorage.setItem("user", null);
-            localStorage.setItem("cart", null);
+            //localStorage.setItem("cart", null);
+            cart.clearCart();
         }
     };
 })

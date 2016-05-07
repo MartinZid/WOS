@@ -24,21 +24,22 @@
         </div>
 
         <ion-list>
-            <ion-item ng-repeat="item in items" item="item" class="item-remove-animate item-text-wrap">               
+            <ion-item ng-repeat="item in items track by $index" item="item" class="item-remove-animate item-text-wrap"
+                      ng-click="goTo($index)">               
                 <span ng-show="item.type === 'new_rating'">
                     <a ng-href="#/tab/home/profile/{{item.id_uzivatel}}">{{ 'notifications.new_rating' | translate }}!</a>
                 </span>
                 <span ng-show="item.type === 'item_added_into_cart'">
-                    {{ 'notifications.your_item' | translate }} <a ng-href="#/tab/account">{{ item.parametry.instance }}</a> {{ 'notifications.was_added_into_cart' | translate }}.
+                    {{ 'notifications.your_item' | translate }} <a ng-href="#/tab/account/3">{{ item.parametry.instance }}</a> {{ 'notifications.was_added_into_cart' | translate }}.
                 </span>
                 <span ng-show="item.type === 'item_hidden'">
-                    {{ 'notifications.your_item' | translate }} <a ng-href="#/tab/account">{{ item.parametry.name }}</a> {{ 'notifications.was_hidden' | translate }}.
+                    {{ 'notifications.your_item' | translate }} <a ng-href="#/tab/account/1">{{ item.parametry.name }}</a> {{ 'notifications.was_hidden' | translate }}.
                 </span>
                 <span ng-show="item.type === 'item_approved'">
-                    {{ 'notifications.your_item' | translate }} <a ng-href="#tab/account">{{ item.parametry.name }}</a> {{ 'notifications.was_approved' | translate }}.
+                    {{ 'notifications.your_item' | translate }} <a ng-href="#tab/account/1">{{ item.parametry.name }}</a> {{ 'notifications.was_approved' | translate }}.
                 </span>
                 <span ng-show="item.type === 'item_deleted'">
-                    {{ 'notifications.your_item' | translate }} <a ng-href="#/tab/account">{{ item.parametry.name }}</a> {{ 'notifications.was_deleted' | translate }}.
+                    {{ 'notifications.your_item' | translate }} <a ng-href="#/tab/account/1">{{ item.parametry.name }}</a> {{ 'notifications.was_deleted' | translate }}.
                 </span>
                 <p class="notifications-date">
                     {{item.myDate}}

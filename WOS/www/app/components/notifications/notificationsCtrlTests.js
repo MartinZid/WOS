@@ -10,6 +10,7 @@
     beforeEach(module('wos.services.notifications'));
     beforeEach(module('wos.services.profile'));
     beforeEach(module('wos.api'));
+    beforeEach(module('wos.services.cart'));
 
     beforeEach(inject(function (_$controller_, $httpBackend, _profile_) {
         ctrl = _$controller_;
@@ -57,22 +58,6 @@
         beforeEnter($scope);
         httpBackend.flush();
         expect(typeof $scope.doRefresh).toBe('function');
-    });
-    it('should set data.showDelete to false', function () {
-        var $scope = {};
-        $scope.$on = function () { };
-        var controller = ctrl('NotificationsCtrl', { $scope: $scope, $state: stateMock });
-        beforeEnter($scope);
-        httpBackend.flush();
-        expect($scope.data.showDelete).toBe(false);
-    });
-    it('delete notification function should be defined', function () {
-        var $scope = {};
-        $scope.$on = function () { };
-        var controller = ctrl('NotificationsCtrl', { $scope: $scope, $state: stateMock });
-        beforeEnter($scope);
-        httpBackend.flush();
-        expect(typeof $scope.deleteItem).toBe('function');
     });
     it('error should set status variable to 2', function () {
         var $scope = {};

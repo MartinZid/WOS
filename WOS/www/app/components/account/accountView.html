@@ -75,7 +75,11 @@
                             <tbody>
                                 <tr>
                                     <th class="rent-card-th">{{ 'profile.leases.item' | translate}}</th>
-                                    <td class="rent-card-td">{{lease.instance.jmeno}}</td>
+                                    <td class="rent-card-td">
+                                        <a ng-href="#/tab/home/{{lease.instance.id_instance_original}}">
+                                            {{lease.instance.jmeno}}
+                                        </a>
+                                    </td>
                                 </tr>
                                 <tr>
                                     <th class="rent-card-th">{{ 'profile.leases.from' | translate}}</th>
@@ -87,7 +91,11 @@
                                 </tr>
                                 <tr>
                                     <th class="rent-card-th">{{ 'profile.leases.from_user' | translate}}</th>
-                                    <td class="rent-card-td">{{lease.thatUser.jmeno}} {{lease.thatUser.prijmeni}}</td>
+                                    <td class="rent-card-td">
+                                        <a ng-href="#/tab/home/profile/{{lease.thatUser.id_uzivatel}}">
+                                            {{lease.thatUser.jmeno}} {{lease.thatUser.prijmeni}}
+                                        </a>
+                                    </td>
                                 </tr>
                                 <tr>
                                     <th class="rent-card-th">{{ 'profile.leases.state' | translate}}</th>
@@ -174,7 +182,11 @@
                             <tbody>
                                 <tr>
                                     <th class="rent-card-th">{{ 'profile.leases.item' | translate}}</th>
-                                    <td class="rent-card-td">{{rent.instance.jmeno}}</td>
+                                    <td class="rent-card-td">
+                                        <a ng-href="#/tab/home/{{rent.instance.id_instance_original}}">
+                                            {{rent.instance.jmeno}}
+                                        </a>
+                                    </td>
                                 </tr>
                                 <tr>
                                     <th class="rent-card-th">{{ 'profile.leases.from' | translate}}</th>
@@ -186,7 +198,11 @@
                                 </tr>
                                 <tr>
                                     <th class="rent-card-th">{{ 'profile.leases.to_user' | translate}}</th>
-                                    <td class="rent-card-td">{{rent.thatUser.jmeno}} {{rent.thatUser.prijmeni}}</td>
+                                    <td class="rent-card-td">
+                                        <a ng-href="#/tab/home/profile/{{rent.thatUser.id_uzivatel}}">
+                                            {{rent.thatUser.jmeno}} {{rent.thatUser.prijmeni}}
+                                        </a>
+                                    </td>
                                 </tr>
                                 <tr>
                                     <th class="rent-card-th">{{ 'profile.leases.state' | translate}}</th>

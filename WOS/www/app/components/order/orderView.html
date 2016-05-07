@@ -123,8 +123,8 @@
                 <div class="row">
                     <div class="col col-50">
                         <label class="item item-input item-stacked-label no-error"
-                               ng-class="{ 'has-error' : forms.dateForm.timeFrom.$invalid && forms.dateForm.timeFrom.$touched,
-                                                   'no-error' : forms.dateForm.timeFrom.$valid || forms.dateForm.timeFrom.$untouched }">
+                               ng-class="{ 'has-error' : forms.dateForm.timeFrom.$invalid && forms.dateForm.timeFrom.$touched || (from.date && forms.dateForm.timeFrom.$untouched && !from.time),
+                                           'no-error' : forms.dateForm.timeFrom.$valid || forms.dateForm.timeFrom.$untouched }">
                             <span class="input-label">{{ 'addItem.from' | translate }}</span>
                             <input type="time" name="timeFrom" ng-model="from.time" placeholder="{{ 'addItem.from' | translate }}" ng-change="countOrderPrice()" class="order-date-pick">
                         </label>
@@ -139,8 +139,8 @@
                 <div class="row new-address-fix">
                     <div class="col col-50">
                         <label class="item item-input item-stacked-label no-error"
-                               ng-class="{ 'has-error' : forms.dateForm.timeTo.$invalid && forms.dateForm.timeTo.$touched,
-                                                   'no-error' : forms.dateForm.timeTo.$valid || forms.dateForm.timeTo.$untouched }">
+                               ng-class="{ 'has-error' : forms.dateForm.timeTo.$invalid && forms.dateForm.timeTo.$touched || (to.date && forms.dateForm.timeTo.$untouched && !to.time),
+                                           'no-error' : forms.dateForm.timeTo.$valid || forms.dateForm.timeTo.$untouched }">
                             <span class="input-label">{{ 'addItem.from' | translate }}</span>
                             <input type="time" name="timeTo" ng-model="to.time" placeholder="{{ 'addItem.to' | translate }}" ng-change="countOrderPrice()"  class="order-date-pick">
                         </label>

@@ -8,6 +8,7 @@
     beforeEach(module('wos.controllers.login'));
     beforeEach(module('wos.services.profile'));
     beforeEach(module('wos.api'));
+    beforeEach(module('wos.services.cart'));
 
     beforeEach(inject(function (_$controller_, $q, $httpBackend) {
         ctrl = _$controller_;

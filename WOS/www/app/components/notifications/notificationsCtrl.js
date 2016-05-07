@@ -81,4 +81,16 @@ angular.module('wos.controllers.notifications', [])
         $state.go('tab.login');
     }
 
+    $scope.goTo = function (index) {
+        /// <summary>
+        /// Redirect user from notification to appropriate page.
+        /// </summary>
+        var item = $scope.items[index];
+
+        if (item.type === 'new_rating')
+            $state.go('tab.profile-detail', { profileId: item.id_uzivatel });
+        else 
+            $state.go('tab.account');
+    }
+
 })

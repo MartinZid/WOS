@@ -16,6 +16,7 @@ describe('ItemDetailCtrl', function () {
 
     beforeEach(module('wos.controllers.itemDetail'));
     beforeEach(module('wos.services.profile'));
+    beforeEach(module('wos.services.cart'));
 
     beforeEach(module(function ($provide) {
         $provide.factory('api', function ($http) {

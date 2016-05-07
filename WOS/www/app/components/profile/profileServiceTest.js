@@ -6,6 +6,7 @@ describe('Profile service', function () {
 
     beforeEach(module('wos.services.profile'));
     beforeEach(module('wos.api'));
+    beforeEach(module('wos.services.cart'));
 
     beforeEach(module(function ($provide) {
         $provide.factory('api', function () {

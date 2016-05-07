@@ -8,6 +8,7 @@ angular.module('wos.services.cart', [])
     /// <returns type="object">cart</returns>
 
     var updatedLease = null;
+    var deletedLease = null;
 
     return {
         addToCart: function (order) {
@@ -42,6 +43,8 @@ angular.module('wos.services.cart', [])
             /// <summary>
             /// Deletes whole cart from localStorage.
             /// </summary>
+            updatedLease = null;
+            deletedLease = null;
             localStorage.setItem("cart", null);
         },
         sendOrders: function (orders) {
@@ -77,6 +80,26 @@ angular.module('wos.services.cart', [])
             /// Deletes updated lease.
             /// </summary>
             updatedLease = null;
+        },
+        setDeletedLease: function (lease) {
+            /// <summary>
+            /// Set var deletedLease to the latest deleted lease from cart.
+            /// </summary>
+            /// <param name="index" type="type"></param>
+            deletedLease = lease;
+        },
+        getDeletedLease: function () {
+            /// <summary>
+            /// Return the latest deleted lease.
+            /// </summary>
+            /// <returns type=""></returns>
+            return deletedLease;
+        },
+        deleteDeletedLease: function () {
+            /// <summary>
+            /// Sets deleted lease to null.
+            /// </summary>
+            deletedLease = null;
         }
     }
 })

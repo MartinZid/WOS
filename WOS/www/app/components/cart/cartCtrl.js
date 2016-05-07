@@ -13,7 +13,7 @@ angular.module('wos.controllers.cart', [])
 
     $scope.status = 0;
     $scope.imgUrl = api.url;
-    $scope.deletedItem;
+
 
     $scope.$on('$ionicView.beforeEnter', function () {
         /// <summary>
@@ -21,6 +21,7 @@ angular.module('wos.controllers.cart', [])
         /// </summary>
         $scope.status = 0;
         $scope.getDataFromCart();
+        $scope.deletedItem = cart.getDeletedLease();
     });
 
     $scope.data = { //default state for cart list
@@ -33,7 +34,12 @@ angular.module('wos.controllers.cart', [])
         /// back to cart.
         /// </summary>
         /// <param name="index" type="type"></param>
-        $scope.deletedItem = $scope.orders[index];
+        cart.setDeletedLease($scope.orders[index]);
+        $scope.deletedItem = cart.getDeletedLease();
+
+        if ($scope.deletedItem != null)
+            $scope.deletedItem = $scope.deletedItem;
+
         cart.deleteFromCart(index);
         $scope.getDataFromCart();
     };

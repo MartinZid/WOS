@@ -9,19 +9,9 @@
         stateMock;
 
     beforeEach(module('wos.controllers.profile'));
-
-    beforeEach(module(function ($provide) {
-        $provide.factory('profile', function ($http) {
-            return {
-                getProfileData: function (id) {
-                    return $http({
-                        method: 'GET',
-                        url: 'http://sp2.binarity-testing.cz/mobile/user/user-profile?userID=28'
-                    });
-                },
-            }
-        })
-    }));
+    beforeEach(module('wos.services.cart'));
+    beforeEach(module('wos.services.profile'));
+    beforeEach(module('wos.api'));
 
     beforeEach(inject(function (_$controller_, _profile_, $httpBackend, $q) {
         ctrl = _$controller_;
