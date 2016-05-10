@@ -1,7 +1,7 @@
 ﻿'use strict';
 angular.module('wos.controllers.account', [])
 
-.controller('AccountCtrl', function ($scope, $state, profile, rent, $ionicModal, $ionicPopup,
+.controller('AccountCtrl', function ($scope, $state, profile, rent, $ionicModal, $ionicPopup, $rootScope,
                                      rating, $ionicViewSwitcher, $ionicScrollDelegate, $filter, $timeout) {
     /// <summary>
     /// Controller for homepage tab
@@ -12,6 +12,7 @@ angular.module('wos.controllers.account', [])
     /// <param name="rent" type="type"></param>
     /// <param name="$ionicModal" type="type"></param>
     /// <param name="$ionicPopup" type="type"></param>
+    /// <param name="$rootScope" type="type"></param>
     /// <param name="rating" type="type"></param>
     /// <param name="$ionicViewSwitcher" type="type"></param>
     /// <param name="$ionicScrollDelegate" type="type"></param>
@@ -19,7 +20,7 @@ angular.module('wos.controllers.account', [])
     /// <param name="$timeout" type="type"></param>
 
     //which secondary tab is selected
-    $scope.selectedSection = 1;
+    $scope.selectedSection = $rootScope.section || 1;
     $scope.status = 3;
     $scope.isRentsArray = true;
     $scope.isBorrowsArray = false;

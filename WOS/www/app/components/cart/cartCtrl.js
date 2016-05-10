@@ -50,6 +50,7 @@ angular.module('wos.controllers.cart', [])
         /// </summary>
         cart.addToCart($scope.deletedItem);
         $scope.deletedItem = null;
+        cart.deleteDeletedLease();
         $scope.getDataFromCart();
     }
 

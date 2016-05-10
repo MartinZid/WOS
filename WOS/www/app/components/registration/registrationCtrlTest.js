@@ -7,25 +7,16 @@
         user;
 
     beforeEach(module('wos.controllers.registration'));
-
-    beforeEach(module(function ($provide) {
-        $provide.factory('profile', function ($http) {
-            return {
-                registerUser: function (name, surname, email, password) {
-                    return $http({
-                        method: 'GET',
-                        url: 'http://sp2.binarity-testing.cz/mobile/registration/default?name=' + name + '&surname=' + surname + '&email' + email + '&pass=' + password
-                    })
-                }
-            };
-        })
-    }));
+    beforeEach(module('wos.services.profile'));
+    beforeEach(module('wos.services.cart'));
+    beforeEach(module('ionic'));
+    beforeEach(module('wos.api'));
 
     beforeEach(inject(function (_$controller_, $httpBackend) {
         ctrl = _$controller_;
         stateMock = stateMock = jasmine.createSpyObj('$state spy', ['go']);
         httpBackend = $httpBackend;
-        response = httpBackend.whenGET('http://sp2.binarity-testing.cz/mobile/registration/default?name=Martin&surname=Zid&emailzidmarti@fit.cvut.cz&pass=123456');
+        response = httpBackend.whenPOST('http://sp2.binarity-testing.cz/mobile/registration/?name=Martin&surname=Zid&email=zidmarti@fit.cvut.cz&pass=123456');
         response.respond({});
         user = {
             name: 'Martin',

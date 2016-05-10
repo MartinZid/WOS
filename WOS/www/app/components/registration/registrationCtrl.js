@@ -1,13 +1,14 @@
 ﻿'use strict';
 angular.module('wos.controllers.registration', [])
 
-.controller('RegistrationCtrl', function ($scope, $state, profile) {
+.controller('RegistrationCtrl', function ($scope, $state, profile, $ionicScrollDelegate) {
     /// <summary>
     /// Controller for registration.
     /// </summary>
     /// <param name="$scope" type="type"></param>
     /// <param name="$state" type="type"></param>
     /// <param name="profile" type="type"></param>
+    /// <param name="$ionicScrollDelegate" type="type"></param>
 
     $scope.status = 3;
     $scope.user;
@@ -37,6 +38,7 @@ angular.module('wos.controllers.registration', [])
                     password: user.password
                 };
             });
+        $scope.scrollTop();
     };
     $scope.doRefresh = function () {
         /// <summary>
@@ -50,6 +52,12 @@ angular.module('wos.controllers.registration', [])
         /// </summary>
         if (profile.getLoggedInUserData() !== null)
             $state.go('tab.account');
-    })
+    });
+    $scope.scrollTop = function () {
+        /// <summary>
+        /// Scrolls to the top of the page.
+        /// </summary>
+        $ionicScrollDelegate.scrollTop();
+    };
 
 })

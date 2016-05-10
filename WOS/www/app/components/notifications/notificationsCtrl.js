@@ -1,7 +1,7 @@
 ﻿'use strict';
 angular.module('wos.controllers.notifications', [])
 
-.controller('NotificationsCtrl', function ($scope, notifications, profile, $state) {
+.controller('NotificationsCtrl', function ($scope, notifications, profile, $state, $rootScope) {
     /// <summary>
     /// Controller for notifications view.
     /// </summary>
@@ -9,6 +9,7 @@ angular.module('wos.controllers.notifications', [])
     /// <param name="notifications" type="type"></param>
     /// <param name="profile" type="type"></param>
     /// <param name="$state" type="type"></param>
+    /// <param name="$rootScope" type="type"></param>
 
     $scope.status = 3;
     $scope.item;
@@ -86,6 +87,12 @@ angular.module('wos.controllers.notifications', [])
         /// Redirect user from notification to appropriate page.
         /// </summary>
         var item = $scope.items[index];
+
+        // select subsection in account view
+        if (item.type === 'item_added_into_cart')
+            $rootScope.section = 3;
+        else
+            $rootScope.section = 1;
 
         if (item.type === 'new_rating')
             $state.go('tab.profile-detail', { profileId: item.id_uzivatel });

@@ -141,7 +141,7 @@
                         <label class="item item-input item-stacked-label no-error"
                                ng-class="{ 'has-error' : forms.dateForm.timeTo.$invalid && forms.dateForm.timeTo.$touched || (to.date && forms.dateForm.timeTo.$untouched && !to.time),
                                            'no-error' : forms.dateForm.timeTo.$valid || forms.dateForm.timeTo.$untouched }">
-                            <span class="input-label">{{ 'addItem.from' | translate }}</span>
+                            <span class="input-label">{{ 'addItem.to' | translate }}</span>
                             <input type="time" name="timeTo" ng-model="to.time" placeholder="{{ 'addItem.to' | translate }}" ng-change="countOrderPrice()"  class="order-date-pick">
                         </label>
                     </div>
