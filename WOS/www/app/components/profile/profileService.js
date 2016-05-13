@@ -83,8 +83,26 @@ angular.module('wos.services.profile', [])
             /// Deletes user identity and cart from localStorage.
             /// </summary>
             localStorage.setItem("user", null);
+            localStorage.setItem("rents", null);
             //localStorage.setItem("cart", null);
             cart.clearCart();
+        },
+        getSavedRents: function () {
+            /// <summary>
+            /// Gets user rents from localStorage.
+            /// </summary>
+            /// <returns type=""></returns>
+            var rents = JSON.parse(localStorage.getItem("rents"));
+            if (rents == null)
+                rents = [[],[]];
+            return rents;
+        },
+        setSavedRents: function (rents) {
+            /// <summary>
+            /// Saves user rents in localStorage.
+            /// </summary>
+            /// <param name="rents" type="type"></param>
+            localStorage.setItem("rents", JSON.stringify(rents))
         }
     };
 })

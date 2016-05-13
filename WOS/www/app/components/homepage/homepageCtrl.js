@@ -34,7 +34,6 @@ angular.module('wos.controllers.homepage', [])
         item.getAll()
             .success(function (data) { ///if success save loaded data to $scope.items
                 $scope.items = data;
-                console.log(data);
                 $scope.status = 0;
                 if ($scope.items.length == 0) {
                     console.log('item.getAll: No data loaded.');

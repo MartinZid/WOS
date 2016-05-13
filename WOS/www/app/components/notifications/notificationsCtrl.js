@@ -42,7 +42,6 @@ angular.module('wos.controllers.notifications', [])
             .success(function (data) {
                 $scope.makeDataReadable(data);
                 $scope.items = data;
-                console.log(data);
                 $scope.status = 0;
                 if ($scope.items.length == 0) {
                     console.log('notifications.getAll: No data loaded.');
@@ -62,7 +61,6 @@ angular.module('wos.controllers.notifications', [])
         /// It is called after data is recieved from API.
         /// </summary>
         /// <param name="data" type="array"></param>
-        console.log(data);
         if (data == []) return;
         data.forEach(function (entry) {
             var tmpDate = entry.vytvoreno.date.split(' ')[0].split('-');

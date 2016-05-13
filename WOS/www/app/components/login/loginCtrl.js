@@ -50,7 +50,6 @@ angular.module('wos.controllers.login', [])
 
         $scope.spinning = true;
         console.log('reseting password');
-        console.log(email);
         profile.forgottenPassword(email)
             .success(function () {
                 $scope.spinning = false;

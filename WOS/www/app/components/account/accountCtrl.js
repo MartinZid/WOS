@@ -61,7 +61,6 @@ angular.module('wos.controllers.account', [])
         profile.getProfileData($scope.user.id)
             .success(function (data) { ///if success save loaded data to $scope.profile
                 $scope.profile = data;
-                console.log(data);
                 $scope.status = 0;
             }).error(function (data) { ///if can not load data from server set $scope.status, for error handling
                 console.log('profile.getProfileData: Can not load data from server.');
@@ -79,25 +78,23 @@ angular.module('wos.controllers.account', [])
             .success(function (data) {///if success save loaded data to $scope.rents and $scope.borrows
                 $scope.rents = data[1];
                 $scope.borrows = data[0];
-                console.log(data);
                 $scope.covertBorrowsDate();
                 $scope.status = 0;
-                if ($scope.borrows.length == 0) {
-                    $scope.isBorrowsArray = false;
-                } else {
-                    $scope.isBorrowsArray = true;
-                }
-                if ($scope.rents.length == 0) {
-                    $scope.isRentsArray = false;
-                } else {
-                    $scope.isRentsArray = true;
-                }
+                $scope.isBorrowsArray = $scope.borrows.length != 0;
+                $scope.isRentsArray = $scope.rents.length != 0;
+                profile.setSavedRents(data);
             }).error(function (data) { ///if can not load data from server set $scope.status, for error handling
                 console.log('profile.getRents: Can not load data from server.');
                 $scope.status = 2;
             }).finally(function () { /// Stop the ion-refresher from spinning
                 $scope.$broadcast('scroll.refreshComplete');
             });
+
+        var data = profile.getSavedRents();
+        $scope.rents = data[1];
+        $scope.borrows = data[0];
+        $scope.isBorrowsArray = $scope.borrows.length != 0;
+        $scope.isRentsArray = $scope.rents.length != 0;
     };
 
     $scope.covertBorrowsDate = function () {
@@ -200,7 +197,6 @@ angular.module('wos.controllers.account', [])
     $scope.openModal = function (lease) {
         $scope.modal.show();
         $scope.ratedLease = lease;
-        console.log($scope.ratedLease);
         $scope.status = 0;  
     };
     $scope.closeModal = function () {
@@ -235,7 +231,6 @@ angular.module('wos.controllers.account', [])
         /// Rating form submited. Sends rating with text to server.
         /// </summary>
         /// <param name="text" type="String"></param>
-        console.log($scope.rating + '\n' + text.value);
         console.log($scope.ratedLease);
         $scope.spinning = true;
         rating.rateLease($scope.ratedLease.id_vypujcka, $scope.rating, text.value,
@@ -246,7 +241,6 @@ angular.module('wos.controllers.account', [])
                 text.value = undefined;
                 $scope.closeModal();
                 $scope.ratedLease.rated = true;
-                console.log($scope.ratedLease);
                 $scope.spinning = false;
             }).error(function () {
                 console.log('rating failed');

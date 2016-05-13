@@ -21,7 +21,6 @@ angular.module('wos.controllers.search', [])
         item.search($scope.searchText.value)
             .success(function (data) { ///if success save loaded data to $scope.items
                 $scope.items = data;
-                console.log(data);
                 // select only approved items
                 $scope.items = $filter('filter')($scope.items, { itemState: 2 });
                 $scope.status = 0;

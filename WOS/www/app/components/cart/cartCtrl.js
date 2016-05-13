@@ -97,8 +97,6 @@ angular.module('wos.controllers.cart', [])
                 $scope.status = 2;
                 $scope.spinning = false;
             });
-        console.log(wholeCart);
-        console.log(angular.toJson(wholeCart));
     };
 
         $scope.getDataFromCart = function () {
@@ -107,7 +105,6 @@ angular.module('wos.controllers.cart', [])
         /// Date: "2016-04-07T22:00:00.000Z" + Time: "1970-01-01T09:00:00.000Z" => "09:00 07.04.2016" 
         /// </summary>
         $scope.orders = cart.getAll();
-        console.log($scope.orders);
         $scope.orders.forEach(function (order) {
             var tmpfromDate = order.from.date.split('T')[0].split('-');
             var tmpFromTime = order.from.time.split('T')[1].split('.')[0].split(':');

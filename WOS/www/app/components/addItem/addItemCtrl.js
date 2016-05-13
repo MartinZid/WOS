@@ -181,7 +181,6 @@ angular.module('wos.controllers.addItem', [])
             psc: locality.postal_code,
             days: locality.days
         });
-        console.log($scope.selectedLocalities)
 
         // reset modal
         $scope.locality.street = '';

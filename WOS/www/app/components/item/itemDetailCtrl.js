@@ -43,7 +43,6 @@ angular.module('wos.controllers.itemDetail', [])
             .success(function (data) { ///if success save loaded data to $scope.items
                 //any code in here will automatically have an apply run afterwards
                 $scope.item = data[0];
-                console.log(data);
                 if($scope.item.photos.length == 0)
                     $scope.item.photos.unshift({
                         jmeno: $scope.item.mainPhoto

@@ -48,7 +48,6 @@ angular.module('wos.controllers.order', [])
             .success(function (data) { ///if success save loaded data to $scope.items
                 //any code in here will automatically have an apply run afterwards
                 $scope.item = data[0];
-                console.log(data);
                 $scope.status = 0;
                 $scope.defineDatePickerObjTo();
                 $scope.defineDatePickerObjFrom();
@@ -68,7 +67,6 @@ angular.module('wos.controllers.order', [])
             .success(function (data) {
                 $scope.userLocality = data;
                 $scope.status = 0;
-                console.log(data);
                 $scope.getUpdatedLease();
             }).error(function () {
                 console.log('order.getUserLocalities: Can not load data from server.');
@@ -82,7 +80,6 @@ angular.module('wos.controllers.order', [])
         /// Sets order form to default according to updated lease.
         /// </summary>
         var lease = cart.getUpdatedLease();
-        console.log(lease);
 
         $scope.updating = lease != null;
         $scope.forceBackButton = $ionicHistory.backView().stateId.indexOf('cart') < 0 && !$scope.updating;
@@ -106,9 +103,6 @@ angular.module('wos.controllers.order', [])
             $scope.locality.city = lease.locality.mesto;
             $scope.locality.postal_code = lease.locality.psc;
         }
-
-        console.log($scope.selectedLocality.value);
-        console.log($scope.item.locality)
 
         $scope.from.time = new Date(lease.from.time).addHours(-1);
         $scope.from.date = new Date(lease.from.date);
@@ -311,7 +305,6 @@ angular.module('wos.controllers.order', [])
         $scope.disabledDates = [];
         for (var key in $scope.item.leases) {
             // Given date - 2016-04-17
-            console.log('key ' + key);
             var tmpDate = key.split('-');
             $scope.disabledDates.push(new Date(tmpDate[0], tmpDate[1] - 1, tmpDate[2]));
         }
@@ -326,7 +319,6 @@ angular.module('wos.controllers.order', [])
         //Parse available days.
         for (var key in $scope.item.availability) {
             var entry = $scope.item.availability[key];
-            console.log(entry);
             for (var key in entry) {
                 if(!isNaN(key))
                     $scope.availableWeekdays.push(parseInt(key));

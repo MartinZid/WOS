@@ -33,7 +33,6 @@ angular.module('wos.controllers.profile', [])
         profile.getProfileData(id)
             .success(function (data) {
                 $scope.profile = data;
-                console.log(data);
                 $scope.status = 0;
                 // show only instances which are approved
                 $scope.profile.instances = $filter('filter')($scope.profile.instances, { itemState: 2 });
